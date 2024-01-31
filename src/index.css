@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Fira Sans", Arial, sans-serif;
+}
+
+.select-none {
+  user-select: none;
+}
+
+
+
+
+ /* Disable scrolling on number input */
+ input[type="number"]::-webkit-inner-spin-button,
+ input[type="number"]::-webkit-outer-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+ }
+
+ input[type="number"] {
+     -moz-appearance: textfield; /* Firefox */
+ }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+/* custom-scrollbar.css */
+
+/* Set the width of the scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Customize the thumb (scrollbar handle) */
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e0;
+  border-radius: 3px;
+}
+
+/* Customize the track (scrollbar background) */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.error-img{
+  background-image: url('./assets/images/Error/error-img.jpg');
+}
+
+
+
+/* trasnparent webkit  */
+
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+*{
+  -webkit-tap-highlight-color: transparent;
+}
