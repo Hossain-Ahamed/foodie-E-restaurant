@@ -1,0 +1,519 @@
+{
+    "districts": [
+      {
+        "id": "1",
+        
+        "name": "Dhaka",
+        "img" : "https://i.ibb.co/C5k0t04/19-CMS.jpg"
+        
+        
+      },
+      {
+        "id": "2",
+        
+        "name": "Faridpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      
+      {
+        "id": "3",
+        
+        "name": "Gazipur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+  
+      {
+        "id": "4",
+        
+        "name": "Gopalganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "5",
+        
+        "name": "Jamalpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "6",
+        
+        "name": "Kishoreganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "7",
+        
+        "name": "Madaripur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "8",
+        
+        "name": "Manikganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "9",
+        
+        "name": "Munshiganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "10",
+        
+        "name": "Mymensingh",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "11",
+        
+        "name": "Narayanganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "12",
+        
+        "name": "Narsingdi",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "13",
+        
+        "name": "Netrokona",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "14",
+        
+        "name": "Rajbari",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "15",
+        
+        "name": "Shariatpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "16",
+        
+        "name": "Sherpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "17",
+        
+        "name": "Tangail",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "18",
+        
+        "name": "Bogura",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "19",
+        
+        "name": "Joypurhat",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "20",
+        
+        "name": "Naogaon",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "21",
+        
+        "name": "Natore",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "22",
+        
+        "name": "Nawabganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "23",
+        
+        "name": "Pabna",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "24",
+        
+        "name": "Rajshahi",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "25",
+        
+        "name": "Sirajgonj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "26",
+        
+        "name": "Dinajpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "27",
+        
+        "name": "Gaibandha",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "28",
+        
+        "name": "Kurigram",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "29",
+        
+        "name": "Lalmonirhat",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "30",
+        
+        "name": "Nilphamari",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "31",
+        
+        "name": "Panchagarh",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "32",
+        
+        "name": "Rangpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "33",
+        
+        "name": "Thakurgaon",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "34",
+        
+        "name": "Barguna",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "35",
+        
+        "name": "Barishal",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "36",
+        
+        "name": "Bhola",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "37",
+        
+        "name": "Jhalokati",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "38",
+        
+        "name": "Patuakhali",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "39",
+        
+        "name": "Pirojpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "40",
+        
+        "name": "Bandarban",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "41",
+        
+        "name": "Brahmanbaria",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "42",
+        
+        "name": "Chandpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "43",
+        
+        "name": "Chattogram",
+        "img" : "https://i.ibb.co/Vw5jkXQ/f113905fe574931e323146cbf829edc1.jpg"
+        
+        
+      },
+      {
+        "id": "44",
+        
+        "name": "Cumilla",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "45",
+        
+        "name": "Cox's Bazar",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "46",
+        
+        "name": "Feni",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "47",
+        
+        "name": "Khagrachari",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "48",
+        
+        "name": "Lakshmipur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "49",
+        
+        "name": "Noakhali",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "50",
+        
+        "name": "Rangamati",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "51",
+        
+        "name": "Habiganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "52",
+        
+        "name": "Maulvibazar",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "53",
+        
+        "name": "Sunamganj",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "54",
+        
+        "name": "Sylhet",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "55",
+        
+        "name": "Bagerhat",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "56",
+        
+        "name": "Chuadanga",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "57",
+        
+        "name": "Jashore",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "58",
+        
+        "name": "Jhenaidah",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "59",
+        
+        "name": "Khulna",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "60",
+        
+        "name": "Kushtia",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "61",
+        
+        "name": "Magura",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "62",
+        
+        "name": "Meherpur",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "63",
+        
+        "name": "Narail",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      },
+      {
+        "id": "64",
+        
+        "name": "Satkhira",
+        "img" : "https://i.ibb.co/hZScdMb/405px.jpg"
+        
+        
+      }
+    ]
+  }
+  
