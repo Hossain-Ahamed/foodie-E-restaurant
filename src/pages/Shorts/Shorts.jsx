@@ -151,13 +151,13 @@ const Shorts = () => {
     <Reels
       reels={reels}
       reelMetaInfo={reelMetaInfo}
-      onMenuItemClicked={(event) => console.log("From Parent", event)}
-      onLikeClicked={(reel) => console.log("From Parent", reel)}
-      onDislikeClicked={(reel) => console.log("From Parent", reel)}
-      onCommentClicked={(reel) => console.log("From Parent", reel)}
-      onShareClicked={(reel) => console.log("From Parent", reel)}
-      onAvatarClicked={(reel) => console.log("From Parent", reel)}
-      onScrollEnd ={(reel)=>console.log('ses')}
+      onMenuItemClicked={(event) => console.log("onMenuItemClicked", event)}
+      onLikeClicked={(reel) => console.log("onLikeClicked", reel)}
+      onDislikeClicked={(reel) => console.log("onDislikeClicked", reel)}
+      onCommentClicked={(reel) => console.log("onCommentClicked", reel)}
+      onShareClicked={(reel) => console.log("onShareClicked", reel)}
+      onAvatarClicked={(reel) => console.log("onAvatarClicked", reel)}
+      onScrollEnd ={(reel)=>console.log('onScrollEnd')}
     />
   )
 }
