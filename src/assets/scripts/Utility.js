@@ -41,12 +41,13 @@ const isValidAddress = (
     return false;
   }
 };
+
 const getDivisions = () => {
-  return Divisions.divisions;
+  return Divisions.divisions.sort((a, b) => a.name.localeCompare(b.name));
 };
-const getAllDistricts = ()=>{
-  return Districts.districts;
-}
+const getAllDistricts = () => {
+  return Districts.districts.sort((a, b) => a.name.localeCompare(b.name));
+};
 
 const getProvinceOfSelectedCity = (name)=>{
 

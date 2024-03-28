@@ -11,6 +11,26 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
 
+
+    /**
+     * -----------------------------------------------------------------
+     *                       Screen width
+     */
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const handleResize = () => { setScreenWidth(window.innerWidth) };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => { window.removeEventListener('resize', handleResize); };
+    }, []);
+
+    /**
+     * ----------------------------------------------------------------
+     * ----------------------------------------------------------------
+     * ----------------------------------------------------------------
+     */
+
     const googleAuthprovider = new GoogleAuthProvider();
 
     const [user, setUser] = useState(null);
@@ -108,7 +128,8 @@ const AuthProvider = ({ children }) => {
 
 
     const authInfo = {
-
+        screenWidth,
+        
         user,
         loading,
         setLoading,
