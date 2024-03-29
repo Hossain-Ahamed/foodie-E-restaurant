@@ -8,10 +8,8 @@ import LoadingPage from '../../../Shared/LoadingPages/LoadingPage/LoadingPage';
 import ErrorPage from '../../../Shared/ErrorPage/ErrorPage';
 import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/react";
 import BreadCrumb from '../../../../components/BreadCrumbs/BreadCrumb';
-import Restaurant_Detail from './Restaurant_Detail';
-import Cookies from 'js-cookie';
-import CryptoJS from 'crypto-js';
-import DishContainer from './DishContainer';
+import DishContainer from '../../../../components/DishContainer/DishContainer';
+import Restaurant_Detail from '../../../../components/RestaurantDetail/Restaurant_Detail';
 
 const OnsiteRestaurantHomePage = () => {
     const { res_id, branchID, tableID } = useParams();
