@@ -28,6 +28,7 @@
     "react-query": "^3.39.3",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.21.3",
+    "react-scroll": "^1.9.0",
     "react-spinners": "^0.13.8",
     "react-tooltip": "^5.26.0",
     "stories-react": "^1.1.2",
