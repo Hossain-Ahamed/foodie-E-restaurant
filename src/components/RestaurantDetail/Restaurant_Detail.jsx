@@ -13,7 +13,11 @@ const Restaurant_Detail = ({ data }) => {
 
     useEffect(() => {
 
-        const prevData = localStorage.getItem('foodie_favorite_res') || [];
+        let prevData = JSON.parse(localStorage.getItem('foodie_favorite_res'));
+
+        if(!prevData){
+            prevData = []
+        }
         setFavoriteList(prevData);
 
     }, [])
@@ -26,9 +30,11 @@ const Restaurant_Detail = ({ data }) => {
     }, [favoriteList, data])
 
     const handleAddFavorite = () => {
-        const prevData = JSON.parse(localStorage.getItem('foodie_favorite_res') || "");
+        let prevData = JSON.parse(localStorage.getItem('foodie_favorite_res'));
 
-        console.log(prevData)
+        if(!prevData){
+            prevData = []
+        }
         if (prevData && Array.isArray(prevData) && !prevData.includes(data?.branch_id)) {
 
             localStorage.setItem('foodie_favorite_res', JSON.stringify([...prevData, data?.branch_id]));
@@ -37,12 +43,15 @@ const Restaurant_Detail = ({ data }) => {
     }
 
     const handleRemoveFromFavorte = () => {
-        const prevData = JSON.parse(localStorage.getItem('foodie_favorite_res') || "");
-        console.log(prevData)
+        let prevData = JSON.parse(localStorage.getItem('foodie_favorite_res'));
+
+        if(!prevData){
+            prevData = []
+        }
         if (prevData && Array.isArray(prevData) && prevData.includes(data?.branch_id)) {
 
             const updatedData = prevData.filter(i => i !== data?.branch_id);
-            console.log(updatedData)
+         
             localStorage.setItem('foodie_favorite_res', JSON.stringify(updatedData));
             setFavoriteList(updatedData)
 

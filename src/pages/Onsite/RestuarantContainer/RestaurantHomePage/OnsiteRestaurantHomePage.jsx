@@ -10,6 +10,7 @@ import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/react";
 import BreadCrumb from '../../../../components/BreadCrumbs/BreadCrumb';
 import DishContainer from '../../../../components/DishContainer/DishContainer';
 import Restaurant_Detail from '../../../../components/RestaurantDetail/Restaurant_Detail';
+import SetTitle from '../../../Shared/SetTtitle/SetTitle';
 
 const OnsiteRestaurantHomePage = () => {
     const { res_id, branchID, tableID } = useParams();
@@ -38,6 +39,7 @@ const OnsiteRestaurantHomePage = () => {
 
     return (
         <>
+        <SetTitle title={data?.restaurant_name || ""}/>
             <BreadCrumb data={[data?.restaurant_name, data?.branch_name]} className="text-yellow-600 p-2" />
 
 
