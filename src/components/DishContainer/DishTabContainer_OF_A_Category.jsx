@@ -11,15 +11,7 @@ const DishTabContainer_OF_A_Category = ({ data }) => {
                 {
                     data && Array.isArray(data) && data.map(i => <React.Fragment key={i?._id}><DishCard dishData={i} /></React.Fragment>)
                 }
-                {
-                    data && Array.isArray(data) && data.map(i => <React.Fragment key={i?._id}><DishCard dishData={i} /></React.Fragment>)
-                }
-                {
-                    data && Array.isArray(data) && data.map(i => <React.Fragment key={i?._id}><DishCard dishData={i} /></React.Fragment>)
-                }
-                {
-                    data && Array.isArray(data) && data.map(i => <React.Fragment key={i?._id}><DishCard dishData={i} /></React.Fragment>)
-                }
+              
             </div>
 
         </>
