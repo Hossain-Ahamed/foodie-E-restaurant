@@ -16,6 +16,9 @@ body {
   user-select: none;
 }
 
+header{
+  max-width: 100%!important;
+}
 
 
 
