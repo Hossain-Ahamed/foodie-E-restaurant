@@ -65,7 +65,7 @@ const OffsiteLayout = () => {
   
         setNearestDistrict(nearest);
         setDistance((minDistance * 1000).toFixed(2));
-        console.log(nearest, "   ",(minDistance * 1000).toFixed(2))
+        // console.log(nearest, "   ",(minDistance * 1000).toFixed(2))
       };
   
       // Get browser's geolocation

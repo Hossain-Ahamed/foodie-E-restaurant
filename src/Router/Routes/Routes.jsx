@@ -9,6 +9,7 @@ import OffsiteLayout from "../../Layouts/Offsite/OffsiteLayout";
 import OnsiteLayout from "../../Layouts/Onsite/OnsiteLayout";
 import NonLogInHomePage from "../../pages/Offsite/NonLogInHomePage/NonLogInHomePage";
 import NonLogInCityPage from "../../pages/Offsite/NonLogInCityPage/NonLogInCityPage";
+import AllRestaurantOfTheCity from "../../pages/Others/AllRestaurantOfTheCity/AllRestaurantOfTheCity";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
            {
             path : 'shorts',
             element : <Shorts/>
+            },
+            {
+                path: '/city/:city',
+                element: <AllRestaurantOfTheCity />
            }
 
 
