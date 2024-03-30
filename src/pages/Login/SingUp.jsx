@@ -5,11 +5,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuthProvider from '../../Hooks/useAuthProvider';
 import { getPcInfo, validateEmail } from '../../assets/scripts/Utility';
-import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import ForgetPasswordForm from './ForgetPasswordForm';
 
-const Login = () => {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+const SignUp = () => {
 
     const [showPass, setShowPass] = useState(false); //password hidden an show
 
@@ -63,9 +60,9 @@ const Login = () => {
 
             <SetTitle title="Login" />
 
-            <div id="signin auth" aria-label='Login-Form' >
-                <div className=" ">
-                    <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Welcome to Foodie</h1>
+            <div id="signin auth"  aria-label='Login-Form' >
+                <div className="mx-auto max-w-lg">
+                    <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
 
                     <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
                         Never share your confidential information & stay vigilant to keep your login details safe.
@@ -74,7 +71,7 @@ const Login = () => {
 
 
                     {/* login form  */}
-                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-[400px] rounded-lg p-4   sm:p-6 lg:p-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-[50vh] rounded-lg p-4 sm:p-6 lg:p-8">
                         <p className="text-center text-lg font-medium">Sign in to your account</p>
 
 
@@ -155,9 +152,6 @@ const Login = () => {
                                 {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">*Enter password</p>)}
                             </div>
                         </div>
-                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger' onClick={onOpen}>
-                            Forget Password?
-                        </button>
 
                         <button
                             type="submit"
@@ -166,19 +160,10 @@ const Login = () => {
                             Sign in
                         </button>
 
-                        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-                            <ModalContent>
-                                {(onClose) => (
-                                    <>
-                                       
-                                        <ModalBody>
-                                          <ForgetPasswordForm onOpenChange={onOpenChange}/>
-                                        </ModalBody>
-                                       
-                                    </>
-                                )}
-                            </ModalContent>
-                        </Modal>
+                        {/* <p className="text-center text-sm text-gray-500">
+                            No account?
+                            <a className="underline" href="">Sign up</a>
+                        </p> */}
                     </form>
                 </div>
             </div>
@@ -186,4 +171,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;

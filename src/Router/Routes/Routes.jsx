@@ -9,6 +9,7 @@ import OffsiteLayout from "../../Layouts/Offsite/OffsiteLayout";
 import OnsiteLayout from "../../Layouts/Onsite/OnsiteLayout";
 import OnsiteRestaurantHomePage from "../../pages/Onsite/RestuarantContainer/RestaurantHomePage/OnsiteRestaurantHomePage";
 import AllRestaurantOfTheCity from "../../pages/Others/AllRestaurantOfTheCity/AllRestaurantOfTheCity";
+import LoginContainer from "../../pages/Login/LoginContainer";
 
 export const router = createBrowserRouter([
     {
@@ -58,7 +59,7 @@ export const router = createBrowserRouter([
 
     {
         path: '/login',
-        element: <PreventLogIn><Login /></PreventLogIn>
+        element: <PreventLogIn><LoginContainer /></PreventLogIn>
     },
 
 ])
