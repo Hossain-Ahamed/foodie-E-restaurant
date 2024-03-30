@@ -64,7 +64,7 @@ const DishForm = ({ dish, onOpenChange }) => {
         // console.log('Selected Addons:', selectedAddons);
 
         const optionsPrice = dish.options.find(option => option.name === selectedOptions)?.price || 0;
-        const totalPrice = dish.offerPrice + optionsPrice + extraPrice;
+        const totalPrice = dish.offerPrice + optionsPrice + extraPrice + parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1));
         // console.log('Total Price:', totalPrice);
 
         const data = {
