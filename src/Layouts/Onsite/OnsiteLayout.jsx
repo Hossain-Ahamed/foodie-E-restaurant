@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link,  Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, NavbarContent, NavbarItem, Button } from "@nextui-org/react";
 
 const OnsiteLayout = () => {
@@ -20,53 +20,20 @@ const OnsiteLayout = () => {
     return (
         <>
             <Navbar
-                isBordered
+                className='shadow sticky'
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
+
             >
-                <NavbarContent className="sm:hidden" justify="start">
+                <NavbarContent className="sm:hidden " justify="start" >
                     <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
                 </NavbarContent>
 
-                <NavbarContent className="sm:hidden pr-3" justify="center">
-                    <NavbarBrand>
-                        <>logo</>
-                        <p className="font-bold text-inherit">ACME</p>
-                    </NavbarBrand>
-                </NavbarContent>
 
-                <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                    <NavbarBrand>
-                        <>logo</>
-                        <p className="font-bold text-inherit">ACME</p>
-                    </NavbarBrand>
-                    <NavbarItem>
-                        <Link color="foreground" href="#">
-                            Features
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem isActive>
-                        <Link href="#" aria-current="page">
-                            Customers
-                        </Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link color="foreground" href="#">
-                            Integrations
-                        </Link>
-                    </NavbarItem>
-                </NavbarContent>
+                <nav className='w-screen max-w-2xl mx-auto'>
+                    nav item
+                </nav>
 
-                <NavbarContent justify="end">
-                    <NavbarItem className="hidden lg:flex">
-                        <Link href="#">Login</Link>
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Button as={Link} color="warning" href="#" variant="flat">
-                            Sign Up
-                        </Button>
-                    </NavbarItem>
-                </NavbarContent>
 
                 <NavbarMenu>
                     {menuItems.map((item, index) => (
@@ -87,7 +54,10 @@ const OnsiteLayout = () => {
             </Navbar>
 
             {/* page content  */}
-            <Outlet />
+            <main className='max-w-screen-2xl mx-auto'>
+
+                <Outlet />
+            </main>
         </>
     );
 };
