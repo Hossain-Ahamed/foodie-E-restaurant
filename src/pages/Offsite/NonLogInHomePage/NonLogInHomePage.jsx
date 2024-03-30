@@ -4,6 +4,7 @@ import chefBackgroundImage from "../../../assets/images/Background/skillful-asia
 import NonLogInNav from '../NonLogInNav/NonLogInNav';
 import { getAllDistrictsWithImage } from '../../../assets/scripts/Utility';
 import { Link } from 'react-router-dom';
+import Footer from '../../../components/Footer/Footer';
 
 const NonLogInHomePage = () => {
     const DistricImage = getAllDistrictsWithImage();
@@ -34,12 +35,12 @@ const NonLogInHomePage = () => {
             <h3 className='font-semibold text-2xl lg:text-4xl pl-10 lg:pl-80'>Find Us In Your Place!</h3>
             <div className='grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto my-10 lg:my-20 gap-3 md:gap-5'>
                 {
-                    DistricImage.map(distric => (<div key={distric.id}>
+                    DistricImage?.map(distric => (<div key={distric.id}>
                         <div className='relative'>
 
-                            <Link>
-                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl ' src={distric.img} alt="" />
-                            <p className='bg-white rounded-md md:rounded-xl text-sm md:text-base p-1 px-2 md:p-2 md:px-4 absolute bottom-2 left-2'>{distric.name}</p>
+                            <Link to={`/city/${distric?.name}`}>
+                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl object-cover' src={distric?.img} alt="" />
+                            <p className='bg-white rounded-md md:rounded-xl text-sm md:text-base p-1 px-2 md:p-2 md:px-4 absolute bottom-2 left-2'>{distric?.name}</p>
                             </Link>
                         
                         
@@ -52,7 +53,7 @@ const NonLogInHomePage = () => {
 
         <div className='my-10 lg:mt-20'>
             
-            <div style={chefBackgroundStyle} className='mb-40 relative bg-fixed h-[200px] md:h-[400px] xl:h-[600px]'>
+            <div style={chefBackgroundStyle} className='relative bg-fixed h-[200px] md:h-[400px] xl:h-[600px]'>
             <h3 className='md:text-2xl lg:text-3xl xl:text-4xl text-white uppercase font-semibold my-10 absolute left-5 top-10 md:left-20 md:top-20 lg:left-40 lg:top-6 xl:right-10'>You prepare the food, we handle the rest</h3>
             {/* <div className='bg-white w-[700px] absolute left-40 -bottom-20 p-5 shadow-md rounded-2xl'> 
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati laborum voluptates maxime recusandae repudiandae quaerat consectetur porro. Doloremque voluptates sint, esse dicta nam sequi voluptatum, deserunt suscipit voluptatibus placeat facere cupiditate officia quas aliquam enim quaerat impedit iusto veniam! Vitae illum voluptate officiis. Iure libero nisi, voluptatibus nihil inventore incidunt!</p>
@@ -60,6 +61,7 @@ const NonLogInHomePage = () => {
         </div>
         </div>
         
+        <Footer />
         </>
     );
 };
