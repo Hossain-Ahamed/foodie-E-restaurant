@@ -7,6 +7,7 @@ import ImagesStories from "../../pages/Stories/Stories";
 import Shorts from "../../pages/Shorts/Shorts";
 import OffsiteLayout from "../../Layouts/Offsite/OffsiteLayout";
 import OnsiteLayout from "../../Layouts/Onsite/OnsiteLayout";
+import NonLogInHomePage from "../../pages/Offsite/NonLogInHomePage/NonLogInHomePage";
 
 export const router = createBrowserRouter([
     {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
         children: [
            {
             path : '/',
-            element : <>hello</>
+            element : <NonLogInHomePage />
            },
            {
             path : 'story',
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
     {
         path: '/login',
         element: <PreventLogIn><Login /></PreventLogIn>
+    },
+    {
+        path: '/nonLogInHomePage',
+        element: <NonLogInHomePage />
     },
 
 ])
