@@ -2,6 +2,7 @@ import Divisions from "../../assets/bangladesh-geojson/bd-divisions.json";
 import Districts from "../../assets/bangladesh-geojson/bd-districts.json";
 import Upazillas from "../../assets/bangladesh-geojson/bd-upazilas.json";
 import PostCodes from "../../assets/bangladesh-geojson/bd-postcodes.json";
+import DistrictsWithImage from "../../assets/bangladesh-geojson/bd-images.json";
 
 import countries from "../../assets/bangladesh-geojson/countries_data.json";
 
@@ -47,6 +48,9 @@ const getDivisions = () => {
 };
 const getAllDistricts = () => {
   return Districts.districts.sort((a, b) => a.name.localeCompare(b.name));
+};
+const getAllDistrictsWithImage = () => {
+  return DistrictsWithImage.districts.sort((a, b) => a.name.localeCompare(b.name));
 };
 
 const getProvinceOfSelectedCity = (name)=>{
@@ -199,5 +203,6 @@ export {
   getUpazillas,
   getPostOffices,
   getAllDistricts,
-  getProvinceOfSelectedCity
+  getProvinceOfSelectedCity,
+  getAllDistrictsWithImage
 };
