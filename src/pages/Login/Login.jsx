@@ -155,13 +155,13 @@ const Login = () => {
                                 {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">*Enter password</p>)}
                             </div>
                         </div>
-                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger' onClick={onOpen}>
+                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={onOpen}>
                             Forget Password?
                         </button>
 
                         <button
                             type="submit"
-                            className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+                            className="block w-full rounded-lg bg-green-500 px-5 py-3 text-sm font-medium text-white"
                         >
                             Sign in
                         </button>
