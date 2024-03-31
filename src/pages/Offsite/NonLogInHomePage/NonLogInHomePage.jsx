@@ -22,7 +22,7 @@ const NonLogInHomePage = () => {
         backgroundPosition: 'center',
     };
     return (
-        <>
+        <div className='max-h-fit'>
         <NonLogInNav />
            <div className='relative h-[200px] md:h-[400px] lg:h-[500px] xl:h-[700px]' style={backgroundStyle}>
             <div className="md:w-[500px] lg:w-[700px] absolute top-10 left-10 md:top-28 lg:top-40 xl:top-60 xl:left-40 text-black">
@@ -39,7 +39,7 @@ const NonLogInHomePage = () => {
                         <div className='relative'>
 
                             <Link to={`/city/${distric?.name}`}>
-                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl object-cover' src={distric?.img} alt="" />
+                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl object-cover' src={distric?.img} alt="" loading='lazy'/>
                             <p className='bg-white rounded-md md:rounded-xl text-sm md:text-base p-1 px-2 md:p-2 md:px-4 absolute bottom-2 left-2'>{distric?.name}</p>
                             </Link>
                         
@@ -62,7 +62,7 @@ const NonLogInHomePage = () => {
         </div>
         
         <Footer />
-        </>
+        </div>
     );
 };
 

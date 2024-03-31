@@ -79,14 +79,14 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             // todo 
-            setUser({
-                name: "currentUser?.displayName",
-                email: "currentUser.email",
-                photoURL: "currentUser?.photoURL",
-                phone: "currentUser?.phoneNumber",
-                firebase_UID: "currentUser?.uid",
-            });
-            // setUser(currentUser);
+            // setUser({
+            //     name: "currentUser?.displayName",
+            //     email: "currentUser.email",
+            //     photoURL: "currentUser?.photoURL",
+            //     phone: "currentUser?.phoneNumber",
+            //     firebase_UID: "currentUser?.uid",
+            // });
+            setUser(currentUser);
             console.log('current user cred : ', currentUser);
 
             if (currentUser) {
