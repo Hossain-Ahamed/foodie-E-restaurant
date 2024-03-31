@@ -10,6 +10,7 @@ import { getPcInfo, SwalErrorShow, validateEmail } from '../../assets/scripts/Ut
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import OtherSignInMethod from './OtherSignInMethod';
 
 const SignUp = () => {
     const axiosSecure = useAxiosSecure();
@@ -85,11 +86,11 @@ const SignUp = () => {
 
 
                 }
-               axiosSecure.post(`/create-new-user-by-sign-up`,userData)
-               .then(res=>{
-                   navigate(from, { replace: true });
-               }).catch((e)=>SwalErrorShow(e))
-
+            //    axiosSecure.post(`/create-new-user-by-sign-up`,userData)
+            //    .then(res=>{
+            //        navigate(from, { replace: true });
+            //    }).catch((e)=>SwalErrorShow(e))
+            navigate(from, { replace: true });
             }).catch(e => console.log(e))
     }
     const customInputStyle = {
@@ -119,7 +120,7 @@ const SignUp = () => {
 
 
                     {/* login form  */}
-                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-fit min-h-[50vh] rounded-lg p-4 sm:p-6 lg:p-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-fit rounded-lg p-4 sm:p-6 lg:p-8 pb-0">
                         <p className="text-center text-lg font-medium">Sign in to your account</p>
 
 
@@ -247,6 +248,7 @@ const SignUp = () => {
                         </button>
 
                     </form>
+                    <OtherSignInMethod/>
                 </div>
             </div>
         </>

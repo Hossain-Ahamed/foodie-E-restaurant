@@ -8,6 +8,7 @@ import { getPcInfo, SwalErrorShow, validateEmail } from '../../assets/scripts/Ut
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import ForgetPasswordForm from './ForgetPasswordForm';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import OtherSignInMethod from './OtherSignInMethod';
 
 const Login = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -22,6 +23,7 @@ const Login = () => {
     //pass the previous location
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
+    // console.log(from)    
 
     // ------------------------------------------------------------------------
     const {
@@ -49,17 +51,17 @@ const Login = () => {
             return;
         }
 
-        console.log({ email, password })
+        // console.log({ email, password })
 
 
         provideSignInWithEmailAndPassword(email, password)
             .then(result => {
 
-                axiosSecure.post(`/sign-in`, { email, password })
-                    .then(res => {
-                        navigate(from, { replace: true });
-                    }).catch((e) => SwalErrorShow(e))
-
+                // axiosSecure.post(`/sign-in`, { email, password })
+                //     .then(res => {
+                //         navigate(from, { replace: true });
+                //     }).catch((e) => SwalErrorShow(e))
+                navigate(from, { replace: true });
 
             }).catch(e => { setLoading(false) })
     }
@@ -81,7 +83,7 @@ const Login = () => {
 
 
                     {/* login form  */}
-                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-[400px] rounded-lg p-4   sm:p-6 lg:p-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4  rounded-lg p-4 sm:p-6 lg:p-8 pb-0">
                         <p className="text-center text-lg font-medium">Sign in to your account</p>
 
 
@@ -119,8 +121,8 @@ const Login = () => {
                                         />
                                     </svg>
                                 </span>
-                                {errors.email?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">{errors.email.message}</p>)}
-                                {errors.email?.type === "notEmail" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">*not valid E-mail</p>)}
+                                {errors.email?.type === "required" && (<p className='m-0 p-0 pl-1  pt-1 text-red-500 text-xs' role="alert">{errors.email.message}</p>)}
+                                {errors.email?.type === "notEmail" && (<p className='m-0 p-0 pl-1  pt-1 text-red-500 text-xs' role="alert">*not valid E-mail</p>)}
                             </div>
                         </div>
 
@@ -159,7 +161,7 @@ const Login = () => {
                                         />
                                     </svg>
                                 </span>
-                                {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">*Enter password</p>)}
+                                {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  pt-1 text-red-500 text-xs' role="alert">*Enter password</p>)}
                             </div>
                         </div>
                         <button className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={onOpen}>
@@ -187,6 +189,7 @@ const Login = () => {
                             </ModalContent>
                         </Modal>
                     </form>
+                    <OtherSignInMethod />
                 </div>
             </div>
         </>

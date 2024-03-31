@@ -13,6 +13,8 @@ import AllRestaurantOfTheCity from "../../pages/Others/AllRestaurantOfTheCity/Al
 import LoginContainer from "../../pages/Login/LoginContainer";
 import RestaurantHomePage from "../../pages/Shared/RestaurantHomePage/RestaurantHomePage";
 import Home from "../../pages/Others/Home/Home";
+import NearbyRestaurant from "../../pages/Offsite/NearbyRestaurant/NearbyRestaurant";
+import PrivateRoute from './../PrivateRoute/PrivateRoute';
 
 export const router = createBrowserRouter([
     {
@@ -38,12 +40,21 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/nearby-restaurant',
-                element: <></>
+                element: <NearbyRestaurant/>
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID',
                 element: <RestaurantHomePage />
-            }
+            },
+            {
+                path: '/profile',
+                element:<>profile</>
+            },
+            {
+                path: '/edit-profile',
+                element: <>edit profile</>
+            },
+
 
 
         ]
@@ -51,13 +62,9 @@ export const router = createBrowserRouter([
     },
     {
         path: '/onsite-order',
-        element: <OnsiteLayout />,
+        element: <PrivateRoute><OnsiteLayout /></PrivateRoute>,
         errorElement: <ErrorPage />,
         children: [
-            {
-                path: 'hello',
-                element: <>hello</>
-            },
             {
                 path: 'restaurant/:res_id/branch/:branchID/table/:tableID',
                 element: <RestaurantHomePage />
