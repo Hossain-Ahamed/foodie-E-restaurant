@@ -4,9 +4,19 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuthProvider from '../../Hooks/useAuthProvider';
-import { getPcInfo, validateEmail } from '../../assets/scripts/Utility';
+import { getPcInfo, SwalErrorShow, validateEmail } from '../../assets/scripts/Utility';
+
+
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import OtherSignInMethod from './OtherSignInMethod';
 
 const SignUp = () => {
+    const axiosSecure = useAxiosSecure();
+
+    const [phone, setPhone] = useState('');
+    const [phoneNumError, setphoneNumError] = useState(false);
 
     const [showPass, setShowPass] = useState(false); //password hidden an show
 
@@ -30,12 +40,15 @@ const SignUp = () => {
 
 
     // ------------------------------ SIGN IN -------------------------------------
-    const { provideSignInWithEmailAndPassword, setLoading } = useAuthProvider();
+    const { provideCreateUserWithEmailAndPassword } = useAuthProvider();
 
     const onSubmit = data => {
+        setphoneNumError(false);
+
+        const displayName = data.displayName;
         const email = data.email;
         const password = data?.password;
-        if (!email || !password) {
+        if (!email || !password || !phone ) {
             Swal.fire({
                 icon: 'error',
                 title: 'Unauthorized',
@@ -45,22 +58,58 @@ const SignUp = () => {
             return;
         }
 
-        console.log({ email, password })
+        const bdNumberRegex = /^8801[3-9]\d{8}$/;
 
-        //  todo uncomment 
-        // provideSignInWithEmailAndPassword(email, password)
-        //     .then(result => {
-        //         navigate(from, { replace: true });
-        //     }).catch(e => { setLoading(false) })
+
+        if (bdNumberRegex.test(phone)) {
+            setphoneNumError(false)
+        } else {
+            setphoneNumError(true)
+
+        }
+
+
+
+
+       
+        provideCreateUserWithEmailAndPassword(email, password)
+            .then(result => {
+
+                const userData = {
+                    name: displayName,
+                    password : password,
+                    phone: phone, 
+
+                    email: result?.user.email,
+                    // photoURL: result?.user?.photoURL,
+                    firebase_UID: result?.user?.uid,
+
+
+                }
+            //    axiosSecure.post(`/create-new-user-by-sign-up`,userData)
+            //    .then(res=>{
+            //        navigate(from, { replace: true });
+            //    }).catch((e)=>SwalErrorShow(e))
+            navigate(from, { replace: true });
+            }).catch(e => console.log(e))
     }
+    const customInputStyle = {
+        width: '100%', // Set width to 100%
+        borderRadius: '0.375rem', // Add border radius
+        border: '1px solid #E5E7EB', // Add border
+        fontSize: '0.875rem', // Set font size
 
+        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Add box shadow
+        
+    };
+    
 
     return (
         <>
 
             <SetTitle title="Login" />
 
-            <div id="signin auth"  aria-label='Login-Form' >
+            <div id="signin auth" aria-label='Login-Form' >
                 <div className="mx-auto max-w-lg">
                     <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">Get started today</h1>
 
@@ -71,10 +120,48 @@ const SignUp = () => {
 
 
                     {/* login form  */}
-                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-[50vh] rounded-lg p-4 sm:p-6 lg:p-8">
+                    <form onSubmit={handleSubmit(onSubmit)} className="mb-0 mt-6 space-y-4 h-fit rounded-lg p-4 sm:p-6 lg:p-8 pb-0">
                         <p className="text-center text-lg font-medium">Sign in to your account</p>
 
 
+                    
+                        <PhoneInput
+                            inputStyle={customInputStyle}
+                            enableSearch={true}
+                            country={'bd'}
+
+                            autoFormat={false}
+                            countryCodeEditable={false}
+                            value={phone}
+                            onChange={value => { setPhone(value); setphoneNumError(false) }}
+                            isValid={() => {
+
+                                if (phoneNumError) {
+                                    return 'Invalid';
+                                }
+                
+                                return true;
+                            }}
+
+                        />
+                        {/* name  */}
+                        <div>
+                            <label htmlFor="email" className="sr-only">Your Name</label>
+
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                                    placeholder="Enter Your Name"
+                                    {...register("displayName", {
+                                        required: "*Name is required",
+                                    })}
+                                />
+
+                                
+                                {errors.displayName?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">{errors.displayName.message}</p>)}
+                            </div>
+                        </div>
                         {/* email  */}
                         <div>
                             <label htmlFor="email" className="sr-only">Email</label>
@@ -157,14 +244,11 @@ const SignUp = () => {
                             type="submit"
                             className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
                         >
-                            Sign in
+                            Sign Up
                         </button>
 
-                        {/* <p className="text-center text-sm text-gray-500">
-                            No account?
-                            <a className="underline" href="">Sign up</a>
-                        </p> */}
                     </form>
+                    <OtherSignInMethod/>
                 </div>
             </div>
         </>

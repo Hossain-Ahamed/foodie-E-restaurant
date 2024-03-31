@@ -20,7 +20,7 @@ const DishesTabsContainer = ({ dishes,  isSelected, setIsSelected  }) => {
 
                     {
                         dishes && Array.isArray(dishes) && dishes.map((i, _idx) =>
-                            <Tab className='px-0 md:px-6 py-4  ' key={i?.category?.title || Date.now()} title={i?.category?.title || ""}>
+                            <Tab className='px-3 md:px-6 py-4  ' key={i?.category?.title || Date.now()} title={i?.category?.title || ""}>
                             
 
                                     <DishTabContainer_OF_A_Category data={i?.dishes} />

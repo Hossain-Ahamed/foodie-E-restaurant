@@ -47,8 +47,9 @@ const AllRestaurantOfTheCity = () => {
             <div className='grid grid-cols-2 md:grid-cols-3 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto my-10 lg:my-20 gap-3 md:gap-5'>
             {data?.restaurants?.map(restaurant => (
                     <div key={restaurant?.branchID}>
+                     
                         <div className='border rounded-2xl shadow-md'>
-                            <Link>
+                            <Link to={`/restaurant/${restaurant?.res_id}/branch/${restaurant?.branchID}`}>
                                 <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] xl:w-[400px] rounded-t-2xl object-cover' src={restaurant?.img} alt="" loading='lazy' />
                                 <div className='p-4 grid md:flex justify-between'>
                                 <p className='font-semibold capitalize'>{restaurant?.res_name}</p>

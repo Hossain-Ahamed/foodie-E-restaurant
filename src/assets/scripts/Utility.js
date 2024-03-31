@@ -8,7 +8,7 @@ import countries from "../../assets/bangladesh-geojson/countries_data.json";
 
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
-
+import Swal from "sweetalert2";
 const getCountries = () => {
   return countries;
 };
@@ -187,8 +187,16 @@ const validateSalesTax = (value) => {
 
   return true;
 };
-
+const SwalErrorShow = (e) => {
+  console.error(e)
+  Swal.fire({
+    icon: "error",
+    text: e?.code + " " + e?.message,
+    title: e?.response?.data?.message,
+  });
+};
 export {
+  SwalErrorShow,
   validateMobileNumber,
   validateSalesTax,
   validateEmail,

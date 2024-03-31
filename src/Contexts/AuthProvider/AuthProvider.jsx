@@ -52,7 +52,7 @@ const AuthProvider = ({ children }) => {
 
 
     const provideSignInWithGoogle = () => {
-        setLoading(true);
+       
         return signInWithPopup(auth, googleAuthprovider);
     }
 
@@ -78,39 +78,36 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            // todo 
-            // setUser({
-            //     name: "currentUser?.displayName",
-            //     email: "currentUser.email",
-            //     photoURL: "currentUser?.photoURL",
-            //     phone: "currentUser?.phoneNumber",
-            //     firebase_UID: "currentUser?.uid",
-            // });
-            setUser(currentUser);
-            console.log('current user cred : ', currentUser);
-
+       
+           
+            
             if (currentUser) {
-
+                
+                console.log('current user cred : ', currentUser?.email);
+                
                 const userData = {
                     name: currentUser?.displayName,
                     email: currentUser.email,
                     photoURL: currentUser?.photoURL,
                     phone: currentUser?.phoneNumber,
                     firebase_UID: currentUser?.uid,
-
-
+                    
+                    
                 }
-
+                setUser(userData);
+                
                 // const user
-                axios.post(`${import.meta.env.VITE_serverAddress}/jwt`, userData, { withCredentials: true })
-                    .then(data => {
-                        console.log("Token :  ", data.data.token);
+                // axios.post(`${import.meta.env.VITE_serverAddress}/jwt`, userData, { withCredentials: true })
+                //     .then(data => {
+                //         console.log("Token :  ", data.data.token);
 
-                        Cookies.set('access-token', data.data.token, { expires: 7 });
-                        setLoading(false);
-                    })
-                    .catch(e => { console.error(e); setLoading(false) })
+                //         Cookies.set('access-token', data.data.token, { expires: 7 });
+                //         setLoading(false);
+                //     })
+                //     .catch(e => { console.error(e); setLoading(false) })
 
+
+                 setLoading(false) //todo delete this line
 
             } else {
                 localStorage.removeItem('access-token');
