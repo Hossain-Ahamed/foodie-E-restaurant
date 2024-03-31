@@ -11,7 +11,8 @@ import NonLogInHomePage from "../../pages/Offsite/NonLogInHomePage/NonLogInHomeP
 import NonLogInCityPage from "../../pages/Offsite/NonLogInCityPage/NonLogInCityPage";
 import AllRestaurantOfTheCity from "../../pages/Others/AllRestaurantOfTheCity/AllRestaurantOfTheCity";
 import LoginContainer from "../../pages/Login/LoginContainer";
-import OnsiteRestaurantHomePage from "../../pages/Onsite/RestuarantContainer/RestaurantHomePage/OnsiteRestaurantHomePage";
+import RestaurantHomePage from "../../pages/Shared/RestaurantHomePage/RestaurantHomePage";
+import Home from "../../pages/Others/Home/Home";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +22,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <>Hello</>
+                element: <Home />
             },
             {
                 path: 'story',
@@ -34,6 +35,14 @@ export const router = createBrowserRouter([
             {
                 path: '/city/:city',
                 element: <AllRestaurantOfTheCity />
+            },
+            {
+                path: '/nearby-restaurant',
+                element: <></>
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID',
+                element: <RestaurantHomePage />
             }
 
 
@@ -50,8 +59,8 @@ export const router = createBrowserRouter([
                 element: <>hello</>
             },
             {
-                path : 'restaurant/:res_id/branch/:branchID/table/:tableID',
-                element : <OnsiteRestaurantHomePage/>
+                path: 'restaurant/:res_id/branch/:branchID/table/:tableID',
+                element: <RestaurantHomePage />
             }
 
 
@@ -64,12 +73,9 @@ export const router = createBrowserRouter([
         element: <PreventLogIn><LoginContainer /></PreventLogIn>
     },
     {
-        path: '/nonLogInHomePage',
+        path: '/home',
         element: <NonLogInHomePage />
     },
-    {
-        path: '/nonLogInCityPage',
-        element: <NonLogInCityPage />
-    },
+   
 
 ])

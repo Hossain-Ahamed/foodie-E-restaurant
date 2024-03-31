@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuthProvider from '../../Hooks/useAuthProvider';
-import { getPcInfo, validateEmail } from '../../assets/scripts/Utility';
+import { getPcInfo, SwalErrorShow, validateEmail } from '../../assets/scripts/Utility';
 
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const SignUp = () => {
+    const axiosSecure = useAxiosSecure();
 
     const [phone, setPhone] = useState('');
     const [phoneNumError, setphoneNumError] = useState(false);
@@ -37,7 +39,7 @@ const SignUp = () => {
 
 
     // ------------------------------ SIGN IN -------------------------------------
-    const { provideSignInWithEmailAndPassword, setLoading } = useAuthProvider();
+    const { provideCreateUserWithEmailAndPassword } = useAuthProvider();
 
     const onSubmit = data => {
         setphoneNumError(false);
@@ -68,11 +70,27 @@ const SignUp = () => {
 
 
 
-        //  todo uncomment 
-        // provideSignInWithEmailAndPassword(email, password)
-        //     .then(result => {
-        //         navigate(from, { replace: true });
-        //     }).catch(e => { setLoading(false) })
+       
+        provideCreateUserWithEmailAndPassword(email, password)
+            .then(result => {
+
+                const userData = {
+                    name: displayName,
+                    password : password,
+                    phone: phone, 
+
+                    email: result?.user.email,
+                    // photoURL: result?.user?.photoURL,
+                    firebase_UID: result?.user?.uid,
+
+
+                }
+               axiosSecure.post(`/create-new-user-by-sign-up`,userData)
+               .then(res=>{
+                   navigate(from, { replace: true });
+               }).catch((e)=>SwalErrorShow(e))
+
+            }).catch(e => console.log(e))
     }
     const customInputStyle = {
         width: '100%', // Set width to 100%

@@ -90,7 +90,8 @@ const OffsiteLayout = () => {
     return (
         <>
             <Navbar
-                isBordered
+            className='shadow  max-w-screen-2xl mx-auto'
+                
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
             >
@@ -156,8 +157,12 @@ const OffsiteLayout = () => {
                 </NavbarMenu>
             </Navbar>
 
+            
             {/* page content  */}
-            <Outlet />
+            <main className='max-w-screen-2xl mx-auto'>
+
+                <Outlet />
+            </main>
         </>
     );
 };

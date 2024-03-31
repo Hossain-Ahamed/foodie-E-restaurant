@@ -4,9 +4,10 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAuthProvider from '../../Hooks/useAuthProvider';
-import { getPcInfo, validateEmail } from '../../assets/scripts/Utility';
+import { getPcInfo, SwalErrorShow, validateEmail } from '../../assets/scripts/Utility';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import ForgetPasswordForm from './ForgetPasswordForm';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 const Login = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -34,7 +35,7 @@ const Login = () => {
 
     // ------------------------------ SIGN IN -------------------------------------
     const { provideSignInWithEmailAndPassword, setLoading } = useAuthProvider();
-
+    const axiosSecure = useAxiosSecure();
     const onSubmit = data => {
         const email = data.email;
         const password = data?.password;
@@ -50,11 +51,17 @@ const Login = () => {
 
         console.log({ email, password })
 
-        //  todo uncomment 
-        // provideSignInWithEmailAndPassword(email, password)
-        //     .then(result => {
-        //         navigate(from, { replace: true });
-        //     }).catch(e => { setLoading(false) })
+
+        provideSignInWithEmailAndPassword(email, password)
+            .then(result => {
+
+                axiosSecure.post(`/sign-in`, { email, password })
+                    .then(res => {
+                        navigate(from, { replace: true });
+                    }).catch((e) => SwalErrorShow(e))
+
+
+            }).catch(e => { setLoading(false) })
     }
 
 
@@ -170,11 +177,11 @@ const Login = () => {
                             <ModalContent>
                                 {(onClose) => (
                                     <>
-                                       
+
                                         <ModalBody>
-                                          <ForgetPasswordForm onOpenChange={onOpenChange}/>
+                                            <ForgetPasswordForm onOpenChange={onOpenChange} />
                                         </ModalBody>
-                                       
+
                                     </>
                                 )}
                             </ModalContent>

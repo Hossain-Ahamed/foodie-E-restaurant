@@ -3,12 +3,13 @@ import backgroundImage from "../../../assets/images/Background/backgroundimg.png
 import chefBackgroundImage from "../../../assets/images/Background/skillful-asian-chef-prepares-mea.png"
 import NonLogInNav from '../NonLogInNav/NonLogInNav';
 import { getAllDistrictsWithImage } from '../../../assets/scripts/Utility';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Footer from '../../../components/Footer/Footer';
+import useAuthProvider from '../../../Hooks/useAuthProvider';
 
 const NonLogInHomePage = () => {
     const DistricImage = getAllDistrictsWithImage();
-    console.log(DistricImage)
+    // console.log(DistricImage)
     const backgroundStyle = {
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -21,6 +22,12 @@ const NonLogInHomePage = () => {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
     };
+
+    const {user} = useAuthProvider();
+
+    if(user){
+        return <Navigate  to="/" replace/>
+    }
     return (
         <div className='max-h-fit'>
         <NonLogInNav />
@@ -39,7 +46,7 @@ const NonLogInHomePage = () => {
                         <div className='relative'>
 
                             <Link to={`/city/${distric?.name}`}>
-                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl object-cover' src={distric?.img} alt="" loading='lazy'/>
+                            <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] rounded-2xl object-cover' src={distric?.img} alt="" loading='eager'/>
                             <p className='bg-white rounded-md md:rounded-xl text-sm md:text-base p-1 px-2 md:p-2 md:px-4 absolute bottom-2 left-2'>{distric?.name}</p>
                             </Link>
                         

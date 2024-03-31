@@ -20,7 +20,7 @@ const OnsiteLayout = () => {
     return (
         <>
             <Navbar
-                className='shadow sticky'
+                className='shadow  max-w-screen-2xl mx-auto'
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
 
