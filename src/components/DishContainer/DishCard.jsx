@@ -52,7 +52,7 @@ const DishCard = ({ dishData }) => {
                     {(onClose) => (
                         <>
 
-                            <ModalBody className='h-fit max-h-[85vh] overflow-scroll pt-0 mx-0 px-0 scrollbar-hide'>
+                            <ModalBody className='h-fit max-h-[85vh] md:max-h-fit overflow-scroll pt-0 mx-0 px-0 scrollbar-hide'>
                             <DishForm dish={dishData} onClose={onClose}/>
                             </ModalBody>
                          

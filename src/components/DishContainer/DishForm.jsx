@@ -79,9 +79,9 @@ const DishForm = ({ dish, onOpenChange }) => {
 
     return (
 
-        <div className="container mx-auto " >
+        <div className=" mx-auto " >
        
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className='h-fit'>
                 <img src={dish?.img} className="w-full h-auto" alt="" />
                 <div className="px-1">
                     <h1 className="text-xl font-bold">{dish?.title}</h1>
@@ -111,7 +111,7 @@ const DishForm = ({ dish, onOpenChange }) => {
                                         />
                                         <label
                                             htmlFor={option._id}
-                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {option.name}
@@ -146,7 +146,7 @@ const DishForm = ({ dish, onOpenChange }) => {
                                         />
                                         <label
                                             htmlFor={addon._id}
-                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {addon.name}

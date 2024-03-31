@@ -11,29 +11,30 @@ import NonLogInHomePage from "../../pages/Offsite/NonLogInHomePage/NonLogInHomeP
 import NonLogInCityPage from "../../pages/Offsite/NonLogInCityPage/NonLogInCityPage";
 import AllRestaurantOfTheCity from "../../pages/Others/AllRestaurantOfTheCity/AllRestaurantOfTheCity";
 import LoginContainer from "../../pages/Login/LoginContainer";
+import OnsiteRestaurantHomePage from "../../pages/Onsite/RestuarantContainer/RestaurantHomePage/OnsiteRestaurantHomePage";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <OffsiteLayout/>,
+        element: <OffsiteLayout />,
         errorElement: <ErrorPage />,
         children: [
-           {
-            path : '/',
-            element : <>Hello</>
-           },
-           {
-            path : 'story',
-            element : <ImagesStories/>
-           },
-           {
-            path : 'shorts',
-            element : <Shorts/>
+            {
+                path: '/',
+                element: <>Hello</>
+            },
+            {
+                path: 'story',
+                element: <ImagesStories />
+            },
+            {
+                path: 'shorts',
+                element: <Shorts />
             },
             {
                 path: '/city/:city',
                 element: <AllRestaurantOfTheCity />
-           }
+            }
 
 
         ]
@@ -41,19 +42,23 @@ export const router = createBrowserRouter([
     },
     {
         path: '/onsite-order',
-        element: <OnsiteLayout/>,
+        element: <OnsiteLayout />,
         errorElement: <ErrorPage />,
         children: [
-           {
-            path : 'hello',
-            element : <>hello</>
-           },
-          
+            {
+                path: 'hello',
+                element: <>hello</>
+            },
+            {
+                path : 'restaurant/:res_id/branch/:branchID/table/:tableID',
+                element : <OnsiteRestaurantHomePage/>
+            }
+
 
         ]
 
     },
-    
+
     {
         path: '/login',
         element: <PreventLogIn><LoginContainer /></PreventLogIn>
