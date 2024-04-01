@@ -6,6 +6,7 @@ import { getAllDistrictsWithImage } from '../../../assets/scripts/Utility';
 import { Link, Navigate } from 'react-router-dom';
 import Footer from '../../../components/Footer/Footer';
 import useAuthProvider from '../../../Hooks/useAuthProvider';
+import SetTitle from '../../Shared/SetTtitle/SetTitle';
 
 const NonLogInHomePage = () => {
     const DistricImage = getAllDistrictsWithImage();
@@ -30,6 +31,7 @@ const NonLogInHomePage = () => {
     }
     return (
         <div className='max-h-fit'>
+            <SetTitle title="Home"/>
         <NonLogInNav />
            <div className='relative h-[200px] md:h-[400px] lg:h-[500px] xl:h-[700px]' style={backgroundStyle}>
             <div className="md:w-[500px] lg:w-[700px] absolute top-10 left-10 md:top-28 lg:top-40 xl:top-60 xl:left-40 text-black">

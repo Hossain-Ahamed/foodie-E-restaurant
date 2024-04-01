@@ -6,6 +6,7 @@ import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
 import restaurentBackground from '../../../assets/images/Background/restaurant.jpg'
 import Footer from '../../../components/Footer/Footer';
 import { Link, useParams } from 'react-router-dom';
+import SetTitle from '../../Shared/SetTtitle/SetTitle';
 
 const AllRestaurantOfTheCity = () => {
     const {city} = useParams();
@@ -14,13 +15,13 @@ const AllRestaurantOfTheCity = () => {
 
 
 
-    const { refetch: dataRefetch, data: data = {}, isLoading: dataLoading, error: dataError, } = useQuery({
+    const { refetch, data: data, isLoading, error, } = useQuery({
         queryKey: ['all_restaurant_of_the_city',city],
        
         queryFn: async () => {
-            let res = await axiosSecure.get(`/all-restaurant/city/${city}`);
+            const res = await axiosSecure.get(`/all-restaurant/city/${city}`);
             console.log(res.data)
-            return res?.data;
+            return res.data;
         },
     });
 
@@ -31,14 +32,15 @@ const AllRestaurantOfTheCity = () => {
         backgroundPosition: 'center',
     };
 
-    if(dataLoading){
+    if(isLoading){
         return <LoadingPage/>
     }
-    if(dataError){
+    if(error){
         return <ErrorPage/>
     }
     return (
         <>
+        <SetTitle title={city}/>
         <div style={backgroundStyle} className='h-[200px] md:h-[400px] xl:h-[500px] w-full bg-fixed relative'>
             <h3 className='text-lg md:text-2xl lg:text-3xl xl:text-4xl absolute top-10 left-10 md:top-28 lg:top-40 xl:left-40 text-white capitalize'>Food delivery from {city}’s best restaurants</h3>
         </div>
