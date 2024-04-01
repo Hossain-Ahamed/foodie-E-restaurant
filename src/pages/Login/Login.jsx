@@ -164,7 +164,10 @@ const Login = () => {
                                 {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  pt-1 text-red-500 text-xs' role="alert">*Enter password</p>)}
                             </div>
                         </div>
-                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={onOpen}>
+                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={(e)=>{
+                            e.preventDefault();
+                            onOpen();
+                        }}>
                             Forget Password?
                         </button>
 

@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/nearby-restaurant',
-                element: <NearbyRestaurant/>
+                element: <PrivateRoute><NearbyRestaurant/></PrivateRoute>
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID',
@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/edit-profile',
-                element: <EditProfile/>
+                element: <PrivateRoute><EditProfile/></PrivateRoute>
             },
 
 
