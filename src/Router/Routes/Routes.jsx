@@ -15,6 +15,7 @@ import RestaurantHomePage from "../../pages/Shared/RestaurantHomePage/Restaurant
 import Home from "../../pages/Others/Home/Home";
 import NearbyRestaurant from "../../pages/Offsite/NearbyRestaurant/NearbyRestaurant";
 import PrivateRoute from './../PrivateRoute/PrivateRoute';
+import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
 
 export const router = createBrowserRouter([
     {
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/edit-profile',
-                element: <>edit profile</>
+                element: <EditProfile/>
             },
 
 

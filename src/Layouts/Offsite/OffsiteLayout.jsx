@@ -94,7 +94,7 @@ const OffsiteLayout = () => {
     return (
         <>
             <Navbar
-                className='shadow  max-w-screen-2xl mx-auto'
+                className='shadow  max-w-screen-[1800px] mx-auto'
 
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}
@@ -208,7 +208,7 @@ const OffsiteLayout = () => {
 
 
             {/* page content  */}
-            <main className='max-w-screen-2xl mx-auto'>
+            <main className='max-w-screen-[1800px] mx-auto'>
 
                 <Outlet />
             </main>
