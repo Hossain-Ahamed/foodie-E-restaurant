@@ -9,9 +9,9 @@ const NearbyRestaurant = () => {
         return <Navigate  to='/edit-profile' replace/>
     }
     return (
-        <div>
+        <>
            nearby res 
-        </div>
+        </>
     );
 };
 

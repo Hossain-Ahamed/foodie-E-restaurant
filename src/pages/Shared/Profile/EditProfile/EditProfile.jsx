@@ -17,7 +17,7 @@ import AddressForm from './AddressForm';
 
 
 const EditProfile = () => {
-    const { profile, profileLoading, profileError } = useProfile();
+    const { profile, profileLoading, profileError,profileRefetch } = useProfile();
     const [isOpen, setOpen] = useState(false);
 
     const setisOpen = (value) => {
@@ -100,6 +100,7 @@ const EditProfile = () => {
         //       setloadingOnSave(false);
         //       toast.success('successfully added');
         //       navigate('/profile')
+        // profileRefetch()
 
         //     }).catch(e => {
         //       setloadingOnSave(false);

@@ -40,7 +40,7 @@ const AllRestaurantOfTheCity = () => {
     }
     return (
         <>
-        <SetTitle title={city}/>
+        <SetTitle title={city.charAt(0).toUpperCase() +city.slice(1)}/>
         <div style={backgroundStyle} className='h-[200px] md:h-[400px] xl:h-[500px] w-full bg-fixed relative'>
             <h3 className='text-lg md:text-2xl lg:text-3xl xl:text-4xl absolute top-10 left-10 md:top-28 lg:top-40 xl:left-40 text-white capitalize'>Food delivery from {city}’s best restaurants</h3>
         </div>
