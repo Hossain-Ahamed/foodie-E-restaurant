@@ -17,21 +17,21 @@ const useProfile = () => {
             // return res?.data;
 
             return {
-                name: "Ahamed Hossain",
+                name: " Hossain Ahamed",
                 phone: "+8801712345678",
                 email: "hossainahamed6872@gmail.com",
                 DOB: "1995-12-31T00:00:00Z", // Date of Birth in ISO format (with time)
-                // address: 
-                //     {
-                //         streetAddress: "123, ABC Street",
-                //         city: "Dhaka",
-                //         stateProvince: "Dhaka",
-                //         postalCode: "1206",
-                //         country: "Bangladesh",
+                address: 
+                    {
+                        streetAddress: "123, ABC Street",
+                        city: "Dhaka",
+                        stateProvince: "Dhaka",
+                        postalCode: "1206",
+                        country: "Bangladesh",
                         
-                //     }
-                // ,
-                imgURL: "https://example.com/ahamed_hossain.jpg", // Example image URL
+                    }
+                ,
+                imgURL: "https://i.pravatar.cc/150?u=a042581f4e29026024d", // Example image URL
                 gender: "Male",
             }
 

@@ -6,13 +6,14 @@ import { getAllDistricts } from '../../assets/scripts/Utility';
 import logo from "../../assets/images/brand-icon.png";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
+import useProfile from '../../Hooks/useProfile';
+import LoadingPage from '../../pages/Shared/LoadingPages/LoadingPage/LoadingPage';
+import ErrorPage from '../../pages/Shared/ErrorPage/ErrorPage';
 
 const OffsiteLayout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const { user ,provideSignOut} = useAuthProvider();
 
-    const [nearestDistrict, setNearestDistrict] = useState(null);
-    const [districts, setDistricts] = useState(getAllDistricts());
 
     const menuItems = [
         "Profile",
@@ -27,70 +28,17 @@ const OffsiteLayout = () => {
         "Log Out",
     ];
 
-    const [distance, setDistance] = useState(null);
-
-    useEffect(() => {
-        // Function to calculate the distance between two points using Haversine formula
-        const calculateDistance = (lat1, lon1, lat2, lon2) => {
-            const R = 6371; // Radius of the earth in km
-            const dLat = deg2rad(lat2 - lat1);
-            const dLon = deg2rad(lon2 - lon1);
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const d = R * c; // Distance in km
-            return d;
-        }
-
-        const deg2rad = (deg) => {
-            return deg * (Math.PI / 180)
-        }
-
-        // Function to find the nearest district based on browser location
-        const findNearestDistrict = (latitude, longitude) => {
-            let minDistance = Infinity;
-            let nearest = null;
-
-            districts.forEach(district => {
-                const dist = calculateDistance(
-                    latitude,
-                    longitude,
-                    parseFloat(district.lat),
-                    parseFloat(district.long)
-                );
-
-                if (dist < minDistance) {
-                    minDistance = dist;
-                    nearest = district;
-                }
-            });
-
-            setNearestDistrict(nearest);
-            setDistance((minDistance * 1000).toFixed(2));
-            // console.log(nearest, "   ",(minDistance * 1000).toFixed(2))
-        };
-
-        // Get browser's geolocation
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords;
-                    findNearestDistrict(latitude, longitude);
-                },
-                error => {
-                    console.error(error);
-                    // Handle error when getting user's location
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
-            // Handle case where geolocation is not supported
-        }
-    }, [districts]);
+   
 
 
+    const { profile, profileLoading, profileError } = useProfile();
+
+    if (profileLoading) {
+        return <LoadingPage />
+    }
+    if (profileError) {
+        return <ErrorPage />
+    }
     return (
         <>
             <Navbar
@@ -141,11 +89,11 @@ const OffsiteLayout = () => {
                                             as="button"
                                             avatarProps={{
                                                 isBordered: true,
-                                                src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
+                                                src: profile?.imgURL || ""
                                             }}
                                             className="transition-transform"
-                                            description="@tonyreichert"
-                                            name="Tony Reichert"
+                                            description={profile?.email && `@${profile?.email.split('@')[0]}` || ""}
+                                            name={profile?.name || ""}
                                         />
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="User Actions" variant="flat">
