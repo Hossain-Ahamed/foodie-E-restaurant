@@ -71,6 +71,10 @@ const getPostOffices = (disctrict_id) => {
   return PostCodes.postcodes.filter((i) => i.district_id === disctrict_id);
 };
 
+const DistrictImage = (name)=>{
+  return DistrictsWithImage.districts.find(i=>i.name === name)?.img
+}
+
 export const getPostcode = (id) => {
   const selectedPostcode = PostCodes.postcodes.find(
     (postcode) => postcode.id.toString() === id.toString()
@@ -212,5 +216,6 @@ export {
   getPostOffices,
   getAllDistricts,
   getProvinceOfSelectedCity,
-  getAllDistrictsWithImage
+  getAllDistrictsWithImage,
+  DistrictImage
 };

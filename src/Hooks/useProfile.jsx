@@ -24,7 +24,7 @@ const useProfile = () => {
                 address: 
                     {
                         streetAddress: "123, ABC Street",
-                        city: "Dhaka",
+                        city: "Narayanganj",
                         stateProvince: "Dhaka",
                         postalCode: "1206",
                         country: "Bangladesh",
