@@ -7,8 +7,8 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import  Swal  from 'sweetalert2';
-const AddressForm = ({ address, onClose, onOpen }) => {
+const AddressForm = ({ nearestDistrict, onClose }) => {
+    const { profile } = useProfile();
 
     const { register, handleSubmit, formState: { errors }, setValue, control, getValues } = useForm();
     const countries = getCountries();
@@ -19,155 +19,100 @@ const AddressForm = ({ address, onClose, onOpen }) => {
     const navigate = useNavigate();
 
 
+    /**
+             * --------------------------------------------------------
+             *    set city and province if location permitteed
+             * -------------------------------------------------------
+             */
+    useEffect(() => {
 
+        if (!profile?.address && nearestDistrict?.name) {
+            setValue(`city`, nearestDistrict?.name)
+            setValue(`stateProvince`, getProvinceOfSelectedCity(nearestDistrict?.name))
+        }
+
+    }, [nearestDistrict, profile, setValue])
+    //-------------------------------------------------------------------   
 
     const onSubmit = (data) => {
 
         console.log(data)
-        // navigate(`/subscription-payment/65f58f6bdb04fc0c1e571f8f`, {replace: true})
+
         setLoading(true);
-        axiosSecure.post(`/admin/proile`, data)
+        axiosSecure.post(`/user-profile-update-address/${profile?.email}`, data)
             .then((res) => {
-                navigate(`/`, { replace: true })
-                toast.success("Please pay to continue")
+                navigate(`/profile`, { replace: true })
+                toast.success("Successfully Updated")
+                onClose(false);
             })
-            .catch(e => SwalErrorShow(e))
+            .catch(e => {
+                SwalErrorShow(e)
+            })
             .finally(() => {
                 setLoading(false);
-                onclose();
+
             });
     }
 
     // ________________________________________________________________________________
 
-    const { profile } = useProfile();
-
-    const [nearestDistrict, setNearestDistrict] = useState(null);
-    const [districts, setDistricts] = useState(getAllDistricts());
-    const [distance, setDistance] = useState(null);
-
-    useEffect(() => {
-        // Function to calculate the distance between two points using Haversine formula
-        const calculateDistance = (lat1, lon1, lat2, lon2) => {
-            const R = 6371; // Radius of the earth in km
-            const dLat = deg2rad(lat2 - lat1);
-            const dLon = deg2rad(lon2 - lon1);
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2);
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            const d = R * c; // Distance in km
-            return d;
-        }
-
-        const deg2rad = (deg) => {
-            return deg * (Math.PI / 180)
-        }
-
-        // Function to find the nearest district based on browser location
-        const findNearestDistrict = (latitude, longitude) => {
-            let minDistance = Infinity;
-            let nearest = null;
-
-            districts.forEach(district => {
-                const dist = calculateDistance(
-                    latitude,
-                    longitude,
-                    parseFloat(district.lat),
-                    parseFloat(district.long)
-                );
-
-                if (dist < minDistance) {
-                    minDistance = dist;
-                    nearest = district;
-                }
-            });
 
 
-            setNearestDistrict(nearest);
-            setDistance((minDistance * 1000).toFixed(2));
-            // console.log(nearest, "   ",(minDistance * 1000).toFixed(2))
-
-
-            /**
-             * --------------------------------------------------------
-             *    set city and province if location permitteed
-             * -------------------------------------------------------
-             */
-
-            if (!profile?.address) {
-                setValue(`city`, nearest?.name)
-                setValue(`stateProvince`, getProvinceOfSelectedCity(nearest?.name))
-            }
-
-            //-------------------------------------------------------------------
-        };
-
-        // Get browser's geolocation
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    const { latitude, longitude } = position.coords;
-                    findNearestDistrict(latitude, longitude);
-                },
-                error => {
-                    console.error(error);
-                    // Handle error when getting user's location
-                }
-            );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
-            // Handle case where geolocation is not supported
-        }
-    }, [districts, setValue,profile]);
 
     return (
         <>
 
             <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+                {
+                    nearestDistrict?.name &&
+                    <div className='flex items-center gap-2 justify-start px-6 '>
+                        <svg className='h-3 w-3 text-gray-500' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M11.9999 13.4299C13.723 13.4299 15.1199 12.0331 15.1199 10.3099C15.1199 8.58681 13.723 7.18994 11.9999 7.18994C10.2768 7.18994 8.87988 8.58681 8.87988 10.3099C8.87988 12.0331 10.2768 13.4299 11.9999 13.4299Z" stroke="currentColor" strokeWidth="1.5" />
+                            <path d="M3.6202 8.49C5.5902 -0.169998 18.4202 -0.159997 20.3802 8.5C21.5302 13.58 18.3702 17.88 15.6002 20.54C13.5902 22.48 10.4102 22.48 8.3902 20.54C5.6302 17.88 2.4702 13.57 3.6202 8.49Z" stroke="currentColor" strokeWidth="1.5" />
+                        </svg>
+
+                        <p className='text-gray-500'><span className='font-medium text-gray-700 '>{nearestDistrict?.name}</span><span className=' pl-3 text-xs text-gray-400'> *possibly incorrect</span> </p>
+
+                    </div>
+                }
+
 
                 <ModalBody>
-                    {
-                        nearestDistrict?.name && nearestDistrict?.name !== profile?.address?.city &&
-                      'sk'
-                    }
-                    {distance} {nearestDistrict?.name}
 
                     <div className="flex flex-wrap items-center  select-none ">
 
-                        <div className="w-full  p-3">
-                            <label htmlFor={`streetAddress`} className="mb-1.5 font-medium text-base text-coolGray-800">
+                        <div className="w-full  py-3 relative">
+                            <label htmlFor={`streetAddress`} className="mb-1.5 font-medium text-sm text-coolGray-800">
                                 Street Address
                             </label>
                             <input
                                 id={`streetAddress`}
                                 {...register(`streetAddress`, {
-                                    required: '*Street Address is required',
+                                    required: '*Required',
                                 })}
                                 defaultValue={profile?.address?.streetAddress || ""}
-                                className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg shadow-input"
+                                className={`w-full px-4 py-2.5 text-sm text-coolGray-900 font-normal outline-none focus:border-green-500 border ${errors?.streetAddress && 'border-danger-400'} rounded-lg shadow-input`}
                                 type="text"
                                 placeholder="Enter your street address"
                             />
                             {errors?.streetAddress && (
-                                <p className='m-0 p-0 pl-1 text-base text-red-500 text-[9px]' role="alert">
+                                <p className='m-0 p-0 pl-1 text-red-500 text-xs absolute' role="alert">
                                     {errors.streetAddress.message}
                                 </p>
                             )}
                         </div>
 
 
-                        <div className="w-full md:w-1/2 p-3">
-                            <label htmlFor={`city`} className="mb-1.5 font-medium text-base text-coolGray-800 ">
+                        <div className="w-full md:w-1/2 py-3 pr-1">
+                            <label htmlFor={`city`} className="mb-1.5 font-medium text-sm text-coolGray-800 relative">
                                 City/Town
                             </label>
                             <select
 
-                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block  h-10 p-1 m-0"
 
+                                className={`w-full text-sm px-2 py-2.5 text-coolGray-900 font-normal outline-none focus:border-green-500 border ${errors?.city ? 'border-danger-400' : 'border-gray-300'} rounded-lg h-10  m-0`}
                                 defaultValue={profile?.address?.city || ""}
-                                {...register(`city`, { required: 'City/Town is required' })}
+                                {...register(`city`, { required: '*Required' })}
                                 onChange={(e) => { setValue(`city`, e.target.value); setValue(`stateProvince`, getProvinceOfSelectedCity(e.target.value)) }}
                             >
                                 <option value="" disabled>
@@ -182,26 +127,25 @@ const AddressForm = ({ address, onClose, onOpen }) => {
                             </select>
 
                             {errors?.city && (
-                                <p className='m-0 p-0 pl-1 text-base text-red-500 text-[9px]' role="alert">
+                                <p className='m-0 p-0 pl-1  text-red-500 text-xs absolute' role="alert">
                                     {errors.city.message}
                                 </p>
                             )}
                         </div>
 
 
-                        <div className="w-full md:w-1/2 p-3">
-                            <label htmlFor={`city`} className="mb-1.5 font-medium text-base text-coolGray-800">
+                        <div className="w-full md:w-1/2 py-3 pl-1 relative">
+                            <label htmlFor={`city`} className="mb-1.5 font-medium text-sm text-coolGray-800">
                                 State / Province
                             </label>
                             <select
                                 label="Select Dish Category"
-                                className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block h-10 p-1 m-0"
-
+                                className={`w-full px-2 py-2.5 text-sm text-coolGray-900 font-normal outline-none focus:border-green-500 border ${errors?.stateProvince ? 'border-danger-400' : 'border-gray-300'} rounded-lg h-10 p-1 m-0`}
                                 defaultValue={profile?.address?.stateProvince || ""}
-                                {...register(`stateProvince`, { required: 'State / Province is required' })}
+                                {...register(`stateProvince`, { required: '*Required' })}
                             >
                                 <option value="" disabled>
-                                    Select Province / State
+                                    Select Province/State
                                 </option>
 
                                 {AllDivisions.map((item, _idx) => (
@@ -213,33 +157,30 @@ const AddressForm = ({ address, onClose, onOpen }) => {
 
 
                             {errors?.stateProvince && (
-                                <p className='m-0 p-0 pl-1 text-base text-red-500 text-[9px]' role="alert">
+                                <p className='m-0 p-0 pl-1  text-red-500 text-xs absolute' role="alert">
                                     {errors.stateProvince.message}
                                 </p>
                             )}
                         </div>
 
-                        <div className="w-full md:w-1/2 p-3">
-                            <label htmlFor={`postalCode`} className="mb-1.5 font-medium text-base text-coolGray-800">
+                        <div className="w-full md:w-1/2 py-3 pr-1 relative">
+                            <label htmlFor={`postalCode`} className="mb-1.5 font-medium text-sm text-coolGray-800">
                                 ZIP / Postal code
                             </label>
                             <input
-                                {...register(`postalCode`, { required: 'ZIP / Postal code is required' })}
+                                {...register(`postalCode`, { required: '*Required' })}
                                 defaultValue={profile?.address?.postalCode || ""}
-                                className="w-full px-4 py-2.5 text-base text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg shadow-input"
+                                className={`w-full px-4 py-2.5 text-sm text-coolGray-900 font-normal outline-none focus:border-green-500 border ${errors?.postalCode && 'border-danger-400'} rounded-lg shadow-input`}
                                 type="text"
                                 placeholder="ZIP / Postal code"
                             />
-                            {errors?.postalCode && (
-                                <p className='m-0 p-0 pl-1 text-base text-red-500 text-[9px]' role="alert">
-                                    {errors.postalCode.message}
-                                </p>
+                            {errors?.postalCode && (<p className='m-0 p-0 pl-1  text-red-500 text-xs absolute' role="alert">{errors.postalCode.message}</p>
                             )}
                         </div>
 
 
-                        <div className="w-full md:w-1/2 p-3">
-                            <label htmlFor={`country`} className="mb-1.5 font-medium text-base text-coolGray-800">
+                        <div className="w-full md:w-1/2 py-3 pl-1">
+                            <label htmlFor={`country`} className="mb-1.5 font-medium text-sm text-coolGray-800">
                                 Country
                             </label>
                             <div className="relative">
@@ -249,7 +190,7 @@ const AddressForm = ({ address, onClose, onOpen }) => {
                                 <select
                                     {...register(`country`, { required: 'Country is required' })}
                                     defaultValue={profile?.address?.country || "Bangladesh"}
-                                    className="w-full px-4  h-10 p-1 m-0 text-base text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg appearance-none"
+                                    className="w-full px-4  h-10 p-1 m-0 text-sm text-coolGray-900 font-normal outline-none focus:border-green-500 border border-coolGray-200 rounded-lg appearance-none"
                                 >
                                     <option value="" disabled>Select Country</option>
                                     {countries.map((country, i) => (
@@ -260,7 +201,7 @@ const AddressForm = ({ address, onClose, onOpen }) => {
                                 </select>
                             </div>
                             {errors?.country && (
-                                <p className='m-0 p-0 pl-1 text-base text-red-500 text-[9px]' role="alert">
+                                <p className='m-0 p-0 pl-1  text-red-500 text-xs' role="alert">
                                     {errors.country.message}
                                 </p>
                             )}
@@ -285,12 +226,19 @@ const AddressForm = ({ address, onClose, onOpen }) => {
 
 
                 </ModalBody>
-                <ModalFooter>
+                <ModalFooter className='flex justify-center'>
 
 
-                    <Button color="success" variant='flat' type='submit'>
-                        Save
+                    <Button color="success" variant='shadow' isLoading={loading} type='submit' fullWidth className='text-success-800'>
+                        {loading ? "Updating Address" : "Update Address"}
                     </Button>
+                    {
+                        profile?.address &&
+                        <Button color="danger" variant='solid' onPress={()=>onClose(false)} >
+                            Cancel
+                        </Button>
+                    }
+
                 </ModalFooter>
             </form>
         </>

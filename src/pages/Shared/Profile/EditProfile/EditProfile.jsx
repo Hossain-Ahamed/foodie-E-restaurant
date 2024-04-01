@@ -10,18 +10,19 @@ import SetTitle from '../../SetTtitle/SetTitle';
 import { useForm } from 'react-hook-form';
 import useAuthProvider from '../../../../Hooks/useAuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { validateEmail, validateMobileNumber } from '../../../../assets/scripts/Utility';
-
+import { getAllDistricts, getProvinceOfSelectedCity, validateEmail, validateMobileNumber } from '../../../../assets/scripts/Utility';
+import Swal from 'sweetalert2';
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
 import AddressForm from './AddressForm';
 
 
 const EditProfile = () => {
     const { profile, profileLoading, profileError } = useProfile();
-    const [isOpen,setOpen] = useState(false);
+    const [isOpen, setOpen] = useState(false);
 
-    const setisOpen = ()=>{
-        setOpen(!isOpen)
+    const setisOpen = (value) => {
+      
+        setOpen(value)
     }
 
     // useEffect(() => {
@@ -59,14 +60,7 @@ const EditProfile = () => {
         setImageUpload(profile?.imgURL)
     }, [profile])
 
-    useEffect(() => {
-        if (!profile?.address) {
-            setisOpen(true)
-        }
-
-    }, [profile])
-
-
+   
 
 
     const navigate = useNavigate();
@@ -114,9 +108,108 @@ const EditProfile = () => {
         //     })
 
     };
-    
+
+
+
+
+    const [nearestDistrict, setNearestDistrict] = useState(null);
+    const [districts, setDistricts] = useState(getAllDistricts());
+    const [distance, setDistance] = useState(null);
+
+    useEffect(() => {
+        // Function to calculate the distance between two points using Haversine formula
+        const calculateDistance = (lat1, lon1, lat2, lon2) => {
+            const R = 6371; // Radius of the earth in km
+            const dLat = deg2rad(lat2 - lat1);
+            const dLon = deg2rad(lon2 - lon1);
+            const a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            const d = R * c; // Distance in km
+            return d;
+        }
+
+        const deg2rad = (deg) => {
+            return deg * (Math.PI / 180)
+        }
+
+        // Function to find the nearest district based on browser location
+        const findNearestDistrict = (latitude, longitude) => {
+            let minDistance = Infinity;
+            let nearest = null;
+
+            districts.forEach(district => {
+                const dist = calculateDistance(
+                    latitude,
+                    longitude,
+                    parseFloat(district.lat),
+                    parseFloat(district.long)
+                );
+
+                if (dist < minDistance) {
+                    minDistance = dist;
+                    nearest = district;
+                }
+            });
+
+
+            setNearestDistrict(nearest);
+            setDistance((minDistance * 1000).toFixed(2));
+            // console.log(nearest, "   ",(minDistance * 1000).toFixed(2))
+        };
+
+        // Get browser's geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    const { latitude, longitude } = position.coords;
+                    findNearestDistrict(latitude, longitude);
+                },
+                error => {
+                    console.error(error);
+                    // Handle error when getting user's location
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+            // Handle case where geolocation is not supported
+        }
+    }, [districts, profile]);
     
 
+    useEffect(() => {
+
+        //if there is no address , then ask for address
+        if (!profile?.address) {
+            setisOpen(true)
+        }
+   
+
+        //if curent browser adress and profile address not same ask them
+        if( profile?.address?.city &&  nearestDistrict?.name && nearestDistrict?.name !== profile?.address?.city){
+ 
+            Swal.fire({
+                // title: "Chnage Address?",
+                text: `Current location is ${nearestDistrict?.name}. Want to update?`,
+               
+                showCancelButton: true,
+                confirmButtonColor: "success",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  setisOpen(true)
+                }
+              });
+         }
+
+    },[profile,nearestDistrict]) //giving setis open in dependency causes lots of re render // so dont add that
+
+
+
+    
     if (profileLoading) {
         return <LoadingPage />
     }
@@ -124,11 +217,14 @@ const EditProfile = () => {
         return <ErrorPage />
     }
 
+   
+
     return (
         <>
             <SetTitle title="Edit-Profile" />
             <div className='w-full lg:w-[900px] mx-auto border p-2 mt-5 md:px-10 rounded shadow'>
                 <SectionTitle h1="Edit Profile" />
+              
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="relative cursor-pointer w-20 mx-auto h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-500 mt-8 mb-4 md:mx-0">
@@ -331,16 +427,16 @@ const EditProfile = () => {
                         {/* add address  */}
                         <div className='p-2'>
                             {/* modal trigger  */}
-                            <button onClick={setisOpen} htmlFor='address-update-modal' className=' flex rounded-md border border-gray-300 items-center p-1.5 justify-center cursor-pointer w-full '>
+                            <button onClick={()=>setisOpen(true)} htmlFor='address-update-modal' className=' flex rounded-md border border-gray-300 items-center p-1.5 justify-center cursor-pointer w-full '>
                                 <AiOutlinePlus className='text-2xl mr-3' />
-                                <p>Change Address</p>
+                                <p>{profile?.address && Object.keys(profile?.address)>0 ? "Change" : "Add"} Address</p>
                             </button>
                             <Modal isOpen={isOpen} >
                                 <ModalContent >
                                     {(onClose) => (
                                         <>
                                             <ModalHeader className="flex flex-col gap-1 text-center">Address Form</ModalHeader>
-                                            <AddressForm address={profile?.address} onClose={setisOpen} onOpen={setisOpen}/>
+                                            <AddressForm nearestDistrict={nearestDistrict} onClose={setisOpen}  />
                                         </>
                                     )}
                                 </ModalContent>
