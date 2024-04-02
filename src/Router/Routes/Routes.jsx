@@ -17,6 +17,7 @@ import NearbyRestaurant from "../../pages/Offsite/NearbyRestaurant/NearbyRestaur
 import PrivateRoute from './../PrivateRoute/PrivateRoute';
 import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
 import MyProfile from "../../pages/Shared/Profile/MyProfile/MyProfile";
+import OnsiteRestaurantHomePage from "../../pages/Onsite/OnsiteRestaurantHomePage/OnsiteRestaurantHomePage";
 
 export const router = createBrowserRouter([
     {
@@ -69,8 +70,28 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'restaurant/:res_id/branch/:branchID/table/:tableID',
-                element: <RestaurantHomePage />
-            }
+                element: <OnsiteRestaurantHomePage />
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/table/:tableID',
+                element: <OnsiteRestaurantHomePage />
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders',
+                element: <></>
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders/:orderID',
+                element: <></>
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/completed-orders',
+                element: <></>
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/completed-orders/:orderID',
+                element: <></>
+            },
 
 
         ]
