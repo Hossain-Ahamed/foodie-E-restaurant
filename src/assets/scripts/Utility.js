@@ -71,6 +71,10 @@ const getPostOffices = (disctrict_id) => {
   return PostCodes.postcodes.filter((i) => i.district_id === disctrict_id);
 };
 
+const DistrictImage = (name)=>{
+  return DistrictsWithImage.districts.find(i=>i.name === name)?.img
+}
+
 export const getPostcode = (id) => {
   const selectedPostcode = PostCodes.postcodes.find(
     (postcode) => postcode.id.toString() === id.toString()
@@ -195,6 +199,23 @@ const SwalErrorShow = (e) => {
     title: e?.response?.data?.message,
   });
 };
+
+// ImgBB image upload function
+const imageUpload = async (image) => {
+  const formData = new FormData();
+  formData.append("image", image);
+  const url = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_ImgBBAPI
+  }`;
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  return data;
+};
+
 export {
   SwalErrorShow,
   validateMobileNumber,
@@ -212,5 +233,7 @@ export {
   getPostOffices,
   getAllDistricts,
   getProvinceOfSelectedCity,
-  getAllDistrictsWithImage
+  getAllDistrictsWithImage,
+  DistrictImage,
+  imageUpload
 };

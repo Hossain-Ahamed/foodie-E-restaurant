@@ -1,0 +1,14 @@
+.swiper1-button-next{
+    display: block;
+    color: black;
+    width: 85px;
+    height: 85px;
+    background-color: #bbb;
+    border-radius: 100%;
+    text-align: center;
+}
+
+.swiper1-button-prev{
+    display: block;
+    color: black;
+}

@@ -80,17 +80,21 @@ const OnsiteLayout = () => {
                                 </DropdownTrigger>
                                 <DropdownMenu aria-label="User Actions" variant="flat">
                                     <DropdownItem key="settings">
-                                        My Settings
+                                      <Link to='/profile'>My profile</Link>
                                     </DropdownItem>
-                                    <DropdownItem key="team_settings">Team Settings</DropdownItem>
-                                    <DropdownItem key="analytics">
-                                        Analytics
+                                    <DropdownItem key="settings">
+                                      <Link to='/ongoing-orders'>My profile</Link>
                                     </DropdownItem>
-                                    <DropdownItem key="system">System</DropdownItem>
-                                    <DropdownItem key="configurations">Configurations</DropdownItem>
-                                    <DropdownItem key="help_and_feedback">
-                                        Help & Feedback
+                                    <DropdownItem key="settings">
+                                      <Link to='/profile'>My profile</Link>
                                     </DropdownItem>
+                                    <DropdownItem key="settings">
+                                      <Link to='/profile'>My profile</Link>
+                                    </DropdownItem>
+                                    <DropdownItem key="settings">
+                                      <Link to='/profile'>My profile</Link>
+                                    </DropdownItem>
+                                   
                                     <DropdownItem key="logout" color="danger" onPress={provideSignOut}>
                                         Log Out
                                     </DropdownItem>

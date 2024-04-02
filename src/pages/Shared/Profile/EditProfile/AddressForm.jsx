@@ -8,7 +8,7 @@ import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 const AddressForm = ({ nearestDistrict, onClose }) => {
-    const { profile } = useProfile();
+    const { profile,profileRefetch } = useProfile();
 
     const { register, handleSubmit, formState: { errors }, setValue, control, getValues } = useForm();
     const countries = getCountries();
@@ -44,6 +44,7 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
                 navigate(`/profile`, { replace: true })
                 toast.success("Successfully Updated")
                 onClose(false);
+                profileRefetch()
             })
             .catch(e => {
                 SwalErrorShow(e)
