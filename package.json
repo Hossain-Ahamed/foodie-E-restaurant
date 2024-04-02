@@ -34,7 +34,8 @@
     "react-spinners": "^0.13.8",
     "react-tooltip": "^5.26.0",
     "stories-react": "^1.1.2",
-    "sweetalert2": "^11.10.4"
+    "sweetalert2": "^11.10.4",
+    "swiper": "^11.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

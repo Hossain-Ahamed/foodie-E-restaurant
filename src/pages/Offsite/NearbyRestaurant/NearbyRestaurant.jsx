@@ -9,6 +9,7 @@ import SetTitle from '../../Shared/SetTtitle/SetTitle';
 import restaurentBackground from '../../../assets/images/Background/restaurant.jpg'
 import { Link } from 'react-router-dom';
 import { DistrictImage } from '../../../assets/scripts/Utility';
+import StoryContainer from './StoryContainer';
 const NearbyRestaurant = () => {
     const { profile } = useProfile();
     const axiosSecure = useAxiosSecure();
@@ -22,15 +23,183 @@ const NearbyRestaurant = () => {
                 restaurants: res.data?.restaurants,
                 stories: [
                     {
-                        res_name : "foodpanda",
-                        res_id : 'djldjk',
-                        branchID : '480840980',
-                        branchName : 'narayanganj'
-                        
-                    }
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
+                    {
+                        res_name: "foodpanda",
+                        res_id: 'djldjk',
+                        branchID: '480840980',
+                        branchName: 'narayanganj',
+                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        story: [
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                            {
+                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                            },
+                        ]
+
+                    },
                 ]
             }
-            console.log(data)
+            // console.log(data)
             return data;
         },
     });
@@ -56,13 +225,12 @@ const NearbyRestaurant = () => {
     return (
         <>
             <SetTitle title={"Nearby Restaurant"} />
-            {/* <div style={backgroundStyle} className='h-[200px] md:h-[400px] xl:h-[500px] w-full bg-fixed relative'>
-                <h3 className='text-lg md:text-2xl lg:text-3xl xl:text-4xl absolute top-10 left-10 md:top-28 lg:top-40 xl:left-40 text-white capitalize'>Food delivery from {profile?.address?.city}’s best restaurants</h3>
-            </div> */}
-            <div className='my-10 lg:my-20'>
-
+            <div className='my-10'>
+              
+                    <StoryContainer story={data?.stories} />
+             
                 <div className='grid grid-cols-2 md:grid-cols-3 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto my-10 lg:my-20 gap-3 md:gap-5'>
-                    { data?.restaurants && Array.isArray(data?.restaurants) && data?.restaurants?.map(restaurant => (
+                    {data?.restaurants && Array.isArray(data?.restaurants) && data?.restaurants?.map(restaurant => (
                         <div key={restaurant?.branchID}>
 
                             <div className='border rounded-2xl shadow-md'>

@@ -10,18 +10,20 @@ import SetTitle from '../../SetTtitle/SetTitle';
 import { useForm } from 'react-hook-form';
 import useAuthProvider from '../../../../Hooks/useAuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { getAllDistricts, getProvinceOfSelectedCity, validateEmail, validateMobileNumber } from '../../../../assets/scripts/Utility';
+import { getAllDistricts, getProvinceOfSelectedCity, imageUpload, SwalErrorShow, validateEmail, validateMobileNumber } from '../../../../assets/scripts/Utility';
 import Swal from 'sweetalert2';
 import { Modal, ModalContent, ModalHeader } from "@nextui-org/react";
 import AddressForm from './AddressForm';
-
+import { Button } from "@nextui-org/react";
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
+import { toast } from 'react-hot-toast';
 
 const EditProfile = () => {
-    const { profile, profileLoading, profileError,profileRefetch } = useProfile();
+    const { profile, profileLoading, profileError, profileRefetch } = useProfile();
     const [isOpen, setOpen] = useState(false);
 
     const setisOpen = (value) => {
-      
+
         setOpen(value)
     }
 
@@ -60,55 +62,45 @@ const EditProfile = () => {
         setImageUpload(profile?.imgURL)
     }, [profile])
 
-   
+
 
 
     const navigate = useNavigate();
+
+    const axiosSecure = useAxiosSecure();
+    const uploadtoDB = (data) => {
+
+        axiosSecure.patch(`/edit-my-profile/${profile?.email}`, data)
+            .then(data => {
+
+                profileRefetch();
+                toast.success('Profile Updated')
+                navigate(`/profile`, { replace: true });
+            })
+            .catch(err => SwalErrorShow(err))
+            .finally(() => setloadingOnSave(false))
+    }
+
     const onSubmit = async (data) => {
-        // console.log(data);
+
+        console.log(data);
         setloadingOnSave(true);
-        // upload image -- form data
-        const formData = new FormData();
-        formData.append('_id', user._id);
-        formData.append('name', data.name);
-        formData.append('phone', data.phone);
-        formData.append('email', data.email);
-        formData.append('gender', data.gender);
-        if (data.img) {
-            formData.append('imgURL', data.img);
+        if (data?.img) {
+
+            imageUpload(data?.img)
+                .then(res => {
+                    data.img = res?.data?.display_url;
+                    uploadtoDB(data)
+                })
+                .catch(err => SwalErrorShow(err))
+                .finally(() => setloadingOnSave(false))
+        } else {
+            uploadtoDB(data)
         }
 
-
-
-        const updateprofileInfo = {
-            _id: user._id,
-            name: data.name,
-            phone: data.phone,
-            email: data.email,
-            gender: data.gender,
-            imgURL: data.img ? data.img : ""
-        }
-
-        //   axios.post(`${import.meta.env.VITE_SERVER_ADDRESS}/user/update-profile/${user._id}`, formData, {
-        //     withCredentiimport { useNavigate } from 'react-router-dom';
-        // als: true,import { useNavigate } from 'react-router-dom';
-
-
-        //   })
-        //     .then(data => {
-        //       setUser(data.data)
-        //       setloadingOnSave(false);
-        //       toast.success('successfully added');
-        //       navigate('/profile')
-        // profileRefetch()
-
-        //     }).catch(e => {
-        //       setloadingOnSave(false);
-        //       // console.log(e);
-        //       toast.error(e?.response?.data?.message)
-        //     })
 
     };
+
 
 
 
@@ -178,7 +170,7 @@ const EditProfile = () => {
             // Handle case where geolocation is not supported
         }
     }, [districts, profile]);
-    
+
 
     useEffect(() => {
 
@@ -186,31 +178,31 @@ const EditProfile = () => {
         if (!profile?.address) {
             setisOpen(true)
         }
-   
+
 
         //if curent browser adress and profile address not same ask them
-        if( profile?.address?.city &&  nearestDistrict?.name && nearestDistrict?.name !== profile?.address?.city){
- 
+        if (profile?.address?.city && nearestDistrict?.name && nearestDistrict?.name !== profile?.address?.city) {
+
             Swal.fire({
                 // title: "Chnage Address?",
                 text: `Current location is ${nearestDistrict?.name}. Want to update?`,
-               
+
                 showCancelButton: true,
                 confirmButtonColor: "success",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes"
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  setisOpen(true)
+                    setisOpen(true)
                 }
-              });
-         }
+            });
+        }
 
-    },[profile,nearestDistrict]) //giving setis open in dependency causes lots of re render // so dont add that
+    }, [profile, nearestDistrict]) //giving setis open in dependency causes lots of re render // so dont add that
 
 
 
-    
+
     if (profileLoading) {
         return <LoadingPage />
     }
@@ -218,14 +210,14 @@ const EditProfile = () => {
         return <ErrorPage />
     }
 
-   
+
 
     return (
         <>
             <SetTitle title="Edit-Profile" />
             <div className='w-full lg:w-[900px] mx-auto border p-2 mt-5 md:px-10 rounded shadow'>
                 <SectionTitle h1="Edit Profile" />
-              
+
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                     <div className="relative cursor-pointer w-20 mx-auto h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-500 mt-8 mb-4 md:mx-0">
@@ -398,11 +390,13 @@ const EditProfile = () => {
 
 
 
-                    <div className='my-6 text-center md:text-start'>
+                    <div className='my-6 w-full flex justify-center'>
 
 
+                        <Button color="success" type='submit' isLoading={loadingOnSave} className='text-white px-6 text-lg'>
+                            Update My Profile
+                        </Button>
 
-                        <input type='submit' value=' Save your Profile' disabled={loadingOnSave} className={`'btn border-0  bg-green-400 hover:bg-green-500 disabled:bg-gray-500 pt-4 pr-8 pb-4 pl-8  text-white rounded-xl  ${loadingOnSave ? 'cursor-not-allowed' : 'cursor-pointer'}`} />
 
 
 
@@ -428,16 +422,16 @@ const EditProfile = () => {
                         {/* add address  */}
                         <div className='p-2'>
                             {/* modal trigger  */}
-                            <button onClick={()=>setisOpen(true)} htmlFor='address-update-modal' className=' flex rounded-md border border-gray-300 items-center p-1.5 justify-center cursor-pointer w-full '>
+                            <button onClick={() => setisOpen(true)} htmlFor='address-update-modal' className=' flex rounded-md border border-gray-300 items-center p-1.5 justify-center cursor-pointer w-full '>
                                 <AiOutlinePlus className='text-2xl mr-3' />
-                                <p>{profile?.address && Object.keys(profile?.address)>0 ? "Change" : "Add"} Address</p>
+                                <p>{profile?.address && Object.keys(profile?.address) > 0 ? "Change" : "Add"} Address</p>
                             </button>
                             <Modal isOpen={isOpen} >
                                 <ModalContent >
                                     {(onClose) => (
                                         <>
                                             <ModalHeader className="flex flex-col gap-1 text-center">Address Form</ModalHeader>
-                                            <AddressForm nearestDistrict={nearestDistrict} onClose={setisOpen}  />
+                                            <AddressForm nearestDistrict={nearestDistrict} onClose={setisOpen} />
                                         </>
                                     )}
                                 </ModalContent>
@@ -454,7 +448,7 @@ const EditProfile = () => {
                         {/* existed address show bar  */}
                         {
                             profile?.address && <>
-                                <div className='flex rounded-md justify-between items-center m-2 p-2 text-gray-600 border '>
+                                <div className='flex rounded-md justify-between items-center m-2 p-2 text-gray-600  bg-light-100'>
                                     <div className='flex  justify-between items-center gap-2'>
                                         <MdNearMe className='text-2xl pt-1' />
                                         <div className="flex flex-col items-start">

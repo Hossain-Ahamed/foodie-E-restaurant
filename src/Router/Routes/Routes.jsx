@@ -16,6 +16,7 @@ import Home from "../../pages/Others/Home/Home";
 import NearbyRestaurant from "../../pages/Offsite/NearbyRestaurant/NearbyRestaurant";
 import PrivateRoute from './../PrivateRoute/PrivateRoute';
 import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
+import MyProfile from "../../pages/Shared/Profile/MyProfile/MyProfile";
 
 export const router = createBrowserRouter([
     {
@@ -41,7 +42,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/nearby-restaurant',
-                element: <PrivateRoute><NearbyRestaurant/></PrivateRoute>
+                element: <PrivateRoute><NearbyRestaurant /></PrivateRoute>
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID',
@@ -49,11 +50,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/profile',
-                element:<>profile</>
+                element: <MyProfile />
             },
             {
                 path: '/edit-profile',
-                element: <PrivateRoute><EditProfile/></PrivateRoute>
+                element: <PrivateRoute><EditProfile /></PrivateRoute>
             },
 
 
@@ -84,6 +85,6 @@ export const router = createBrowserRouter([
         path: '/home',
         element: <NonLogInHomePage />
     },
-   
+
 
 ])
