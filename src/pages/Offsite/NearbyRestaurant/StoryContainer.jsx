@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import ViewStoryModal from '../../../components/Modal/ViewStoryModal/ViewStoryModal';
 
 const StoryContainer = ({ story }) => {
     console.log(story.img);
@@ -49,7 +50,7 @@ const StoryContainer = ({ story }) => {
                     story && Array.isArray(story) && story.length > 0 &&
                     story.map((data, _idx) => (
                         <div key={_idx}>
-                            <SwiperSlide><img className='w-full h-64' src={data.img} alt="" /></SwiperSlide>
+                            <SwiperSlide><ViewStoryModal image = {data.img}/></SwiperSlide>
                         </div>
                     ))
                 }
