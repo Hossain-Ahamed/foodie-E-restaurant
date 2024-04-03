@@ -10,6 +10,13 @@ import restaurentBackground from '../../../assets/images/Background/restaurant.j
 import { Link } from 'react-router-dom';
 import { DistrictImage } from '../../../assets/scripts/Utility';
 import StoryContainer from './StoryContainer';
+import { Swiper, SwiperSlide, } from "swiper/react";
+import styles from './arrow.module.css';
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 const NearbyRestaurant = () => {
     const { profile } = useProfile();
     const axiosSecure = useAxiosSecure();
@@ -27,22 +34,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -52,22 +59,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -77,22 +84,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -102,22 +109,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -127,22 +134,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -152,22 +159,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -177,22 +184,22 @@ const NearbyRestaurant = () => {
                         res_id: 'djldjk',
                         branchID: '480840980',
                         branchName: 'narayanganj',
-                        img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                        img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                         story: [
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                             {
-                                img: "https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100",
+                                img: "https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8",
                             },
                         ]
 
@@ -225,11 +232,33 @@ const NearbyRestaurant = () => {
     return (
         <>
             <SetTitle title={"Nearby Restaurant"} />
+            <div className=''>
+                <StoryContainer story={data?.stories} />
+                {/* <Swiper
+                    // install Swiper modules
+                    modules={[Navigation, Pagination]}
+                    slidesPerView={5}
+                    spaceBetween={50}
+                    navigation
+                    pagination={{ clickable: true }}
+                    scrollbar={{ draggable: true }}
+                    onSwiper={(swiper) => console.log(swiper)}
+                    onSlideChange={() => console.log('slide change')}
+                >
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                    <SwiperSlide><img className='object-cover h-64 w-full group-hover:scale-110 transition' src="https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8" alt="" /></SwiperSlide>
+                </Swiper> */}
+            </div>
             <div className='my-10'>
-              
-                    <StoryContainer story={data?.stories} />
-             
-                <div className='grid grid-cols-2 md:grid-cols-3 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto my-10 lg:my-20 gap-3 md:gap-5'>
+
+                <div className='grid grid-cols-2 md:grid-cols-3 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto gap-3 md:gap-5'>
                     {data?.restaurants && Array.isArray(data?.restaurants) && data?.restaurants?.map(restaurant => (
                         <div key={restaurant?.branchID}>
 
