@@ -218,7 +218,7 @@ const NearbyRestaurant = () => {
         backgroundPosition: 'center',
     };
 
-    if (!profile?.address) {
+    if (!profile?.address?.city) {
         return <Navigate to='/edit-profile' replace />
     }
 
@@ -237,6 +237,7 @@ const NearbyRestaurant = () => {
                 {/* <Swiper
                     // install Swiper modules
                     modules={[Navigation, Pagination]}
+
                     slidesPerView={5}
                     spaceBetween={50}
                     navigation

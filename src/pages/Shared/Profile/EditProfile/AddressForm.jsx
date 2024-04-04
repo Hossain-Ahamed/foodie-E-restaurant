@@ -41,7 +41,7 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
         setLoading(true);
         axiosSecure.post(`/user-profile-update-address/${profile?.email}`, data)
             .then((res) => {
-                navigate(`/profile`, { replace: true })
+                // navigate(`/profile`, { replace: true })
                 toast.success("Successfully Updated")
                 onClose(false);
                 profileRefetch()
@@ -234,7 +234,7 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
                         {loading ? "Updating Address" : "Update Address"}
                     </Button>
                     {
-                        profile?.address &&
+                        profile?.address?.city &&
                         <Button color="danger" variant='solid' onPress={()=>onClose(false)} >
                             Cancel
                         </Button>

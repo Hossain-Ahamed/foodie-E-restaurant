@@ -23,7 +23,7 @@ const Login = () => {
     //pass the previous location
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
-    // console.log(from)    
+    console.log(from)
 
     // ------------------------------------------------------------------------
     const {
@@ -56,14 +56,20 @@ const Login = () => {
 
         provideSignInWithEmailAndPassword(email, password)
             .then(result => {
-
+               
+                navigate(from, { replace: true });
                 // axiosSecure.post(`/sign-in`, { email, password })
                 //     .then(res => {
                 //         navigate(from, { replace: true });
                 //     }).catch((e) => SwalErrorShow(e))
-                navigate(from, { replace: true });
+                // // navigate(from, { replace: true }); 
 
-            }).catch(e => { setLoading(false) })
+            }).catch(e => {
+                setLoading(false)
+                console.log(e);
+                SwalErrorShow(e);
+            })
+
     }
 
 
@@ -164,12 +170,12 @@ const Login = () => {
                                 {errors.password?.type === "required" && (<p className='m-0 p-0 pl-1  pt-1 text-red-500 text-xs' role="alert">*Enter password</p>)}
                             </div>
                         </div>
-                        <button className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={(e)=>{
+                        <p className='flex justify-between text-xs cursor-pointer hover:text-danger border-0 ring-0' onClick={(e) => {
                             e.preventDefault();
                             onOpen();
                         }}>
                             Forget Password?
-                        </button>
+                        </p>
 
                         <button
                             type="submit"

@@ -175,7 +175,7 @@ const EditProfile = () => {
     useEffect(() => {
 
         //if there is no address , then ask for address
-        if (!profile?.address) {
+        if (!profile?.address?.city) {
             setisOpen(true)
         }
 
