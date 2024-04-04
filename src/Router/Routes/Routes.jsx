@@ -18,6 +18,7 @@ import PrivateRoute from './../PrivateRoute/PrivateRoute';
 import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
 import MyProfile from "../../pages/Shared/Profile/MyProfile/MyProfile";
 import OnsiteRestaurantHomePage from "../../pages/Onsite/OnsiteRestaurantHomePage/OnsiteRestaurantHomePage";
+import QRScanner from "../../pages/Others/QrScanner/QrScanner";
 
 export const router = createBrowserRouter([
     {
@@ -85,11 +86,15 @@ export const router = createBrowserRouter([
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/completed-orders',
+                path: 'restaurant/:res_id/branch/:branchID/recen-orders',
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/completed-orders/:orderID',
+                path: 'restaurant/:res_id/branch/:branchID/recent-orders/:orderID',
+                element: <></>
+            },
+            {
+                path: 'restaurant/:res_id/branch/:branchID/cart',
                 element: <></>
             },
 
@@ -105,6 +110,10 @@ export const router = createBrowserRouter([
     {
         path: '/home',
         element: <NonLogInHomePage />
+    },
+    {
+        path: '/qr-scan',
+        element: <QRScanner />
     },
 
 

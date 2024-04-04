@@ -10,7 +10,7 @@ import Restaurant_Detail from '../../../components/RestaurantDetail/Restaurant_D
 import DishContainer from '../../../components/DishContainer/DishContainer';
 import LoadingPage from '../../Shared/LoadingPages/LoadingPage/LoadingPage';
 import ErrorPage from '../../Shared/ErrorPage/ErrorPage';
-
+import {Button} from "@nextui-org/react";
 const OnsiteRestaurantHomePage = () => {
     const { res_id, branchID } = useParams();
 
@@ -37,14 +37,15 @@ const OnsiteRestaurantHomePage = () => {
     return (
         <>
             <SetTitle title={data?.restaurant_name || ""} />
-            <div className='flex justify-between'>
+            <div className='flex justify-between pr-3'>
 
-                <BreadCrumb data={[data?.restaurant_name, data?.branch_name]} className="text-yellow-600 p-2" />
-                <div className='pr-3 flex justify-end items-center gap-2'>
-                   <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`} className='text-blue-300'>Ongoing Orders</Link>
-                   <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`} className='text-blue-300'>Ongoing Orders</Link>
-                   <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/Completed-orders`}>Completed Orders</Link>
-                  
+                <BreadCrumb data={[data?.restaurant_name, data?.branch_name]} className="text-yellow-600 px-2" />
+                <div className='pr-3 flex justify-end flex-wrap items-center gap-x-4 font-semibold text-blue-500'>
+                 
+                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/cart`} className='hover:cursor-pointer hover:underline'>Cart</Link>
+                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`} className='hover:cursor-pointer hover:underline'>Ongoing Orders</Link>
+                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/recent-orders`} className='hover:cursor-pointer hover:underline'>Order History</Link>
+
                 </div>
             </div>
 

@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Button } from '@nextui-org/react';
+import { useParams } from 'react-router-dom';
+import useProfile from './../../Hooks/useProfile';
+import useAuthProvider from '../../Hooks/useAuthProvider';
+import useCart from '../../Hooks/useCart';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { toast } from 'react-hot-toast';
+import { SwalErrorShow } from '../../assets/scripts/Utility';
 
 const DishForm = ({ dish, onOpenChange }) => {
+
+    const { branchID, res_id } = useParams();
+    const { CartData, CartFetchLoading, CartFetchError, CartRefetch } = useCart();
+    const { user } = useAuthProvider();
+    const axiosSecure = useAxiosSecure();
+    const [uploading, setUploading] = useState(false)
+
 
     const [quantity, setQuantity] = useState(1);
 
@@ -51,7 +65,43 @@ const DishForm = ({ dish, onOpenChange }) => {
     const decreaseQuantity = () => { if (quantity > 1) setQuantity(quantity - 1) }
 
 
+
+
+    // check previous anycart exist or not 
+    const PreviousAnyCart_Exist = () => {
+        if (CartData && Array.isArray(CartData) && !CartFetchLoading) {
+            const isFound = CartData.find(i => i.branchID !== branchID);
+            console.log(isFound)
+            return (!!isFound);
+        }
+    }
+
+
     const onSubmit = (formData) => {
+
+        setUploading(true)
+        // if (!PreviousAnyCart_Exist) { // true means he has previous something in cart
+        //     Swal.fire({
+        //         title: "Clear previous cart data?",
+        //         text: "You already have items from another restaurant",
+        //         showCancelButton: true,
+        //         confirmButtonColor: "#3085d6",
+        //         cancelButtonColor: "#d33",
+        //         confirmButtonText: "Yes, delete it!"
+        //     }).then((result) => {
+        //         if (result.isConfirmed) {
+        //             Swal.fire({
+        //                 title: "Deleted!",
+        //                 text: "Your file has been deleted.",
+        //                 icon: "success"
+        //             })
+        //         } else {
+
+        //             onOpenChange();
+        //             return;
+        //         }
+        //     });
+        // }
 
         // console.log(formData?.quantity)
         if (dish?.options && Array.isArray(dish.options) && dish.options.length > 0 && !selectedOptions) {
@@ -63,30 +113,59 @@ const DishForm = ({ dish, onOpenChange }) => {
         // console.log('Selected Options:', selectedOptions);
         // console.log('Selected Addons:', selectedAddons);
 
+
         const optionsPrice = dish.options.find(option => option.name === selectedOptions)?.price || 0;
-        const totalPrice = dish.offerPrice + optionsPrice + extraPrice + parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1));
+        const totalPrice = (dish.offerPrice + extraPrice + parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1)));
         // console.log('Total Price:', totalPrice);
 
         const data = {
             dish_id: dish?._id,
+            img: dish?.img,
+            name: dish?.title,
+
             quantity: formData?.quantity,
             options: selectedOptions,
             addOn: selectedAddons.map(i => i?.name),
+            basePrice: dish?.offerPrice,
+            extra: extraPrice,
+            VAT: parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1)),
+            totalPrice,
+            key: Date.now().toString()
         }
-        console.log(data)
-        // onOpenChange()
+
+
+        data.res_id = res_id;
+        data.branchID = branchID;
+        data.email = user?.email;
+
+        console.log(data);
+
+        axiosSecure.post('/add-to-cart-onsite', data)
+            .then((res => {
+                toast.success('Added to Cart');
+                onOpenChange();
+                CartRefetch();
+            }))
+            .catch((e) => {
+                SwalErrorShow(e);
+            })
+            .finally(() => setUploading(false))
+
     };
+
+
+
 
     return (
 
-        <div className=" mx-auto " >
-       
-            <form onSubmit={handleSubmit(onSubmit)} className='h-fit'>
+        <div className="container mx-auto " >
+
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <img src={dish?.img} className="w-full h-auto" alt="" />
                 <div className="px-1">
                     <h1 className="text-xl font-bold">{dish?.title}</h1>
                     <span dangerouslySetInnerHTML={{ __html: dish?.description }} className="text-gray-500"></span>
-                    <p className="py-3 font-semibold text-lg">TK {dish.offerPrice + extraPrice}  <span className='text-xs text-gray-400 font-normal'>± {Math.ceil((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100))} VAT</span></p>
+                    <p className="py-3 font-semibold text-lg">TK {dish.offerPrice + extraPrice}  <span className='text-xs text-gray-400 font-normal'>± {((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1)} VAT</span></p>
 
 
                     {dish?.options && Array.isArray(dish.options) && dish.options.length > 0 &&
@@ -111,7 +190,7 @@ const DishForm = ({ dish, onOpenChange }) => {
                                         />
                                         <label
                                             htmlFor={option._id}
-                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {option.name}
@@ -146,7 +225,7 @@ const DishForm = ({ dish, onOpenChange }) => {
                                         />
                                         <label
                                             htmlFor={addon._id}
-                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {addon.name}
@@ -185,17 +264,17 @@ const DishForm = ({ dish, onOpenChange }) => {
                         {
                             dish?.options && Array.isArray(dish.options) && dish.options.length > 0 ?
                                 !selectedOptions ?
-                                    <Button color="default" className='w-full' type='submit'>
+                                    <Button color="default" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
                                         Add to Cart
                                     </Button>
                                     :
-                                    <Button color="success" className='w-full' type='submit'>
+                                    <Button color="success" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
                                         Add to Cart
                                     </Button>
 
                                 :
-                                // for those which doesnt have option direct get
-                                <Button color="success" className='w-full' type='submit'>
+                                // for those which doesnt have option direct get the add to cart button
+                                <Button color="success" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
                                     Add to Cart
                                 </Button>
                         }

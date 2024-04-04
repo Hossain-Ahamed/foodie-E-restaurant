@@ -15,7 +15,8 @@ const Home = () => {
         return <Navigate to="/home" />;
     }
 
-    if (profile && Object.keys(profile).length > 0 && profile.address) {
+    if (profile && Object.keys(profile).length > 0 && profile?.address?.city) {
+        console.log('a')
         return <Navigate to="/nearby-restaurant" />;
     }
 

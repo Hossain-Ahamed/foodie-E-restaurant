@@ -4,149 +4,118 @@ import { Navbar, NavbarBrand, NavbarMenuToggle, NavbarMenuItem, NavbarMenu, Navb
 import useAuthProvider from '../../Hooks/useAuthProvider';
 import logo from "../../assets/images/brand-icon.png";
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, User } from "@nextui-org/react";
+import useProfile from '../../Hooks/useProfile';
 
 
 const OnsiteLayout = () => {
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const { user ,provideSignOut} = useAuthProvider();
-    const menuItems = [
-        "Profile",
-        "Dashboard",
-        "Activity",
-        "Analytics",
-        "System",
-        "Deployments",
-        "My Settings",
-        "Team Settings",
-        "Help & Feedback",
-        "Log Out",
-    ];
+    const { user, provideSignOut } = useAuthProvider();
+
+    const {profile} = useProfile()
+
     return (
         <>
-        <Navbar
-            className='shadow  max-w-screen-[1800px] mx-auto'
+            <Navbar
+                className='shadow  max-w-screen-[1800px] mx-auto'
 
-            isMenuOpen={isMenuOpen}
-            onMenuOpenChange={setIsMenuOpen}
-        >
-            <NavbarContent className="sm:hidden" justify="start">
-                <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
-            </NavbarContent>
+                isMenuOpen={isMenuOpen}
+                onMenuOpenChange={setIsMenuOpen}
+            >
+                <NavbarContent className="sm:hidden" justify="start">
+                    <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} />
+                </NavbarContent>
 
-            <NavbarContent className="sm:hidden pr-3" justify="center">
-                <NavbarBrand>
-                    <div className="flex items-center gap-2">
-                        <img className="w-[50px] h-[50px]" src={logo} alt="" />
-                        <p className="text-xl font-bold text-[#F69449]">Foodie</p>
-                    </div>
-                </NavbarBrand>
-            </NavbarContent>
-            <NavbarContent className="sm:hidden pr-3" justify="end">
-                <NavbarBrand>
-                    <div className="flex items-center gap-2">
-                        <img className="w-[50px] h-[50px]" src={logo} alt="" />
-
-                    </div>
-                </NavbarBrand>
-            </NavbarContent>
-
-            <NavbarContent className="hidden sm:flex gap-4" justify="center">
-                <NavbarBrand>
-                    <div className="flex items-center gap-2">
-                        <img className="w-[50px] h-[50px]" src={logo} alt="" />
-                        <p className="text-xl font-bold text-[#F69449]">Foodie</p>
-                    </div>
-                </NavbarBrand>
-            </NavbarContent>
+                <NavbarContent className="sm:hidden pr-3" justify="center">
+                    <NavbarBrand>
+                        <div className="flex items-center gap-2">
+                            <img className="w-[50px] h-[50px]" src={logo} alt="" />
+                            <p className="text-xl font-bold text-[#F69449]">Foodie</p>
+                        </div>
+                    </NavbarBrand>
+                </NavbarContent>
 
 
-            <NavbarContent justify="end">
+                <NavbarContent className="hidden sm:flex gap-4" justify="center">
+                    <NavbarBrand>
+                        <div className="flex items-center gap-2">
+                            <img className="w-[50px] h-[50px]" src={logo} alt="" />
+                            <p className="text-xl font-bold text-[#F69449]">Foodie</p>
+                        </div>
+                    </NavbarBrand>
+                </NavbarContent>
 
-                {
-                    user ?
-                        <NavbarItem className="hidden sm:flex">
-                            <Dropdown placement="bottom-start">
-                                <DropdownTrigger>
+
+                <NavbarContent justify="end">
+
+                    {
+                        user ?
+                            <NavbarItem className="hidden sm:flex">
+                                <Dropdown placement="bottom-start">
+                                    <DropdownTrigger>
                                     <User
-                                        as="button"
-                                        avatarProps={{
-                                            isBordered: true,
-                                            src: "https://i.pravatar.cc/150?u=a042581f4e29026024d",
-                                        }}
-                                        className="transition-transform"
-                                        description="@tonyreichert"
-                                        name="Tony Reichert"
-                                    />
-                                </DropdownTrigger>
-                                <DropdownMenu aria-label="User Actions" variant="flat">
-                                    <DropdownItem key="settings">
-                                      <Link to='/profile'>My profile</Link>
-                                    </DropdownItem>
-                                    <DropdownItem key="settings">
-                                      <Link to='/ongoing-orders'>My profile</Link>
-                                    </DropdownItem>
-                                    <DropdownItem key="settings">
-                                      <Link to='/profile'>My profile</Link>
-                                    </DropdownItem>
-                                    <DropdownItem key="settings">
-                                      <Link to='/profile'>My profile</Link>
-                                    </DropdownItem>
-                                    <DropdownItem key="settings">
-                                      <Link to='/profile'>My profile</Link>
-                                    </DropdownItem>
-                                   
-                                    <DropdownItem key="logout" color="danger" onPress={provideSignOut}>
-                                        Log Out
-                                    </DropdownItem>
-                                </DropdownMenu>
-                            </Dropdown>
-                        </NavbarItem>
-                        :
-                        <NavbarItem>
-
-                            <Button
-                                href="/login"
-                                as={NextUILink}
-                                color="success"
-
-                                variant="solid"
-                                className='text-white'
-                            >
-                                LogIn
-                            </Button>
+                                            as="button"
+                                            avatarProps={{
+                                                isBordered: true,
+                                                src: profile?.imgURL || ""
+                                            }}
+                                            className="transition-transform"
+                                            description={profile?.email && `@${profile?.email.split('@')[0]}` || ""}
+                                            name={profile?.name || ""}
+                                        />
+                                    </DropdownTrigger>
+                                    <DropdownMenu aria-label="User Actions" variant="flat">
+                                        <DropdownItem key="settings">
+                                            <Link to='/onsite/profile'>My profile</Link>
+                                        </DropdownItem>
 
 
-                        </NavbarItem>
-                }
+
+                                        <DropdownItem key="logout" color="danger" onPress={provideSignOut}>
+                                            Log Out
+                                        </DropdownItem>
+                                    </DropdownMenu>
+                                </Dropdown>
+                            </NavbarItem>
+                            :
+                            <NavbarItem>
+
+                                <Button
+                                    href="/login"
+                                    as={NextUILink}
+                                    color="success"
+
+                                    variant="solid"
+                                    className='text-white'
+                                >
+                                    LogIn
+                                </Button>
 
 
-            </NavbarContent>
+                            </NavbarItem>
+                    }
 
-            <NavbarMenu>
-                {menuItems.map((item, index) => (
-                    <NavbarMenuItem key={`${item}-${index}`}>
-                        <Link
-                            className="w-full"
-                            color={
-                                index === 2 ? "warning" : index === menuItems.length - 1 ? "danger" : "foreground"
-                            }
-                            href="#"
-                            size="lg"
-                        >
-                            {item}
-                        </Link>
+
+                </NavbarContent>
+
+                <NavbarMenu>
+
+                    <NavbarMenuItem key="prfoileMenu">
+                        <Link to='/onsite/profile'>My profile</Link>
                     </NavbarMenuItem>
-                ))}
-            </NavbarMenu>
-        </Navbar>
+                    <NavbarMenuItem key="LogoutMenu" >
+                        <p className='text-red-400' onClick={provideSignOut}> Log Out</p>
+                    </NavbarMenuItem>
+
+                </NavbarMenu>
+            </Navbar>
 
 
-        {/* page content  */}
-        <main className='max-w-screen-[1800px] mx-auto'>
+            {/* page content  */}
+            <main className='max-w-screen-[1800px] mx-auto'>
 
-            <Outlet />
-        </main>
-    </>
+                <Outlet />
+            </main>
+        </>
     );
 };
 

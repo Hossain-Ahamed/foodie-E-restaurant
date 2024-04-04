@@ -11,7 +11,7 @@ import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import ViewStoryModal from '../../../components/Modal/ViewStoryModal/ViewStoryModal';
 
 const StoryContainer = ({ story }) => {
-    console.log(story.img);
+    // console.log(story.img);
     return (
         <div className='w-full mx-auto h-36 flex gap-2 justify-center' >
             {/* {

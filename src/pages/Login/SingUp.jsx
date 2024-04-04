@@ -40,15 +40,15 @@ const SignUp = () => {
 
 
     // ------------------------------ SIGN IN -------------------------------------
-    const { provideCreateUserWithEmailAndPassword } = useAuthProvider();
+    const { provideCreateUserWithEmailAndPassword,setLoading} = useAuthProvider();
 
     const onSubmit = data => {
         setphoneNumError(false);
 
-        const displayName = data.displayName;
+        // const displayName = data.displayName;
         const email = data.email;
         const password = data?.password;
-        if (!email || !password || !phone ) {
+        if (!email || !password  ) {
             Swal.fire({
                 icon: 'error',
                 title: 'Unauthorized',
@@ -58,40 +58,45 @@ const SignUp = () => {
             return;
         }
 
-        const bdNumberRegex = /^8801[3-9]\d{8}$/;
+        // const bdNumberRegex = /^8801[3-9]\d{8}$/;
 
 
-        if (bdNumberRegex.test(phone)) {
-            setphoneNumError(false)
-        } else {
-            setphoneNumError(true)
+        // if (bdNumberRegex.test(phone)) {
+        //     setphoneNumError(false)
+        // } else {
+        //     setphoneNumError(true)
 
-        }
-
-
+        // }
 
 
+
+      
        
         provideCreateUserWithEmailAndPassword(email, password)
             .then(result => {
+                navigate(from, { replace: true });
+            //     const userData = {
+            //         name: displayName,
+            //         password : password,
+            //         phone: phone, 
 
-                const userData = {
-                    name: displayName,
-                    password : password,
-                    phone: phone, 
-
-                    email: result?.user.email,
-                    // photoURL: result?.user?.photoURL,
-                    firebase_UID: result?.user?.uid,
+            //         email: result?.user.email,
+            //         // photoURL: result?.user?.photoURL,
+            //         firebase_UID: result?.user?.uid,
 
 
-                }
+            //     }
             //    axiosSecure.post(`/create-new-user-by-sign-up`,userData)
             //    .then(res=>{
             //        navigate(from, { replace: true });
             //    }).catch((e)=>SwalErrorShow(e))
-            navigate(from, { replace: true });
-            }).catch(e => console.log(e))
+       
+            }).catch(e => {
+                console.log(e);
+                SwalErrorShow(e);
+                setLoading(false)
+            })
+        
     }
     const customInputStyle = {
         width: '100%', // Set width to 100%
@@ -125,7 +130,7 @@ const SignUp = () => {
 
 
                     
-                        <PhoneInput
+                        {/* <PhoneInput
                             inputStyle={customInputStyle}
                             enableSearch={true}
                             country={'bd'}
@@ -144,7 +149,7 @@ const SignUp = () => {
                             }}
 
                         />
-                        {/* name  */}
+                      
                         <div>
                             <label htmlFor="email" className="sr-only">Your Name</label>
 
@@ -161,7 +166,7 @@ const SignUp = () => {
                                 
                                 {errors.displayName?.type === "required" && (<p className='m-0 p-0 pl-1  text-base text-red-500 text-[9px]' role="alert">{errors.displayName.message}</p>)}
                             </div>
-                        </div>
+                        </div> */}
                         {/* email  */}
                         <div>
                             <label htmlFor="email" className="sr-only">Email</label>

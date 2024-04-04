@@ -5,11 +5,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { app } from '../../Firebase/firebase.config';
 import LoadingPage from '../../pages/Shared/LoadingPages/LoadingPage/LoadingPage';
+import useAxiosSecure from '../../Hooks/useAxiosSecure';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
+   
 
 
     /**
@@ -61,6 +63,8 @@ const AuthProvider = ({ children }) => {
 
     // logout 
     const provideSignOut = () => {
+
+        axios.delete('/sign-out-user')
         setUser(null)
         return signOut(auth);
     }
@@ -88,7 +92,7 @@ const AuthProvider = ({ children }) => {
                 const userData = {
                     name: currentUser?.displayName,
                     email: currentUser.email,
-                    photoURL: currentUser?.photoURL,
+                    imgURL: currentUser?.photoURL,
                     phone: currentUser?.phoneNumber,
                     firebase_UID: currentUser?.uid,
                     
@@ -96,20 +100,20 @@ const AuthProvider = ({ children }) => {
                 }
                 setUser(userData);
                 
-                // const user
-                // axios.post(`${import.meta.env.VITE_serverAddress}/jwt`, userData, { withCredentials: true })
-                //     .then(data => {
-                //         console.log("Token :  ", data.data.token);
+              
+                axios.post(`${import.meta.env.VITE_serverAddress}/user-jwt`, userData, { withCredentials: true })
+                    .then(data => {
+                        console.log("Token :  ", data.data.token);
 
-                //         Cookies.set('access-token', data.data.token, { expires: 7 });
-                //         setLoading(false);
-                //     })
-                //     .catch(e => { console.error(e); setLoading(false) })
+                        Cookies.set('access-token', data.data.token, { expires: 7 });
+                        setLoading(false);
+                    })
+                    .catch(e => { console.error(e); setLoading(false) })
 
 
-                 setLoading(false) //todo delete this line
 
             } else {
+                Cookies.remove('_ut')
                 localStorage.removeItem('access-token');
                 Cookies.remove('access-token');
                 setLoading(false)
