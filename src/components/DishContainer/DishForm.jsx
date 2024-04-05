@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Button } from '@nextui-org/react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import useProfile from './../../Hooks/useProfile';
 import useAuthProvider from '../../Hooks/useAuthProvider';
 import useCart from '../../Hooks/useCart';
@@ -11,6 +11,10 @@ import { toast } from 'react-hot-toast';
 import { SwalErrorShow } from '../../assets/scripts/Utility';
 
 const DishForm = ({ dish, onOpenChange }) => {
+    const location = useLocation();
+
+    const { profile, profileLoading, profileError } = useProfile()
+
 
     const { branchID, res_id } = useParams();
     const { CartData, CartFetchLoading, CartFetchError, CartRefetch } = useCart();
@@ -69,54 +73,86 @@ const DishForm = ({ dish, onOpenChange }) => {
 
     // check previous anycart exist or not 
     const PreviousAnyCart_Exist = () => {
-        if (CartData && Array.isArray(CartData) && !CartFetchLoading) {
+        if (CartData && Array.isArray(CartData)) {
             const isFound = CartData.find(i => i.branchID !== branchID);
-            console.log(isFound)
+            // console.log(!!isFound)
             return (!!isFound);
         }
     }
+    const AddOffsiteCartUploadingFunctions = (data) => {
+        axiosSecure.post(`/add-to-cart-offsite/${profile?.email}`, data)
+            .then((res => {
+                toast.success('Added to Cart');
+                onOpenChange();
+                CartRefetch();
+            }))
+            .catch((e) => {
+                SwalErrorShow(e);
+            })
+            .finally(() => setUploading(false))
+    }
+
+    const AddOffsiteCart = data => {
+
+        setUploading(true); 
+        // console.log(data)
+
+        if (PreviousAnyCart_Exist()) { // true means he has previous something in cart
+            Swal.fire({
+                title: "Clear previous cart data?",
+                text: "You already have items from another restaurant",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axiosSecure.delete(`/delete-my-previous-carts/${profile?.email}`)
+                        .then(res => {
+                            console.log('deleted');
+                            AddOffsiteCartUploadingFunctions(data);
+
+                        })
+                        .catch(e => console.log('delete failed', e))
+                } else {
+                    onOpenChange();
+                    return;
+                }
+            });
+        }else{
+            AddOffsiteCartUploadingFunctions(data);
+        }
+
+    }
+
+
+    //for onsite cart
+    const AddOnsiteCart = (data) => {
+        setUploading(true); 
+        // console.log(data);
+        axiosSecure.post(`/add-to-cart-onsite/${profile?.email}`, data)
+            .then((res => {
+                toast.success('Added to Cart');
+                onOpenChange();
+                CartRefetch();
+            }))
+            .catch((e) => {
+                SwalErrorShow(e);
+            })
+            .finally(() => setUploading(false))
+    }
+
 
 
     const onSubmit = (formData) => {
 
-        setUploading(true)
-        // if (!PreviousAnyCart_Exist) { // true means he has previous something in cart
-        //     Swal.fire({
-        //         title: "Clear previous cart data?",
-        //         text: "You already have items from another restaurant",
-        //         showCancelButton: true,
-        //         confirmButtonColor: "#3085d6",
-        //         cancelButtonColor: "#d33",
-        //         confirmButtonText: "Yes, delete it!"
-        //     }).then((result) => {
-        //         if (result.isConfirmed) {
-        //             Swal.fire({
-        //                 title: "Deleted!",
-        //                 text: "Your file has been deleted.",
-        //                 icon: "success"
-        //             })
-        //         } else {
-
-        //             onOpenChange();
-        //             return;
-        //         }
-        //     });
-        // }
-
-        // console.log(formData?.quantity)
         if (dish?.options && Array.isArray(dish.options) && dish.options.length > 0 && !selectedOptions) {
             setErrorNotify(true);
             return;
-
         }
 
-        // console.log('Selected Options:', selectedOptions);
-        // console.log('Selected Addons:', selectedAddons);
-
-
-        const optionsPrice = dish.options.find(option => option.name === selectedOptions)?.price || 0;
+        // const optionsPrice = dish.options.find(option => option.name === selectedOptions)?.price || 0;
         const totalPrice = (dish.offerPrice + extraPrice + parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1)));
-        // console.log('Total Price:', totalPrice);
 
         const data = {
             dish_id: dish?._id,
@@ -138,18 +174,15 @@ const DishForm = ({ dish, onOpenChange }) => {
         data.branchID = branchID;
         data.email = user?.email;
 
-        console.log(data);
+        // console.log('Selected Options:', selectedOptions);
+        // console.log('Selected Addons:', selectedAddons);
 
-        axiosSecure.post('/add-to-cart-onsite', data)
-            .then((res => {
-                toast.success('Added to Cart');
-                onOpenChange();
-                CartRefetch();
-            }))
-            .catch((e) => {
-                SwalErrorShow(e);
-            })
-            .finally(() => setUploading(false))
+        if (location.pathname.includes('onsite-order')) {
+            AddOnsiteCart(data)
+        } else {
+            AddOffsiteCart(data);
+
+        }
 
     };
 
@@ -264,17 +297,17 @@ const DishForm = ({ dish, onOpenChange }) => {
                         {
                             dish?.options && Array.isArray(dish.options) && dish.options.length > 0 ?
                                 !selectedOptions ?
-                                    <Button color="default" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
+                                    <Button color="default" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError}   >
                                         Add to Cart
                                     </Button>
                                     :
-                                    <Button color="success" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
+                                    <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError} >
                                         Add to Cart
                                     </Button>
 
                                 :
                                 // for those which doesnt have option direct get the add to cart button
-                                <Button color="success" className='w-full' type='submit' isLoading={CartFetchLoading || uploading}>
+                                <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError} >
                                     Add to Cart
                                 </Button>
                         }
