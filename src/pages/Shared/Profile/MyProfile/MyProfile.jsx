@@ -77,7 +77,7 @@ const MyProfile = () => {
                             <p className='text-lg'>Phone:</p>
                         </div>
                         <div className='col-span-9 lg:col-span-10'>
-                            <p className='text-lg'><span className='text-gray-500'>{profile?.phone}</span></p>
+                            <p className='text-lg'><span className='text-gray-500'>{profile?.phone && "+"}{profile?.phone}</span></p>
                             <Link to='/update-profile' className='text-blue-500 font-medium hover:underline active:bg-transparent text-sm pl-3'>{!profile?.phone && "Add Phone Number"}</Link>
                         </div>
                     </div>
