@@ -18,7 +18,24 @@ import { Button } from "@nextui-org/react";
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { toast } from 'react-hot-toast';
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 const EditProfile = () => {
+
+    const [phone, setPhone] = useState('');
+    const [phoneNumError, setphoneNumError] = useState(false);
+
+    const customInputStyle = {
+        width: '100%', // Set width to 100%
+        borderRadius: '0.375rem', // Add border radius
+        border: '1px solid #E5E7EB', // Add border
+        fontSize: '0.875rem', // Set font size
+
+        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Add box shadow
+        
+    };
+
     const { profile, profileLoading, profileError, profileRefetch } = useProfile();
     const [isOpen, setOpen] = useState(false);
 
@@ -27,11 +44,11 @@ const EditProfile = () => {
         setOpen(value)
     }
 
-    // useEffect(() => {
-    //     if (!profile?.address) {
-    //         console.log(object)
-    //     }
-    // }, [profile])
+    useEffect(() => {
+        if (profile?.phone) {
+            setPhone(profile?.phone)
+        }
+    }, [profile])
 
 
 
@@ -83,8 +100,24 @@ const EditProfile = () => {
 
     const onSubmit = async (data) => {
 
-        console.log(data);
+        setphoneNumError(false);
         setloadingOnSave(true);
+        
+        const bdNumberRegex = /^8801[3-9]\d{8}$/;
+        
+        
+        if (bdNumberRegex.test(phone)) {
+            setphoneNumError(false)
+            data.phone = phone ;
+
+        } else {
+            setphoneNumError(true);
+            setloadingOnSave(false);
+            return;
+        }
+        console.log(data);
+
+     
         if (data?.img) {
 
             imageUpload(data?.img)
@@ -275,42 +308,27 @@ const EditProfile = () => {
                             </div>
 
 
-                            {
-                                profile ?
-                                    <>
-                                        <div>
+                            <PhoneInput
+                            inputStyle={customInputStyle}
+                            enableSearch={true}
+                            country={'bd'}
 
-                                            <input
-                                                type="tel"
-                                                name='phone'
-                                                placeholder="Type here"
-                                                className="block input-field w-full md:max-w-xs p-2 text-gray-900  rounded-lg border border-gray-300 text-base  read-only:bg-gray-100 read-only:border-0 read-only:cursor-not-allowed"
-                                                readOnly
-                                                defaultValue={profile?.phone}
-                                                {...register("phone")}
-                                            />
+                            autoFormat={false}
+                            countryCodeEditable={false}
+                            value={phone}
+                            onChange={value => { setPhone(value); setphoneNumError(false) }}
+                            isValid={() => {
 
-                                        </div>
-                                    </>
-                                    :
-                                    <>
-                                        <div>
-                                            <input
-                                                type="tel"
-                                                placeholder="Type here"
-                                                defaultValue={profile?.phone}
-                                                className="block input-field w-full md:max-w-xs p-2 text-gray-900  rounded-lg border border-gray-300 text-base  read-only:bg-gray-100 read-only:border-0 read-only:cursor-not-allowed"
-                                                {...register("phone", {
-                                                    required: "*Phone No required",
-                                                    validate: {
-                                                        notPhone: (value) => validateMobileNumber(value)
-                                                    },
-                                                })} />
-                                            {errors.phone && errors.phone.type === "notPhone" && <p className='p-1 text-xs text-red-600'>*Invalid</p>}
-                                            {errors.phone && <p className='p-1 text-xs text-red-600'>{errors.phone.message}</p>}
-                                        </div>
-                                    </>
-                            }
+                                if (phoneNumError) {
+                                    return 'Invalid';
+                                }
+                
+                                return true;
+                            }}
+
+                        />
+
+                         
 
 
 

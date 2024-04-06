@@ -1,25 +1,44 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../../Hooks/useAxiosSecure';
+import { useQuery } from 'react-query';
+import { ScaleLoader } from 'react-spinners';
+import ErrorPage from '../ErrorPage/ErrorPage';
+import { useLocation, useParams } from 'react-router-dom';
+import useCart from '../../../Hooks/useCart';
+import useAuthProvider from '../../../Hooks/useAuthProvider';
+import toast from 'react-hot-toast';
+import { SwalErrorShow } from '../../../assets/scripts/Utility';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Button } from '@nextui-org/react';
-import { useParams, useLocation } from 'react-router-dom';
-import useProfile from './../../Hooks/useProfile';
-import useAuthProvider from '../../Hooks/useAuthProvider';
-import useCart from '../../Hooks/useCart';
-import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { toast } from 'react-hot-toast';
-import { SwalErrorShow } from '../../assets/scripts/Utility';
 
-const DishForm = ({ dish, onOpenChange }) => {
+
+const CartItemEdit_Form = ({ cartInfo, profile, cartrefetch, onOpenChange }) => {
+
+    const [turnOn,setTurnOn] = useState(true);
+
+    /**
+     * -------------------------------------------------------------------------
+     *                    DATA From HOOKS
+     * ------------------------------------------------------------------------
+     */
+    const { user } = useAuthProvider();
+
+    const axiosSecure = useAxiosSecure();
     const location = useLocation();
-
-    const { profile, profileLoading, profileError } = useProfile()
-
 
     const { branchID, res_id } = useParams();
     const { CartData, CartFetchLoading, CartFetchError, CartRefetch } = useCart();
-    const { user } = useAuthProvider();
-    const axiosSecure = useAxiosSecure();
+
+    // ---------------------------------------------------------------------------
+    // --------------------------------------------------------------------------
+
+    /**
+     * ---------------------------------------------------------------------------
+     *                 Extra price and customize order
+     * ---------------------------------------------------------------------------
+     */
+
     const [uploading, setUploading] = useState(false)
 
 
@@ -33,18 +52,69 @@ const DishForm = ({ dish, onOpenChange }) => {
     const [selectedOptions, setSelectedOptions] = useState("");
     const [selectedAddons, setSelectedAddons] = useState([]);
     const [errorNotify, setErrorNotify] = useState(false);
-   
+
+
+    // ---------------------------------------------------------------------------------------------------------
+
+
+
+
+    const { refetch, data: { dish, selectedItemCartData } = {}, isLoading, error, } = useQuery({
+        queryKey: ['cart-data-specific', profile?.email, cartInfo?._id],
+        enabled : turnOn,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/get-cart-data-detail-for-edit/${profile?.email}/cartID/${cartInfo?._id}`);
+
+            // console.log(res.data);
+
+            const { dish, selectedItemCartData } = res.data;
+
+            setQuantity(selectedItemCartData?.quantity);  //set the previous quantity 
+
+
+            setSelectedAddons(selectedItemCartData?.addOn.map(C_addon => dish.addOn.find(i => i?.name === C_addon))); //set the addons
+
+
+            setSelectedOptions(selectedItemCartData?.options); //set the options 
+
+
+            // now set the price and extra prices 
+            const optionPrice = dish.options.find(option => option.name === selectedItemCartData?.options)?.price || 0;
+
+
+            const addonPriceList = selectedItemCartData?.addOn &&
+                selectedItemCartData?.addOn &&
+                selectedItemCartData?.addOn.map(C_addon => dish.addOn.find(i => i?.name === C_addon)?.price)
+
+
+
+            let addonPrices = 0;
+            if (addonPriceList && addonPriceList.length > 0) {
+                addonPrices = addonPriceList.reduce((acc, curr) => acc + curr, 0);
+            }
+
+            setExtraPrice(optionPrice + addonPrices);
+            setTurnOn(false);
+            return res.data;
+        },
+    });
+
+
+
+
     const handleOptionChange = (value) => {
         setErrorNotify(false);
         const optionPrice = dish.options.find(option => option.name === value)?.price || 0;
         const addonPrices = selectedAddons.reduce((total, addon) => total + addon.price, 0);
         setSelectedOptions(value);
+        // console.log({value,optionPrice,addonPrices})
         setExtraPrice(optionPrice + addonPrices);
     };
 
     const handleAddonChange = (addonName, checked) => {
         const addonPrice = dish.addOn.find(addon => addon.name === addonName)?.price || 0;
 
+        // console.log({addonName,checked})
         // Update state based on whether the addon is checked or unchecked
         if (checked) {
             setSelectedAddons([...selectedAddons, { name: addonName, price: addonPrice }]);
@@ -68,18 +138,13 @@ const DishForm = ({ dish, onOpenChange }) => {
 
 
 
-    // check previous anycart exist or not 
-    const PreviousAnyCart_Exist = () => {
-        if (CartData && Array.isArray(CartData)) {
-            const isFound = CartData.find(i => i.branchID !== branchID);
-            // console.log(!!isFound)
-            return (!!isFound);
-        }
-    }
-    const AddOffsiteCartUploadingFunctions = (data) => {
-        axiosSecure.post(`/add-to-cart-offsite/${profile?.email}`, data)
+    const AddOffsiteCart = data => {
+
+        setUploading(true);
+        console.log(data);
+        axiosSecure.patch(`/update-cart-item-offsite/${profile?.email}/${cartInfo?._id}`, data)
             .then((res => {
-                toast.success('Added to Cart');
+                // toast.success('Added to Cart');
                 onOpenChange();
                 CartRefetch();
             }))
@@ -87,49 +152,17 @@ const DishForm = ({ dish, onOpenChange }) => {
                 SwalErrorShow(e);
             })
             .finally(() => setUploading(false))
-    }
-
-    const AddOffsiteCart = data => {
-
-        setUploading(true); 
-        // console.log(data)
-
-        if (PreviousAnyCart_Exist()) { // true means he has previous something in cart
-            Swal.fire({
-                title: "Clear previous cart data?",
-                text: "You already have items from another restaurant",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    axiosSecure.delete(`/delete-my-previous-carts/${profile?.email}`)
-                        .then(res => {
-                            console.log('deleted');
-                            AddOffsiteCartUploadingFunctions(data);
-
-                        })
-                        .catch(e => console.log('delete failed', e))
-                } else {
-                    onOpenChange();
-                    return;
-                }
-            });
-        }else{
-            AddOffsiteCartUploadingFunctions(data);
-        }
 
     }
 
 
     //for onsite cart
     const AddOnsiteCart = (data) => {
-        setUploading(true); 
+        setUploading(true);
         console.log(data);
-        axiosSecure.post(`/add-to-cart-onsite/${profile?.email}`, data)
+        axiosSecure.patch(`/update-cart-item-onsite/${profile?.email}/${cartInfo?._id}`, data)
             .then((res => {
-                toast.success('Added to Cart');
+                // toast.success('Added to Cart');
                 onOpenChange();
                 CartRefetch();
             }))
@@ -163,16 +196,13 @@ const DishForm = ({ dish, onOpenChange }) => {
             extra: extraPrice,
             VAT: parseFloat(((dish.offerPrice + extraPrice) * (dish?.supplementary_duty / 100 + dish?.sales_tax / 100)).toFixed(1)),
             totalPrice,
-            key: Date.now().toString()
+          
         }
 
 
         data.res_id = res_id;
         data.branchID = branchID;
         data.email = user?.email;
-
-        // console.log('Selected Options:', selectedOptions);
-        // console.log('Selected Addons:', selectedAddons);
 
         if (location.pathname.includes('onsite-order')) {
             AddOnsiteCart(data)
@@ -186,8 +216,20 @@ const DishForm = ({ dish, onOpenChange }) => {
 
 
 
-    return (
+    if (isLoading) {
 
+        return <div className='max-w-screen h-[600px] flex justify-center items-center z-[100] overflow-hidden' aria-label='loading-icon'>
+            <ScaleLoader size={100} color='#36d7b7' />
+        </div>
+
+    }
+
+    if (error) {
+        return <ErrorPage />
+    }
+
+
+    return (
         <div className="container mx-auto " >
 
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -215,6 +257,7 @@ const DishForm = ({ dish, onOpenChange }) => {
                                             value={option.name}
                                             onChange={() => handleOptionChange(option.name)}
                                             className="peer hidden [&:checked_+_label_svg]:block"
+                                            checked={selectedOptions === option?.name}
                                         />
                                         <label
                                             htmlFor={option._id}
@@ -246,21 +289,22 @@ const DishForm = ({ dish, onOpenChange }) => {
                                         <input
                                             type="checkbox"
                                             {...register('addons')}
-                                            id={addon._id}
-                                            value={addon.name}
-                                            onChange={(e) => handleAddonChange(addon.name, e.target.checked)}
+                                            id={addon?._id}
+                                            value={addon?.name}
+                                            onChange={(e) => handleAddonChange(addon?.name, e.target.checked)}
                                             className="peer hidden [&:checked_+_label_svg]:block"
-                                            
+                                            checked={selectedAddons.find(i=> i.name ===addon?.name)}
+
                                         />
                                         <label
-                                            htmlFor={addon._id}
+                                            htmlFor={addon?._id}
                                             className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
-                                                {addon.name}
+                                                {addon?.name}
                                             </span>
                                             <span>
-                                                +   {addon.price} ৳
+                                                +   {addon?.price} ৳
                                             </span>
 
                                         </label>
@@ -293,18 +337,18 @@ const DishForm = ({ dish, onOpenChange }) => {
                         {
                             dish?.options && Array.isArray(dish.options) && dish.options.length > 0 ?
                                 !selectedOptions ?
-                                    <Button color="default" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError}   >
-                                        Add to Cart
+                                    <Button color="default" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || uploading} isDisabled={CartFetchError}   >
+                                        Update Cart
                                     </Button>
                                     :
-                                    <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError} >
-                                        Add to Cart
+                                    <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || uploading} isDisabled={CartFetchError} >
+                                        Update Cart
                                     </Button>
 
                                 :
                                 // for those which doesnt have option direct get the add to cart button
-                                <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || profileLoading || uploading} isDisabled={profileError || CartFetchError} >
-                                    Add to Cart
+                                <Button color="success" className='w-full disabled:cursor-not-allowed' type='submit' isLoading={CartFetchLoading || uploading} isDisabled={CartFetchError} >
+                                   Update Cart
                                 </Button>
                         }
                     </div>
@@ -316,4 +360,4 @@ const DishForm = ({ dish, onOpenChange }) => {
     );
 };
 
-export default DishForm;
+export default CartItemEdit_Form;

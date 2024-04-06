@@ -7,8 +7,10 @@ import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import LoadingPage from '../../LoadingPages/LoadingPage/LoadingPage';
+import ErrorPage from '../../ErrorPage/ErrorPage';
 const AddressForm = ({ nearestDistrict, onClose }) => {
-    const { profile,profileRefetch } = useProfile();
+    const { profile,profileRefetch,profileLoading,profileError } = useProfile();
 
     const { register, handleSubmit, formState: { errors }, setValue, control, getValues } = useForm();
     const countries = getCountries();
@@ -26,7 +28,7 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
              */
     useEffect(() => {
 
-        if (!profile?.address && nearestDistrict?.name) {
+        if (!profile?.address?.city && nearestDistrict?.name) {
             setValue(`city`, nearestDistrict?.name)
             setValue(`stateProvince`, getProvinceOfSelectedCity(nearestDistrict?.name))
         }
@@ -36,7 +38,7 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
 
     const onSubmit = (data) => {
 
-        console.log(data)
+        // console.log(data)
 
         setLoading(true);
         axiosSecure.post(`/user-profile-update-address/${profile?.email}`, data)
@@ -57,6 +59,12 @@ const AddressForm = ({ nearestDistrict, onClose }) => {
 
     // ________________________________________________________________________________
 
+    if(profileLoading){
+        return <LoadingPage/>
+    }
+    if(profileError){
+        return <ErrorPage/>
+    }
 
 
 

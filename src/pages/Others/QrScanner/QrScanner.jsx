@@ -1,14 +1,26 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import QrScanner from 'qr-scanner';
+import { Link } from 'react-router-dom';
+import SetTitle from '../../Shared/SetTtitle/SetTitle';
+import SectionTitle from '../../../components/SectionTitle/SectionTitle';
+import { toast } from 'react-hot-toast';
 
 const QRScanner = () => {
-  const videoRef = useRef(null);
   const [error, setError] = useState(null);
+  const [cameras, setCameras] = useState([]);
+  const [selectedCamera, setSelectedCamera] = useState('');
   const [scannedData, setScannedData] = useState(null);
 
   useEffect(() => {
     initializeScanner();
+    return () => {
+      if (scanner) {
+        scanner.destroy();
+      }
+    };
   }, []);
+
+  let scanner = null;
 
   const initializeScanner = async () => {
     try {
@@ -17,24 +29,31 @@ const QRScanner = () => {
         setError('Camera permission denied. Please grant permission to use the QR scanner.');
         return;
       }
-      
 
-      const scanner = new QrScanner(videoRef.current, result => {
-        console.log('Scanned:', result);
-        setScannedData(result);
+      scanner = new QrScanner(document.getElementById('qr-video'), handleScanResult, {
+        onDecodeError: error => {
+        //   console.error(error);
+        },
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
       });
 
-      scanner.highlightCodeOutline = true; // Enable code outline highlighting
-      scanner.highlightScanRegion = true; // Enable scan region highlighting
-
-      scanner.start();
-
-      return () => {
-        scanner.stop();
-      };
+      scanner.start().then(() => {
+        QrScanner.listCameras(true).then(cameras => {
+          setCameras(cameras);
+          if (cameras.length > 0) {
+            setSelectedCamera(cameras[0].id);
+          }
+        });
+      });
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleScanResult = result => {
+    setScannedData(result.data);
+   
   };
 
   const checkCameraPermission = async () => {
@@ -47,26 +66,45 @@ const QRScanner = () => {
     }
   };
 
+  const handleCameraChange = event => {
+    setSelectedCamera(event.target.value);
+    scanner.setCamera(event.target.value);
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      {error ? (
-        <>
-          <p className="text-red-500">{error}</p>
-          <p className="text-gray-500">Please enable camera permissions to use the QR scanner.</p>
-          <p className="text-gray-500">You can enable camera permissions in your browser settings.</p>
-        </>
-      ) : (
-        <>
-          <video className="w-full max-w-lg border border-gray-300" ref={videoRef}></video>
-          {scannedData ? (
-            <div className="mt-4">
-              <p className="text-green-500">QR Code Decoded: {scannedData}</p>
-            </div>
-          ) : (
-            <p className="mt-4 text-gray-500">Scanning QR code...</p>
-          )}
-        </>
-      )}
+    <div className="w-full h-full mt-5">
+        <SetTitle  title="Qr Scan"/>
+        <SectionTitle h1="QR scan"/>
+      <div className="w-full max-w-lg mx-auto h-full flex flex-col justify-center items-center">
+        {/* <h1>Scan from WebCam:</h1> */}
+        {error && <p className='text-danger-400 mt-10 text-center font-semibold text-xl'>{error}</p>}
+        <div>
+          <video
+            id="qr-video"
+            className="w-full md:max-w-[600px] md:max-h-[600px] h-[70vh] md:h-[600px]"
+          ></video>
+        </div>
+        {cameras.length > 1 && !scannedData && (
+          <div >
+            
+            <select id="cam-list" value={selectedCamera} onChange={handleCameraChange}>
+              {cameras.map(camera => (
+                <option key={camera.id} value={camera.id}>
+                  {camera.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
+        <div className='mt-3 '>
+        
+          <span id="cam-qr-result">
+            {scannedData && (
+              <Link to={scannedData} className='font-semibold cursor-pointer shadow px-5 py-2 bg-gray-100  text-blue-600 dark:text-blue-500 hover:underline'>Go to Restaurant Page</Link>
+            ) }
+          </span>
+        </div>
+      </div>
     </div>
   );
 };
