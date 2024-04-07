@@ -17,7 +17,7 @@ const Cart_Before_Checkout = () => {
         queryKey: ['my-cart-data-user-end', user?.email],
 
         queryFn: async () => {
-            const res = await axiosSecure.get(`/restuarant/${res_id}/branch/${branchID}/email/${user?.email}`); console.log(res.data)
+            const res = await axiosSecure.get(`/restuarant/${res_id}/branch/${branchID}/email/${user?.email}`); 
             return res.data;
         },
     });
@@ -44,7 +44,7 @@ const Cart_Before_Checkout = () => {
                 </div>
                 {
                     data?.dishes && Array.isArray(data.dishes) && data.dishes.map(dish=><div key={dish?._id || Date.now().toString()} className="grid grid-cols-5  text-left py-1">
-                    <span>1x</span>
+                    <span>{dish?.quantity}x</span>
                     <span className='col-span-2'>{dish?.title} <br/> {dish.addOn && Array.isArray(dish.addOn) && dish.addOn.length >0 && <>+{dish?.addOn.join(", ")}</>} </span>
                     <span className="text-right"> {dish?.options && <>{dish?.options}</> || "Standard"}</span>
                     <span className="text-right">৳ {dish?.totalPrice}</span>
