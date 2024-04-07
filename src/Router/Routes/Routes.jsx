@@ -95,7 +95,7 @@ export const router = createBrowserRouter([
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/cart',
+                path: 'restaurant/:res_id/branch/:branchID/cart/table/:tableID',
                 element: <OnsiteCart/>
             },
 

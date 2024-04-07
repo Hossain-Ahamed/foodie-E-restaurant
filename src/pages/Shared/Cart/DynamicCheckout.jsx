@@ -6,7 +6,7 @@ import { Button } from '@nextui-org/react';
 
 const DynamicCheckout = () => {
     const { user } = useAuthProvider();
-    const { res_id, branchID } = useParams();
+    const { res_id, branchID,tableID } = useParams();
     const axiosSecure = useAxiosSecure();
     if (location.pathname.includes('onsite-order')) {
         return (
@@ -15,7 +15,7 @@ const DynamicCheckout = () => {
     } else {
         
         return (
-            <Button color='success' variant='solid' className='text-white font-medium'>Checkout</Button>
+            <Button color='success' variant='solid' className='text-white font-medium'>if not onsite order then check time of working hour</Button>
         );
     }
 
