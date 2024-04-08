@@ -10,7 +10,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import Cart_Before_Checkout from './Cart_Before_Checkout';
 import useProfile from '../../../Hooks/useProfile';
 import toast from 'react-hot-toast';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 const OnsiteCart = () => {
     const { CartData, CartFetchLoading, CartRefetch, CartFetchError } = useCart();
@@ -18,7 +18,7 @@ const OnsiteCart = () => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
     const {profile,profileLoading , profileError} = useProfile();
-
+ const location = useLocation();
     if (CartFetchLoading || profileLoading) {
         return <LoadingPage />
     }
@@ -34,7 +34,7 @@ const OnsiteCart = () => {
            return <Navigate  to="/edit-profile"  replace={true}/>
         }
 
-        if(!profile?.address?.city){
+        if(!profile?.address?.city || location.pathname.includes('onsite-order')){
             toast.error("Please add your address");
             return <Navigate  to="/edit-profile"  replace={true}/>
         }
