@@ -47,7 +47,7 @@ const Cart_Before_Checkout = () => {
                     <span>{dish?.quantity}x</span>
                     <span className='col-span-2'>{dish?.title} <br/> {dish.addOn && Array.isArray(dish.addOn) && dish.addOn.length >0 && <>+{dish?.addOn.join(", ")}</>} </span>
                     <span className="text-right"> {dish?.options && <>{dish?.options}</> || "Standard"}</span>
-                    <span className="text-right">৳ {dish?.totalPrice}</span>
+                    <span className="text-right">৳ {dish?.totalPrice.toFixed(2)}</span>
                 </div>)
                 }
 
@@ -67,7 +67,7 @@ const Cart_Before_Checkout = () => {
             </div>
             <div className="grid grid-cols-2  text-left py-1 font-semibold">
               <span>Total</span>
-              <span className="text-right"> ৳ {data?.total.toFixed(1)}</span>
+              <span className="text-right"> ৳ {data?.total.toFixed(2)}</span>
             </div>
           </div>
           <DynamicCheckout/>

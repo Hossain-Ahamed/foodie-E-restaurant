@@ -83,15 +83,15 @@ export const router = createBrowserRouter([
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders/:orderID',
+                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders/table/:tableID/orderID/:orderID',
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/recen-orders',
+                path: 'restaurant/:res_id/branch/:branchID/recent-orders/table/:tableID',
                 element: <></>
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/recent-orders/:orderID',
+                path: 'restaurant/:res_id/branch/:branchID/recent-orders/table/:tableID/orderID/:orderID',
                 element: <></>
             },
             {
