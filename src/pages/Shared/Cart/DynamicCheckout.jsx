@@ -23,7 +23,7 @@ const DynamicCheckout = () => {
             .then(res => {
                 console.log(res.data);
                 toast.success("Order placed");
-                navigate(`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`)
+                navigate(`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders/table/${tableID}`)
             })
             .catch(e=>{
                 SwalErrorShow(e)
