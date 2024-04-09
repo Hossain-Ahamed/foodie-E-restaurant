@@ -12,7 +12,7 @@ import useProfile from '../../../Hooks/useProfile';
 import toast from 'react-hot-toast';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const OnsiteCart = () => {
+const Cart = () => {
     const { CartData, CartFetchLoading, CartRefetch, CartFetchError } = useCart();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -78,4 +78,4 @@ const OnsiteCart = () => {
     );
 };
 
-export default OnsiteCart;
+export default Cart;
