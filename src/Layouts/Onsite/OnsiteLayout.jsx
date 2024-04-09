@@ -65,7 +65,7 @@ const OnsiteLayout = () => {
                                     </DropdownTrigger>
                                     <DropdownMenu aria-label="User Actions" variant="flat">
                                         <DropdownItem key="settings">
-                                            <Link to='/onsite/profile'>My profile</Link>
+                                            <Link to='/profile'>My profile</Link>
                                         </DropdownItem>
 
 
@@ -100,7 +100,7 @@ const OnsiteLayout = () => {
                 <NavbarMenu>
 
                     <NavbarMenuItem key="prfoileMenu">
-                        <Link to='/onsite/profile'>My profile</Link>
+                        <Link to='/profile'>My profile</Link>
                     </NavbarMenuItem>
                     <NavbarMenuItem key="LogoutMenu" >
                         <p className='text-red-400' onClick={provideSignOut}> Log Out</p>

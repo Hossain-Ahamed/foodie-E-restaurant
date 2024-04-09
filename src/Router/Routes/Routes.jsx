@@ -63,6 +63,10 @@ export const router = createBrowserRouter([
                 path: '/edit-profile',
                 element: <PrivateRoute><EditProfile /></PrivateRoute>
             },
+            {
+                path: '/qr-scanner',
+                element: <QRScanner />
+            },
 
 
 
@@ -116,10 +120,7 @@ export const router = createBrowserRouter([
         path: '/home',
         element: <NonLogInHomePage />
     },
-    {
-        path: '/qr-scan',
-        element: <QRScanner />
-    },
+    
 
 
 ])
