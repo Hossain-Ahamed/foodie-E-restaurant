@@ -75,17 +75,18 @@ const QRScanner = () => {
     <div className="w-full h-full mt-5">
         <SetTitle  title="Qr Scan"/>
         <SectionTitle h1="QR scan"/>
-      <div className="w-full max-w-lg mx-auto h-full flex flex-col justify-center items-center">
+        <p className='text-center mt-4 text-xs text-indigo-500'>Note: To place an order at the restaurant, please scan the QR code provided on your table. After completing the scan, click the button below to navigate to the restaurant page </p>
+      <div className="w-full max-w-lg mx-auto h-full flex flex-col justify-center items-start">
         {/* <h1>Scan from WebCam:</h1> */}
         {error && <p className='text-danger-400 mt-10 text-center font-semibold text-xl'>{error}</p>}
         <div>
           <video
             id="qr-video"
-            className="w-full md:max-w-[600px] md:max-h-[600px] h-[70vh] md:h-[600px]"
+            className="w-full md:max-w-[600px] mt-3"
           ></video>
         </div>
         {cameras.length > 1 && !scannedData && (
-          <div >
+          <div className='w-full mt-5 flex items-center justify-center' >
             
             <select id="cam-list" value={selectedCamera} onChange={handleCameraChange}>
               {cameras.map(camera => (
