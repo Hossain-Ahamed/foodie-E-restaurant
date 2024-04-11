@@ -11,14 +11,17 @@ import Cart_Before_Checkout from './Cart_Before_Checkout';
 import useProfile from '../../../Hooks/useProfile';
 import toast from 'react-hot-toast';
 import { Navigate, useLocation } from 'react-router-dom';
+import Cart_Before_Checkout_offsite from './Cart_Before_Checkout_Offsite';
 
-const OnsiteCart = () => {
+const Cart = () => {
     const { CartData, CartFetchLoading, CartRefetch, CartFetchError } = useCart();
 
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
-    const {profile,profileLoading , profileError} = useProfile();
- const location = useLocation();
+    const { profile, profileLoading, profileError } = useProfile();
+    const location = useLocation();
+
+
     if (CartFetchLoading || profileLoading) {
         return <LoadingPage />
     }
@@ -27,16 +30,16 @@ const OnsiteCart = () => {
         return <ErrorPage />
     }
 
-    if(!(profile?.phone && profile?.address?.city && profile?.phone )){
-       
-        if(!(profile?.phone &&  profile?.phone )){
+    if (!(profile?.phone && profile?.address?.city && profile?.phone)) {
+
+        if (!(profile?.phone && profile?.phone)) {
             toast.success('Add your details');
-           return <Navigate  to="/edit-profile"  replace={true}/>
+            return <Navigate to="/edit-profile" replace={true} />
         }
 
-        if(!profile?.address?.city || location.pathname.includes('onsite-order')){
+        if (!profile?.address?.city || location.pathname.includes('onsite-order')) {
             toast.error("Please add your address");
-            return <Navigate  to="/edit-profile"  replace={true}/>
+            return <Navigate to="/edit-profile" replace={true} />
         }
     }
     return (
@@ -65,9 +68,20 @@ const OnsiteCart = () => {
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1 items-center">Place Your Order</ModalHeader>
+                          
                             <ModalBody>
-                                <Cart_Before_Checkout />
+                                {
+                                    location.pathname.includes('onsite-order') ?
+                                        <>
+                                            <Cart_Before_Checkout />
+                                        </>
+                                        :
+                                        <>
+                                            <Cart_Before_Checkout_offsite />
+                                        </>
+                                }
+
+
                             </ModalBody>
 
                         </>
@@ -78,4 +92,4 @@ const OnsiteCart = () => {
     );
 };
 
-export default OnsiteCart;
+export default Cart;

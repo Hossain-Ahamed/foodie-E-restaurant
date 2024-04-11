@@ -19,7 +19,7 @@ import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
 import MyProfile from "../../pages/Shared/Profile/MyProfile/MyProfile";
 import OnsiteRestaurantHomePage from "../../pages/Onsite/OnsiteRestaurantHomePage/OnsiteRestaurantHomePage";
 import QRScanner from "../../pages/Others/QrScanner/QrScanner";
-import OnsiteCart from "../../pages/Shared/Cart/Cart";
+import Cart from "../../pages/Shared/Cart/Cart";
 
 export const router = createBrowserRouter([
     {
@@ -50,6 +50,14 @@ export const router = createBrowserRouter([
             {
                 path: 'restaurant/:res_id/branch/:branchID',
                 element: <RestaurantHomePage />
+            },
+            {
+                path: '/cart',
+                element: <Cart />
+            },
+            {
+                path: '/orders',
+                element: <></>
             },
             {
                 path: '/profile',
@@ -100,7 +108,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID/cart/table/:tableID',
-                element: <OnsiteCart/>
+                element: <Cart/>
             },
 
 
