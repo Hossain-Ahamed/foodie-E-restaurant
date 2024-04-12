@@ -1,15 +1,14 @@
 import React from 'react';
 import useAuthProvider from '../../../../Hooks/useAuthProvider';
-import { Link, useParams } from 'react-router-dom';
-import { useQuery } from "react-query";
+import { useSearchParams } from 'react-router-dom';
 import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 import LoadingPage from '../../../Shared/LoadingPages/LoadingPage/LoadingPage';
 import ErrorPage from '../../../Shared/ErrorPage/ErrorPage';
-import FoodCard from '../../../../components/FoodCard/FoodCard';
-const ShowingOngoingOrders = () => {
+import { useQuery } from "react-query";
 
+const OnsiteOrderHistory = () => {
     const {user} = useAuthProvider();
-    const { res_id, branchID,tableID } = useParams();
+    const { res_id, branchID,tableID } = useSearchParams();
 
     const axiosSecure = useAxiosSecure();
     const { refetch, data, isLoading, error } = useQuery({
@@ -31,13 +30,10 @@ const ShowingOngoingOrders = () => {
         return <ErrorPage />
     }
     return (
-        <>
-        <div className='w-[300px] md:w-[700px] mx-auto my-10 items-center justify-items-center'>
-            {data?.map(order => <FoodCard key={order?._id} order={order}>
-            </FoodCard>)}
+        <div>
+            sferfger
         </div>
-        </>
     );
 };
 
-export default ShowingOngoingOrders;
+export default OnsiteOrderHistory;
