@@ -19,6 +19,8 @@ import EditProfile from "../../pages/Shared/Profile/EditProfile/EditProfile";
 import MyProfile from "../../pages/Shared/Profile/MyProfile/MyProfile";
 import OnsiteRestaurantHomePage from "../../pages/Onsite/OnsiteRestaurantHomePage/OnsiteRestaurantHomePage";
 import QRScanner from "../../pages/Others/QrScanner/QrScanner";
+import OnsiteCart from "../../pages/Shared/Cart/Cart";
+import ShowingOngoingOrders from "../../pages/Onsite/OnsiteRestaurantHomePage/ShowingOngoingOrders/ShowingOngoingOrders";
 import Cart from "../../pages/Shared/Cart/Cart";
 
 export const router = createBrowserRouter([
@@ -87,16 +89,12 @@ export const router = createBrowserRouter([
                 element: <OnsiteRestaurantHomePage />
             },
             {
-                path: 'restaurant/:res_id/branch/:branchID/table/:tableID',
-                element: <OnsiteRestaurantHomePage />
-            },
-            {
-                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders',
-                element: <></>
+                path: 'restaurant/:res_id/branch/:branchID/ongoing-orders/table/:tableID',
+                element: <ShowingOngoingOrders />
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID/ongoing-orders/table/:tableID/orderID/:orderID',
-                element: <></>
+                element:<></>
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID/recent-orders/table/:tableID',

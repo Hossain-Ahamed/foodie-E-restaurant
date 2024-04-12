@@ -43,8 +43,8 @@ const OnsiteRestaurantHomePage = () => {
                 <div className='pr-3 flex justify-end flex-wrap items-center gap-x-4 font-semibold text-blue-500'>
                  
                     <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/cart/table/${tableID}`} className='hover:cursor-pointer hover:underline'>Cart</Link>
-                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`} className='hover:cursor-pointer hover:underline'>Ongoing Orders</Link>
-                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/recent-orders`} className='hover:cursor-pointer hover:underline'>Order History</Link>
+                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders/table/${tableID}`} className='hover:cursor-pointer hover:underline'>Ongoing Orders</Link>
+                    <Link to={`/onsite-order/restaurant/${res_id}/branch/${branchID}/recent-orders/table/${tableID}`} className='hover:cursor-pointer hover:underline'>Order History</Link>
 
                 </div>
             </div>
