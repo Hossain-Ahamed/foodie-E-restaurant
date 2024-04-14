@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useAuthProvider from './useAuthProvider';
 import useAxiosSecure from './useAxiosSecure';
 import { useQuery } from 'react-query';
+import { AuthContext } from '../Contexts/AuthProvider/AuthProvider';
 
 
 const useProfile = () => {
 
-    const { user, loading } = useAuthProvider();
+    const { user, loading } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
     const { refetch : profileRefetch, data: profile = {}, isLoading: profileLoading, error :profileError} = useQuery({
         queryKey: ['profile', user?.email],
         enabled: (!loading && (!!user)),
         queryFn: async () => {
+            console.log(`/get-profile/${user?.email}`);
             const res = await axiosSecure.get(`/get-profile/${user?.email}`);
             // res.data.phone = '880186726172'
             return res?.data;
