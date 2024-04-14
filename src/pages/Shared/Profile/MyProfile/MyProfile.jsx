@@ -124,18 +124,30 @@ const MyProfile = () => {
                     effect={'cards'}
                     grabCursor={true}
                     modules={[EffectCards]}
-                    className="mySwiper mt-6"
+                    className="mySwiper mt-6 w-[240px] h-[320px]"
                 >
                     {
-                        data && Array.isArray(data) && data.map((i, _idx) => <SwiperSlide key={_idx}>
+                        data && Array.isArray(data) && data.map((i, _idx) => <SwiperSlide key={_idx} className='
+                       flex
+                      relative
+                        items-center
+                        justify-center
+                        rounded-xl
+                        
+                        font-semibold
+                         text-white
+                         border-1
+                       '>
                             <img className='rounded-xl w-full h-full object-cover bg-white mx-auto md:mx-0' src={i?.res_img} />
-                            <div className="bg-text px-4 py-1 rounded-lg w-[80%] text-center ">
+                            <div className="bg-text px-4 py-1 rounded-lg w-[80%] text-center absolute bottom-2 left-6">
                                 {i?.res_name}
                             </div>
                         </SwiperSlide>)
                     }
-                  
-                   
+
+
+
+
 
                 </Swiper>
             </div>
