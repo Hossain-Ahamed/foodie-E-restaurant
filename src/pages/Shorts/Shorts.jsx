@@ -15,14 +15,37 @@ const reels = [
         name: 'Trijit Goswami'
       },
       likes: {
-        count: 0
+        count: 759878
       },
       dislikes: {
         count: 124
       },
-      
+      comments: {
+        count: 10089.345
+      },
+      shares: {
+        count: 299792458
+      }
     },
-   
+    rightMenu: {
+      options: [
+        {
+          id: 1,
+          label: 'Option 1',
+          value: 'option-1'
+        },
+        {
+          id: 2,
+          label: 'Option 2',
+          value: 'option-2'
+        },
+        {
+          id: 3,
+          label: 'Option 3',
+          value: 'option-3'
+        }
+      ]
+    }
   },
   {
     id: 2,
@@ -40,10 +63,32 @@ const reels = [
       dislikes: {
         count: 12
       },
-    
+      comments: {
+        count: 10089.345
+      },
+      shares: {
+        count: 299792458
+      }
     },
-    
-    
+    rightMenu: {
+      options: [
+        {
+          id: 1,
+          label: 'Option 1',
+          value: 'option-1'
+        },
+        {
+          id: 2,
+          label: 'Option 2',
+          value: 'option-2'
+        },
+        {
+          id: 3,
+          label: 'Option 3',
+          value: 'option-3'
+        }
+      ]
+    }
   },
   {
     id: 3,
@@ -61,9 +106,32 @@ const reels = [
       dislikes: {
         count: 0
       },
-      
+      comments: {
+        count: 14
+      },
+      shares: {
+        count: 0
+      }
     },
-   
+    rightMenu: {
+      options: [
+        {
+          id: 1,
+          label: 'Option 1',
+          value: 'option-1'
+        },
+        {
+          id: 2,
+          label: 'Option 2',
+          value: 'option-2'
+        },
+        {
+          id: 3,
+          label: 'Option 3',
+          value: 'option-3'
+        }
+      ]
+    }
   },
 
   
@@ -77,6 +145,8 @@ const reelMetaInfo = {
   backGroundColor: '#000000',
   borderRadius: 10
 }
+
+
 
 const Shorts = () => {
   return (

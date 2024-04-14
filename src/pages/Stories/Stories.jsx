@@ -66,13 +66,7 @@ export default function ComponentStories() {
       onStoryChange={(i)=>console.log(i)} 
       onAllStoriesEnd={()=>console.log('ses')}
       pauseStoryWhenInActiveWindow/>
-      <Stories 
-      width="400px" 
-      height="600px" 
-      stories={stories} 
-      onStoryChange={(i)=>console.log(i)} 
-      onAllStoriesEnd={()=>console.log('ses')}
-      pauseStoryWhenInActiveWindow/>
+     
     </div>
   );
 }
