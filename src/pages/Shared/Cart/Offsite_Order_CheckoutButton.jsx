@@ -10,7 +10,7 @@ import { BsFillGiftFill } from 'react-icons/bs';
 import { TbCurrencyTaka } from 'react-icons/tb';
 import toast from 'react-hot-toast';
 
-const Offsite_Order_CheckoutButton = ({ branchID, res_id, discountData, setDiscountData, coupon, setCoupon, subtotal }) => {
+const Offsite_Order_CheckoutButton = ({ branchID, res_id, discountData, setDiscountData, coupon, setCoupon, subtotal ,selected, shippingCharge}) => {
 
     const axiosSecure = useAxiosSecure();
     const [uploading, setUploading] = useState(false);
@@ -22,7 +22,8 @@ const Offsite_Order_CheckoutButton = ({ branchID, res_id, discountData, setDisco
         const data = {
             res_id,
             branchID,
-            email : user?.email
+            email : user?.email,
+            orderNote : selected
         };
         if (discountData?.discountedPrice !== 0) {
             data.couponCode = coupon,
@@ -32,13 +33,13 @@ const Offsite_Order_CheckoutButton = ({ branchID, res_id, discountData, setDisco
         console.log(data)
         axiosSecure.post(`/create-an-offsite-order/${user?.email}`, data)
             .then(res => {
-                console.log(res.data);
-                // toast.success("Order placed");
-                Swal.fire({
-                    title: res.data?.token || "",
-                    text: res.data?.message || ""
-                });
-                // navigate(`/restaurant/${res_id}/branch/${branchID}/ongoing-orders`)
+                // console.log(res.data);
+                //  toast.success(res.data?.message || "");
+                // Swal.fire({
+                //     title: res.data?.token || "",
+                //     text: res.data?.message || ""
+                // });
+                navigate(`/pay-my-bill/${res.data?.order?._id}`)
             })
             .catch(e => {
                 SwalErrorShow(e);
@@ -111,15 +112,14 @@ const Offsite_Order_CheckoutButton = ({ branchID, res_id, discountData, setDisco
             <div className=" text-xs border-t border-black border-dashed my-4 pt-4">
                 <div className="grid grid-cols-2  text-left py-1">
                     <span>Payment Amount</span>
-                    <span className="text-right">৳ {subtotal - discountData?.discountedPrice}</span>
+                    <span className="text-right">৳ {(subtotal - discountData?.discountedPrice + shippingCharge).toFixed(1)}</span>
                 </div>
             </div>
 
 
 
 
-
-            <Button color='success' variant='solid' className='text-white font-medium' isLoading={isLoading || uploading} isDisabled={!(data?.available) || (!!error)} onPress={CreateOffsiteOrder}>
+            <Button color='success' variant='solid' className='text-white font-medium w-full' isLoading={isLoading || uploading} isDisabled={!(data?.available) || (!!error)} onPress={CreateOffsiteOrder}>
                 {
                     error ?
                         "Error Occured"

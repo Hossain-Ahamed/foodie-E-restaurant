@@ -100,7 +100,7 @@ const Cart_Before_Checkout = () => {
                 </div>
                 <div className="grid grid-cols-2  text-left py-1 font-semibold">
                     <span>Total</span>
-                    <span className="text-right"> ৳ {data?.total.toFixed(2)}</span>
+                    <span className="text-right"> ৳ {data?.total.toFixed(1)}</span>
                 </div>
             </div>
             <Button color='success' variant='solid' className='text-white font-medium' onPress={CreateOnsiteOrder} isLoading={uploading}>Checkout</Button>

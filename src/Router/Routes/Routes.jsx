@@ -22,6 +22,7 @@ import QRScanner from "../../pages/Others/QrScanner/QrScanner";
 import OnsiteCart from "../../pages/Shared/Cart/Cart";
 import ShowingOngoingOrders from "../../pages/Onsite/OnsiteRestaurantHomePage/ShowingOngoingOrders/ShowingOngoingOrders";
 import Cart from "../../pages/Shared/Cart/Cart";
+import Payment from "../../pages/Others/Payment/Payment";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
             {
                 path: 'restaurant/:res_id/branch/:branchID',
                 element: <RestaurantHomePage />
+            },
+            {
+                path: '/pay-my-bill/:orderID',
+                element : <Payment/>
             },
             {
                 path: '/cart',

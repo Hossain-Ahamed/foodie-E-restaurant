@@ -142,7 +142,7 @@ const CartItemEdit_Form = ({ cartInfo, profile, cartrefetch, onOpenChange }) => 
 
         setUploading(true);
         console.log(data);
-        axiosSecure.patch(`/update-cart-item-offsite/${profile?.email}/${cartInfo?._id}`, data)
+        axiosSecure.patch(`/update-cart-item-onsite/${profile?.email}/${cartInfo?._id}`, data)
             .then((res => {
                 // toast.success('Added to Cart');
                 onOpenChange();
