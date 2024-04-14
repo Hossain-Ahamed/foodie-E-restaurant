@@ -13,7 +13,7 @@ const useProfile = () => {
         queryKey: ['profile', user?.email],
         enabled: (!loading && (!!user)),
         queryFn: async () => {
-            console.log(`/get-profile/${user?.email}`);
+            // console.log(`/get-profile/${user?.email}`);
             const res = await axiosSecure.get(`/get-profile/${user?.email}`);
             // res.data.phone = '880186726172'
             return res?.data;

@@ -187,7 +187,7 @@ const ForgetPasswordForm = ({onOpenChange}) => {
 
                 <form >
                     <SectionTitle h3="Enter Verification Code" />
-                    <div className=" select-none pl-6 pt-8">
+                    <div className=" select-none flex justify-center pt-8">
                         <OtpInput
                             inputStyle="inputStyle"
                             numInputs={4}
