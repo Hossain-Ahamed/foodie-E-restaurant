@@ -98,11 +98,11 @@ const AuthProvider = ({ children }) => {
                     
                     
                 }
-                setUser(userData);
                 
-              
+                
                 axios.post(`${import.meta.env.VITE_serverAddress}/user-jwt`, userData, { withCredentials: true })
-                    .then(data => {
+                .then(data => {
+                        setUser(userData);
                         console.log("Token :  ", data.data.token);
 
                         Cookies.set('access-token', data.data.token, { expires: 7 });
