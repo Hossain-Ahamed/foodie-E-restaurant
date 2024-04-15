@@ -5,7 +5,8 @@ import OtpInput from 'react-otp-input';
 import './forgetPass.css'
 import { Button } from '@nextui-org/react';
 import { toast } from 'react-hot-toast';
-const ForgetPasswordForm = ({onOpenChange}) => {
+import { SwalErrorShow } from '../../assets/scripts/Utility';
+const ForgetPasswordForm = ({ onOpenChange }) => {
 
     const [Loading, setLoading] = useState(false);
     const [showPass, setShowPass] = useState(false); //password hidden an show
@@ -21,6 +22,7 @@ const ForgetPasswordForm = ({onOpenChange}) => {
     });
 
     const handleOTPChange = (otp) => {
+        setError("")
         setConfig((prevConfig) => ({ ...prevConfig, otp }));
     };
 
@@ -54,17 +56,29 @@ const ForgetPasswordForm = ({onOpenChange}) => {
     // };
 
     const handleNewPasswordChange = (e) => {
+        setError("")
         setNewPassword(e.target.value);
     };
 
     const handleOTPRequest = async () => {
+        // Regex pattern to validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!email || !phoneNumber) {
-            toast.error("Enter Necessary Information");
+        // Check if email is valid
+        if (!email || !emailRegex.test(email)) {
+            toast.error("Please enter a valid email address");
             return;
         }
-        setOtpSent(true);
-        setReadyToFillOTP(true);
+
+        axiosSecure.get(`/req-for-otp/${email}`)
+            .then(res => toast.success('OTP sent to your phone '))
+            .catch(e => SwalErrorShow(e))
+            .finally(() => {
+                // If email is valid, proceed with OTP request
+                setOtpSent(true);
+                setReadyToFillOTP(true);
+            })
+
 
     };
 
@@ -73,20 +87,22 @@ const ForgetPasswordForm = ({onOpenChange}) => {
             setLoading(true)
             setError("")
             // Verify OTP with the server
-            //  axiosSecure.post('/verify-otp', { otp, phoneNumber, email })
-            //  .then(res=>{
-            //     if(res.data.success){
+             axiosSecure.post('/verify-otp', { otp, email })
+             .then(res=>{
+                if(res.data.success){
 
-            //             setOtpVerified(true);
+                        setOtpVerified(true);
 
-            //     }
-            //  }).catch(e=>setError("Verify User Failed")).finally(()=>setLoading(false))
+                }
+             })
+             .catch(e=>setError("Failed to verify OTP. Please try again."))
+             .finally(()=>setLoading(false))
 
 
-            // todo 
-            setLoading(false);
-            setOtpVerified(true);
-            //  todo end 
+            // // todo 
+            // setLoading(false);
+            // setOtpVerified(true);
+            // //  todo end 
 
         } catch (error) {
             console.error('Error verifying OTP:', error);
@@ -96,18 +112,18 @@ const ForgetPasswordForm = ({onOpenChange}) => {
 
     const handleChangePassword = async () => {
         try {
-            
+
             // Change password request to the server
             const response = await axiosSecure.post('/change-password', { newPassword, email });
             if (response.data.success) {
                 setPasswordChanged(true);
-                toast.success("Password Chnaged")
+                toast.success("Password Changed !Try Login")
             } else {
                 setError(response.data.message);
             }
             onOpenChange()
         } catch (error) {
-          
+
             console.error('Error changing password:', error);
             setError('Failed to change password. Please try again.');
         }
@@ -120,7 +136,7 @@ const ForgetPasswordForm = ({onOpenChange}) => {
                 <div className='flex flex-col gap-2 py-5'>
 
 
-                    <div>
+                    {/* <div>
                         <label htmlFor="email" className="sr-only">Email</label>
 
                         <div className="relative">
@@ -142,7 +158,7 @@ const ForgetPasswordForm = ({onOpenChange}) => {
                             </span>
 
                         </div>
-                    </div>
+                    </div> */}
                     <div>
                         <label htmlFor="email" className="sr-only">Email</label>
 
@@ -214,8 +230,8 @@ const ForgetPasswordForm = ({onOpenChange}) => {
     } else if (otpVerified && !passwordChanged) {
         return (
             <div>
-             
-             <SectionTitle h3="Never share your password" />
+
+                <SectionTitle h3="Never share your password" />
                 {/* password  */}
                 <div className='pt-5'>
                     <label htmlFor="password" className="sr-only">Password</label>
@@ -256,12 +272,12 @@ const ForgetPasswordForm = ({onOpenChange}) => {
                     </div>
                 </div>
                 <div className="w-full flex flex-col items-center justify-center mt-10">
-                        <Button color={error ? "danger" : "success"} isLoading={Loading} onPress={handleChangePassword} isDisabled={otp.length < 4 || error}>
-                          <span className='text-white'> {error ? "Failed" : Loading ? "Loading" : "Change Password"}</span> 
-                        </Button>
-                        <p className='pt-2 text-xs text-danger'>{error}</p>
-                    </div>
-          
+                    <Button color={error ? "danger" : "success"} isLoading={Loading} onPress={handleChangePassword} isDisabled={otp.length < 4 || error}>
+                        <span className='text-white'> {error ? "Failed" : Loading ? "Loading" : "Change Password"}</span>
+                    </Button>
+                    <p className='pt-2 text-xs text-danger'>{error}</p>
+                </div>
+
             </div>
         );
     } else {

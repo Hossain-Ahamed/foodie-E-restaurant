@@ -23,7 +23,7 @@ const Login = () => {
     //pass the previous location
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
-    console.log(from)
+    // console.log(from)
 
     // ------------------------------------------------------------------------
     const {
@@ -174,7 +174,7 @@ const Login = () => {
                             e.preventDefault();
                             onOpen();
                         }}>
-                            Forget Password?
+                            Forgot Password?
                         </p>
 
                         <button
