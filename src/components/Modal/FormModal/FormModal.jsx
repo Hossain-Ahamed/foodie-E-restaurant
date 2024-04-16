@@ -9,8 +9,8 @@ import ErrorPage from "../../../pages/Shared/ErrorPage/ErrorPage";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { SwalErrorShow } from "../../../assets/scripts/Utility";
 // this the form for table reservation
-const FormModal = () => {
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+const FormModal = ({onOpenChange}) => {
+    const { isOpen, onOpen } = useDisclosure();
     const { register, handleSubmit, formState: { errors }, setValue, getValues, resetField, control } = useForm({
         defaultValues: {
 
@@ -22,14 +22,14 @@ const FormModal = () => {
     const location = useLocation();
     const {res_id, branchID} = useParams();
     const { profile, profileLoading, profileError } = useProfile()
-    
+
     const onSubmit = (data) => {
         setLoading(true)
         data.email = profile?.email
         console.log(data);
         axiosSecure.post(`/restaurant/${res_id}/branch/${branchID}/customer-table-reservation/${profile?._id}`, data)
         .then(res => {
-            toast.success("Table Reserved")
+            toast.success("Table Reservation successfull")
             onOpenChange();
         })
         .catch(err => SwalErrorShow(err))

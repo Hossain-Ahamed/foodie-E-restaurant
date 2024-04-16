@@ -142,7 +142,7 @@ const reelMetaInfo = {
     height: 580,
     width: 330,
   },
-  backGroundColor: '#000000',
+  backGroundColor: '#000',
   borderRadius: 10
 }
 
