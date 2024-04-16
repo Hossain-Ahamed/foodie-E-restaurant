@@ -50,12 +50,14 @@ const ShowingOngoingOrders = () => {
       <div className="h-screen" style={backgroundStyle}>
         {location.pathname.includes("/ongoing-orders/") ? (
           <>
-            <SectionTitle h1="ongoing" />
+            
+           <p className="text-center text-3xl font-bold text-white pt-20">Ongoing Order</p>
+            
             <SetTitle title="Ongoing Orders" />
           </>
         ) : (
           <>
-            <SectionTitle h1="Recent" />
+            <p className="text-center text-3xl font-bold text-white pt-20">Recent Order</p>
             <SetTitle title="Recent Orders" />
           </>
         )}
