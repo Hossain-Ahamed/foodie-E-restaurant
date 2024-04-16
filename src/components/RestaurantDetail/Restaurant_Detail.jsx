@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button } from "@nextui-org/react";
 import {useLocation} from "react-router-dom"
 
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure } from "@nextui-org/react";
 import TableReservationModal from '../Modals/TableReservationModal/TableReservationModal';
+import AuthProvider, { AuthContext } from '../../Contexts/AuthProvider/AuthProvider';
 
 
 const Restaurant_Detail = ({ data }) => {
 
     const [favoriteList, setFavoriteList] = useState([]);
     const [favorite, setFavorite] = useState(false);
-
     const location = useLocation();
 
     useEffect(() => {
