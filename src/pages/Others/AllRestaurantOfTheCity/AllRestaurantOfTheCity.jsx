@@ -19,7 +19,7 @@ const AllRestaurantOfTheCity = () => {
         queryKey: ['all_restaurant_of_the_city',city],
        
         queryFn: async () => {
-            const res = await axiosSecure.get(`/all-restaurant/city/${city}`);
+            const res = await axiosSecure.get(`/city/${city}`);
             console.log(res.data)
             return res.data;
         },

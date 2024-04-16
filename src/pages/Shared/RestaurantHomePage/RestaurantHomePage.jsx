@@ -11,6 +11,7 @@ import BreadCrumb from '../../../components/BreadCrumbs/BreadCrumb';
 import DishContainer from '../../../components/DishContainer/DishContainer';
 import Restaurant_Detail from '../../../components/RestaurantDetail/Restaurant_Detail';
 import SetTitle from '../SetTtitle/SetTitle';
+import { FacebookProvider, CustomChat } from 'react-facebook';
 
 const RestaurantHomePage = () => {
     const { res_id, branchID } = useParams();
@@ -22,7 +23,7 @@ const RestaurantHomePage = () => {
 
         queryFn: async () => {
 
-            const res = await axiosSecure.get(`/restaurant/${res_id}/branch/${branchID}/single-restaurant-all-data`);
+            const res = await axiosSecure.get(`/restaurant/${res_id}/branch/${branchID}/single-restaurant-all-data`); 
             return res?.data;
         },
     });
@@ -37,15 +38,24 @@ const RestaurantHomePage = () => {
 
     return (
         <>
-        <SetTitle title={data?.restaurant_name || ""}/>
+            <SetTitle title={data?.restaurant_name || ""} />
             <BreadCrumb data={[data?.restaurant_name, data?.branch_name]} className="text-yellow-600 p-2" />
 
 
             <Restaurant_Detail data={data} />
 
 
-            <DishContainer  dishes={data?.dishes && Array.isArray(data.dishes) ? data.dishes : []} />
+            <DishContainer dishes={data?.dishes && Array.isArray(data.dishes) ? data.dishes : []} />
 
+
+            {
+                data?.facebookIntent && data?.facebookIntent?.pageID && data?.facebookIntent?.appID &&
+                <>
+                    <FacebookProvider appId={data?.facebookIntent?.appID} chatSupport>
+                        <CustomChat pageId={data?.facebookIntent?.pageID} minimized={true} />
+                    </FacebookProvider>
+                </>
+            }
 
         </>
     );
