@@ -19,6 +19,8 @@ import 'swiper/css';
 import 'swiper/css/effect-cards';
 import './style.css'
 import SectionTitle from '../../../../components/SectionTitle/SectionTitle';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
+
 const MyProfile = () => {
     const { profile, profileLoading, profileError } = useProfile();
 
@@ -151,7 +153,11 @@ const MyProfile = () => {
 
                 </Swiper>
             </div>
-
+            <MessengerCustomerChat
+                pageId="112402203922152"
+                appId="3192925220851102"
+                
+            />
 
         </>
     );

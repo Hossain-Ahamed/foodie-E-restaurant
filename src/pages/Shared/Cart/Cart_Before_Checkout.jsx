@@ -46,7 +46,7 @@ const Cart_Before_Checkout = () => {
                     title: res.data?.token || "",
                     text: res.data?.message || ""
                 })
-                // navigate(`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders`)
+                navigate(`/onsite-order/restaurant/${res_id}/branch/${branchID}/ongoing-orders/table/${tableID}'`)
             })
             .catch(e => {
                 SwalErrorShow(e)

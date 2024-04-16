@@ -11,6 +11,7 @@ import { router } from './Router/Routes/Routes.jsx'
 import ToasterProvider from './components/Toastprovider/ToastProvider.jsx'
 import { NextUIProvider } from '@nextui-org/react'
 
+
 // import 'react-tooltip/dist/react-tooltip.css'
 
 // import 'react-date-range/dist/styles.css'; // main css file
@@ -19,6 +20,7 @@ import { NextUIProvider } from '@nextui-org/react'
 const queryClient = new QueryClient()
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+            
     <ThemeProvider>
       <NextUIProvider>
         <QueryClientProvider client={queryClient}>
