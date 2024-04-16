@@ -39,7 +39,7 @@ const OffsiteAllOrders = () => {
     }
     return (
         <div className='h-screen' style={backgroundStyle}>
-        <div className='w-[300px] md:w-[700px] xl:w-[900px] mx-auto py-5 grid grid-cols-2 items-center justify-items-center'>
+        <div className='mx-auto p-5 flex flex-wrap justify-center gap-10'>
             {
                 order?.map(order=><FoodCard key={order?._id} order={order}>
                     </FoodCard>
