@@ -4,7 +4,7 @@ import 'stories-react/dist/index.css';
 
 
 
-function ComponentWithInteractions() {
+function ComponentWithInteractions({img}) {
   return (
     <div
       className="w-full h-full"
@@ -12,7 +12,7 @@ function ComponentWithInteractions() {
     >
      
     
-        <img src="https://images.pexels.com/photos/10955653/pexels-photo-10955653.jpeg?dpr=2&w=100" className='w-full h-full object-contain'/>
+        <img src={img} className='w-full h-full object-contain'/>
    
     
       
@@ -22,7 +22,7 @@ function ComponentWithInteractions() {
 
 
 
-export default function ComponentStories() {
+export default function ComponentStories({imgList}) {
   const stories = [
     {
       type: 'component',
