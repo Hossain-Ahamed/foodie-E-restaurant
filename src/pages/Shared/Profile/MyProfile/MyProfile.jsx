@@ -21,7 +21,6 @@ import './style.css'
 import SectionTitle from '../../../../components/SectionTitle/SectionTitle';
 // import MessengerCustomerChat from 'react-messenger-customer-chat';
 
-import { FacebookProvider, CustomChat } from 'react-facebook';
 
 const MyProfile = () => {
     const { profile, profileLoading, profileError } = useProfile();
@@ -155,15 +154,9 @@ const MyProfile = () => {
 
                 </Swiper>
             </div>
-            {/* <MessengerCustomerChat
-                pageId="112402203922152"
-                appId="3192925220851102"
+         
 
-            /> */}
-
-            <FacebookProvider appId="3192925220851102" chatSupport>
-                <CustomChat pageId="112402203922152" minimized={true} />
-            </FacebookProvider>
+          
         </>
     );
 };
