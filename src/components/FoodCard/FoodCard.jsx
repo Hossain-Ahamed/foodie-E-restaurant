@@ -10,11 +10,11 @@ const FoodCard = ({ order }) => {
 
     return (
         <>
-            <div className='border shadow-md shadow-[#cae1dd] rounded-lg p-6 my-10 cursor-pointer transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 hover:shadow-lg'>
+            <div className=' bg-black opacity-80 border shadow-md shadow-[#cae1dd] rounded-lg p-6 my-10 cursor-pointer md:w-72 xl:w-96'>
                 <div onClick={onOpen}>
-                    <p className='text-gray-700'><span className='font-bold text-black'>ID:</span> {_id}</p>
-                    <p className='text-gray-700'><span className='font-bold text-black'>Token Number:</span> {token}</p>
-                    <p className='text-gray-700'><span className='font-bold text-black'>Total Price:</span> ৳ {subTotalPrice}</p>
+                    <p className='text-white'><span className='font-bold text-white'>OrderID: </span>#{_id.slice(-8)}</p>
+                    {token?.length !== 0 && <p className='text-white'><span className='font-bold text-white'>Token Number:</span> {token}</p>}
+                    <p className='text-white'><span className='font-bold text-white'>Total Price:</span> ৳ {subTotalPrice?.toFixed(1)}</p>
                 </div>
             </div>
 

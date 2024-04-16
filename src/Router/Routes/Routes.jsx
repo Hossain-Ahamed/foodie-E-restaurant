@@ -23,6 +23,8 @@ import OnsiteCart from "../../pages/Shared/Cart/Cart";
 import ShowingOngoingOrders from "../../pages/Onsite/OnsiteRestaurantHomePage/ShowingOngoingOrders/ShowingOngoingOrders";
 import Cart from "../../pages/Shared/Cart/Cart";
 import Payment from "../../pages/Others/Payment/Payment";
+import OffsiteAllOrders from "../../pages/Offsite/OffsiteAllOrders/OffsiteAllOrders";
+import OnsiteCompletedOrder from "../../pages/Onsite/OnsiteRestaurantHomePage/OnsiteCompletedOrder/OnsiteCompletedOrder";
 
 export const router = createBrowserRouter([
     {
@@ -64,7 +66,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/orders',
-                element: <></>
+                element: <OffsiteAllOrders />
             },
             {
                 path: '/profile',
@@ -103,7 +105,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID/recent-orders/table/:tableID',
-                element: <></>
+                element:  <ShowingOngoingOrders />
             },
             {
                 path: 'restaurant/:res_id/branch/:branchID/recent-orders/table/:tableID/orderID/:orderID',
