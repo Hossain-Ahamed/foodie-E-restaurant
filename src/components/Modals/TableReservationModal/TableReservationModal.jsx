@@ -27,7 +27,7 @@ export default function TableReservationModal() {
                     {(onClose) => (
                         <>
                             <ModalBody className='h-fit max-h-[85vh] overflow-scroll pt-0 mx-0 px-0 scrollbar-hide'>
-                                <FormModal />
+                                <FormModal onOpenChange={onOpenChange}/>
                             </ModalBody>
                         </>
                     )}
