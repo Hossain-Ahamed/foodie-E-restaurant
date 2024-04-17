@@ -8,7 +8,7 @@ export default function ViewStoryModal({ image, imgList }) {
     return (
         <div>
             <img
-                className='object-cover w-20 h-20 rounded-full ring-2 ring-blue-500 group-hover:scale-110 transition cursor-pointer mt-5 mb-5'
+                className='object-cover w-20 h-20 rounded-full ring-4 ring-blue-500 group-hover:scale-110 transition cursor-pointer mt-5 mb-5'
                 src={image}
                 alt='story-img'
                 onClick={onOpen}
