@@ -8,6 +8,7 @@ import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDi
 import OrderOffsiteModal from '../../../components/OrderOffsiteModal/OrderOffsiteModal';
 import FoodCard from '../../../components/FoodCard/FoodCard';
 import backgroundImage from '../../../assets/images/Background/blur-coffee-cafe-shop-restaurant.png';
+import SetTitle from '../../Shared/SetTtitle/SetTitle';
 
 const OffsiteAllOrders = () => {
     const {user} = useAuthProvider();
@@ -39,6 +40,9 @@ const OffsiteAllOrders = () => {
     }
     return (
         <div className='h-screen' style={backgroundStyle}>
+            <p className="text-center text-3xl font-bold text-white pt-20"> Orders</p>
+            
+            <SetTitle title=" Orders" />
         <div className='mx-auto p-5 flex flex-wrap justify-center gap-10'>
             {
                 order?.map(order=><FoodCard key={order?._id} order={order}>
