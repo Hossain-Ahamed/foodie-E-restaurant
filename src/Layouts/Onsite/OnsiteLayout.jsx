@@ -67,6 +67,10 @@ const OnsiteLayout = () => {
                                         <DropdownItem key="settings">
                                             <Link to='/profile'>My profile</Link>
                                         </DropdownItem>
+                                        <DropdownItem key="shorts">
+                                            <Link to='/shorts'>Shorts</Link>
+
+                                        </DropdownItem>
 
 
 
@@ -101,6 +105,10 @@ const OnsiteLayout = () => {
 
                     <NavbarMenuItem key="prfoileMenu">
                         <Link to='/profile'>My profile</Link>
+                    </NavbarMenuItem>
+                    <NavbarMenuItem key="shorts">
+                        <Link to='/shorts'>Shorts</Link>
+
                     </NavbarMenuItem>
                     <NavbarMenuItem key="LogoutMenu" >
                         <p className='text-red-400' onClick={provideSignOut}> Log Out</p>

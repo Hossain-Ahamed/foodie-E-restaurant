@@ -58,19 +58,19 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/pay-my-bill/:orderID',
-                element : <Payment/>
+                element: <PrivateRoute><Payment /></PrivateRoute>
             },
             {
                 path: '/cart',
-                element: <Cart />
+                element: <PrivateRoute><Cart /></PrivateRoute>
             },
             {
                 path: '/orders',
-                element: <OffsiteAllOrders />
+                element: <PrivateRoute><OffsiteAllOrders /></PrivateRoute>
             },
             {
                 path: '/profile',
-                element: <MyProfile />
+                element: <PrivateRoute><MyProfile /></PrivateRoute>
             },
             {
                 path: '/edit-profile',

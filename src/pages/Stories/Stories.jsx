@@ -1,7 +1,6 @@
 import React from 'react';
-import Stories from 'stories-react';
 import 'stories-react/dist/index.css';
-
+import Stories from 'react-insta-stories';
 
 
 function ComponentWithInteractions({img}) {
@@ -22,31 +21,52 @@ function ComponentWithInteractions({img}) {
 
 
 
-export default function ComponentStories({imgList}) {
-  const stories = [
-    {
-      type: 'component',
-      duration: 9000,
-      component: ComponentWithInteractions,
+export default function ComponentStories({imgList, onOpenChange}) {
+  // const stories = [
+  //   {
+  //     type: 'component',
+  //     duration: 9000,
+  //     component: ComponentWithInteractions,
     
-    },
-    {
-      type: 'component',
-      duration: 900000,
-      component: ComponentWithInteractions,
+  //   },
+  //   {
+  //     type: 'component',
+  //     duration: 900000,
+  //     component: ComponentWithInteractions,
     
-    },
-    {
-      duration: 9000,
-      type: 'component',
-      component: ComponentWithInteractions,
+  //   },
+  //   {
+  //     duration: 9000,
+  //     type: 'component',
+  //     component: ComponentWithInteractions,
      
+  //   },
+  //   {
+  //     type: 'component',
+  //     duration: 9000,
+  //     component: ComponentWithInteractions,
+      
+  //   },
+  // ];
+  const stories = [
+    
+    {
+      url: 'https://images.unsplash.com/photo-1711987893415-0be6d8472460?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw3fHx8ZW58MHx8fHx8',
+      duration: 5000,
+      header: {
+        heading: 'Mohit Karekar',
+        subheading: 'Posted 30m ago',
+        profileImage: 'https://picsum.photos/100/100',
+      },
     },
     {
-      type: 'component',
-      duration: 9000,
-      component: ComponentWithInteractions,
-      
+      url: 'https://miro.medium.com/v2/resize:fit:1080/1*EPK0-nt5qMnZS-hBFjyD0Q.jpeg',
+      duration: 5000,
+      header: {
+        heading: 'Mohit Karekar',
+        subheading: 'Posted 30m ago',
+        profileImage: 'https://picsum.photos/100/100',
+      },
     },
   ];
 
@@ -59,12 +79,12 @@ export default function ComponentStories({imgList}) {
         marginBottom: '16px',
       }}
     >
-      <Stories 
-      width="400px" 
-      height="600px" 
-      stories={stories} 
+      <Stories
+      width="100%"
+      height="100vh"
+      stories={imgList} 
       onStoryChange={(i)=>console.log(i)} 
-      onAllStoriesEnd={()=>console.log('ses')}
+      onAllStoriesEnd={()=>onOpenChange()}
       pauseStoryWhenInActiveWindow/>
      
     </div>
