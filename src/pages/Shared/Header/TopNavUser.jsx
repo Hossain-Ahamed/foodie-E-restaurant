@@ -4,7 +4,6 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, NavbarMen
 import useProfile from "../../../Hooks/useProfile";
 import useAuthProvider from "../../../Hooks/useAuthProvider";
 // import {AcmeLogo} from "./AcmeLogo.jsx";
-
 export default function TopNavUser() {
     const menuItems = [
         "Profile",
