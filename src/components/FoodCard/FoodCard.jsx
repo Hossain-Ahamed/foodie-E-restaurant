@@ -24,10 +24,10 @@ const FoodCard = ({ order }) => {
                 </div>
             </div>
 
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose}  placement="auto">
                 <ModalContent>
                     <ModalHeader className="flex flex-col gap-1"></ModalHeader>
-                    <ModalBody>
+                    <ModalBody className='h-fit max-h-[85vh]  overflow-scroll pt-0 mx-0 px-0 scrollbar-hide'>
                         <OrderOnsiteModal order={order} item={Items} />
                     </ModalBody>
                 </ModalContent>
