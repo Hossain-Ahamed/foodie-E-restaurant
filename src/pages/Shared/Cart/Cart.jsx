@@ -64,12 +64,12 @@ const Cart = () => {
                 }
 
             </div>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange}  placement="auto">
                 <ModalContent>
                     {(onClose) => (
                         <>
                           
-                            <ModalBody>
+                            <ModalBody className='h-fit max-h-[85vh]  overflow-scroll pt-0 mx-0 px-0 scrollbar-hide'>
                                 {
                                     location.pathname.includes('onsite-order') ?
                                         <>
