@@ -86,14 +86,14 @@ const QRScanner = () => {
           ></video>
         </div>
         
-        <div className='mt-3 '>
+        {/* <div className='mt-3 '>
         
          
           <p className='text-center mt-4 text-xs text-indigo-500'>Note: To place an order at the restaurant, please scan the QR code provided on your table. After completing the scan, click the button below to navigate to the restaurant page </p>
-        </div>
+        </div> */}
       </div>
-      <div id="cam-qr-result" className=' my-2 mx-auto'>
-            {scannedData ||(
+      <div id="cam-qr-result" className=' my-5 mx-auto'>
+            {scannedData &&(
               <Link to={scannedData} className=' font-semibold cursor-pointer shadow px-5 py-2 bg-gray-100  text-blue-600 dark:text-blue-500 hover:underline'>Go to Restaurant Page</Link>
             ) }
             
