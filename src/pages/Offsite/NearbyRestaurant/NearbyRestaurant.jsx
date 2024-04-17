@@ -261,7 +261,7 @@ const NearbyRestaurant = () => {
                 <div className='grid grid-cols-2 md:grid-cols-3 w-[300px] md:w-[700px] lg:w-[900px] xl:w-[1200px] mx-auto gap-3 md:gap-5'>
                     {data?.restaurants && Array.isArray(data?.restaurants) && data?.restaurants?.map(restaurant => (
                         <div key={restaurant?._id}>
-                            <div className='border rounded-2xl shadow-md'>
+                            <div className='border rounded-2xl shadow-md h-full'>
                                 <Link to={`/restaurant/${restaurant?.res_id?._id}/branch/${restaurant?._id}`}>
                                     <img className='w-[200px] h-[100px] md:w-[250px] md:h-[150px] lg:w-[300px] lg:h-[220px] xl:w-[400px] rounded-t-2xl object-cover' src={restaurant?.res_id?.img} alt="" loading='lazy' />
                                     <div className='p-4 grid md:flex justify-between'>

@@ -16,7 +16,7 @@ const OnsiteLayout = () => {
     return (
         <>
             <Navbar
-                className='shadow  max-w-[1800px] mx-auto'
+                className='shadow  max-w-[1800px] mx-auto h-16'
 
                 isMenuOpen={isMenuOpen}
                 onMenuOpenChange={setIsMenuOpen}

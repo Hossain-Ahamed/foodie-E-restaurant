@@ -183,7 +183,7 @@ const Shorts = () => {
     return <ErrorPage />
   }
   return (
-    <div className=''>
+    <div className='h-[100vh-4rem]'>
       <Reels
         reels={data}
         reelMetaInfo={reelMetaInfo}

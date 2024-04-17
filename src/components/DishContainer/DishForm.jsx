@@ -214,11 +214,11 @@ const DishForm = ({ dish, onOpenChange }) => {
                                             id={option._id}
                                             value={option.name}
                                             onChange={() => handleOptionChange(option.name)}
-                                            className="peer hidden [&:checked_+_label_svg]:block"
+                                            className="w-full peer hidden [&:checked_+_label_svg]:block"
                                         />
                                         <label
                                             htmlFor={option._id}
-                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {option.name}
@@ -249,12 +249,12 @@ const DishForm = ({ dish, onOpenChange }) => {
                                             id={addon._id}
                                             value={addon.name}
                                             onChange={(e) => handleAddonChange(addon.name, e.target.checked)}
-                                            className="peer hidden [&:checked_+_label_svg]:block"
+                                            className="w-full peer hidden [&:checked_+_label_svg]:block"
                                             
                                         />
                                         <label
                                             htmlFor={addon._id}
-                                            className="select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
+                                            className="w-full select-none flex justify-between cursor-pointer rounded-lg border border-gray-100 bg-white p-4 text-sm font-medium shadow-sm hover:border-gray-200 peer-checked:border-blue-500 peer-checked:ring-1 peer-checked:ring-blue-500"
                                         >
                                             <span>
                                                 {addon.name}
